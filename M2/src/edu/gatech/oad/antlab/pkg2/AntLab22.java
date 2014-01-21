@@ -1,16 +1,16 @@
-package main.java.edu.gatech.oad.antlab.pkg2;
+package edu.gatech.oad.antlab.pkg2;
 
 
 
 /** 
- * CS2340 Ant Lab
+ * CS2335 Ant Lab
  *
  * AntLab11.java helper class
  * 
  * @author Robert
  * @version 1.0
  */
- public class AntLab21 {
+ public class AntLab22 {
     
     
    /**
@@ -18,7 +18,7 @@ package main.java.edu.gatech.oad.antlab.pkg2;
     * @return the string
     */
     public String getMessage() {
-        return " deserve";
+        return " a";
     }
     
  } 

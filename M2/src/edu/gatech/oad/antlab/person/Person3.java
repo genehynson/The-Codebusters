@@ -1,4 +1,4 @@
-package main.java.edu.gatech.oad.antlab.person;
+package edu.gatech.oad.antlab.person;
 /**
  *  A simple class for person 3
  *  returns their name and a

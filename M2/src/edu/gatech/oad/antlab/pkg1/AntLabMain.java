@@ -1,4 +1,4 @@
-package main.java.edu.gatech.oad.antlab.pkg1;
+package edu.gatech.oad.antlab.pkg1;
 
 
 import edu.cs2335.antlab.pkg3.*; //TODO: how do we fix this?
