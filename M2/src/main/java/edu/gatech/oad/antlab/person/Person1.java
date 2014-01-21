@@ -1,4 +1,4 @@
-package edu.gatech.oad.antlab.person;
+package main.java.edu.gatech.oad.antlab.person;
 
 /**
  *  A simple class for person 1
@@ -29,9 +29,19 @@ public class Person1 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
-	private String calc(String input) {
-	  //Person 1 put your implementation here
-	  return null;
+  private static String calc(String input) {
+		String[] letters = new String[input.length()];
+		letters[letters.length-2] = input.substring(0, 0);
+		letters[letters.length-1] = input.substring(1, 1);
+		for (int i = 0; i < letters.length-2; i++){
+			letters[i] = input.substring(i,i);
+		}
+		String reordered = "";
+		for (int j = 0; j < letters.length; j++) {
+			reordered.concat(letters[j]);
+		}
+		
+		return reordered;
 	}
 	
 	/**
