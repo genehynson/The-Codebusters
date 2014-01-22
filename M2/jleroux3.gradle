@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 //Need to add tasks that automatically run gradle build
 //gradle jar, gradle uploadArchives, cd repos, java -jar M2-1.0.jar
+//
 
 sourceSets {
     main.java.srcDirs = ['src']
