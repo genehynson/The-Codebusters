@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'base'
 
 sourceSets {
 	main.java.srcDirs = ['src']
@@ -30,4 +31,8 @@ uploadArchives {
 			dirs 'repos'
 		}
 	}
+}
+
+task cleanMe(type: Delete) {
+	delete 'build'
 }
