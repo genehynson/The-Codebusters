@@ -18,6 +18,9 @@ dependencies {
 
 version = '1.0'
 
+defaultTasks 'jar' 
+
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version , 'Class-Path' : '../lib/resources.jar', 'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain'
