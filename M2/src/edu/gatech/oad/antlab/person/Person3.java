@@ -4,8 +4,8 @@ package edu.gatech.oad.antlab.person;
  *  returns their name and a
  *  reversed string 
  *  
- *  @author  Bob
- *  @version 1.1
+ *  @author  Jordan LeRoux
+ *  @version 1.2
  */
 public class Person3 {
    /** Holds the persons real name */  
