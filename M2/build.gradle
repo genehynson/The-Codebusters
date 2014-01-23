@@ -16,14 +16,7 @@ dependencies {
 	testCompile 'junit:junit:4.11'
 }
 
-compileJava {
-	options.fork = true
-}
-
 version = '1.0'
-
-defaultTasks 'jar' , 'compileJava' , 'compileTestJava' , 'javadoc' , 'run'
-
 
 jar {
     manifest {
@@ -37,12 +30,4 @@ uploadArchives {
 	       dirs 'repos'
 	   }
 	}
-}
-
-task run (dependsOn: assemble) << {
-	String jarPath = relativePath(new File('/repos' , 'M2-1.0' + ".jar"))
-	
-	javaexec
-	{ main = '-jar'; args jarPath }
-	
 }
