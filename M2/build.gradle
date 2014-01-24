@@ -32,7 +32,8 @@ uploadArchives {
 	}
 }
 
-task run (dependsOn: assemble) << {
+task run () {
     String jarPath = relativePath(new File('/repos' , 'M2-1.0' + ".jar"))
 	javaexec
 	{ main = '-jar'; args jarPath }
+}
