@@ -32,7 +32,7 @@ uploadArchives {
 	}
 }
 
-task run () {
+task run (dependsOn: jar) << {
     String jarPath = relativePath(new File('/repos' , 'M2-1.0' + ".jar"))
 	javaexec
 	{ main = '-jar'; args jarPath }
