@@ -1,3 +1,4 @@
+//Import a bunch of java related tasks like compileJava, compileJavaTest, clean, javadoc, jar
 apply plugin: 'java'
 
 sourceSets {
@@ -7,6 +8,7 @@ sourceSets {
     test.resources.srcDirs = ['tests/resources']
 }
 
+//Set up a location of repositories so that any needed library dependencies can be downloaded
 repositories {
     mavenCentral()
 }
@@ -24,7 +26,7 @@ version = '1.0'
 
 defaultTasks 'jar' , 'compileJava' , 'compileTestJava' , 'javadoc' , 'run'
 
-
+//Define the contents of the jar file
 jar {
     manifest {
         attributes 'Implementation-Title': 'M2', 'Implementation-Version': version , 
