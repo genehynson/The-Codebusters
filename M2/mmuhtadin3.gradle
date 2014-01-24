@@ -1,3 +1,4 @@
+
 apply plugin: 'java'
 
 sourceSets {
@@ -16,14 +17,17 @@ dependencies {
 	testCompile 'junit:junit:4.11'
 }
 
+compileJava {
+	options.fork = true
+}
+
 version = '1.0'
 
-defaultTasks 'jar' 
-
+defaultTasks 'uploadArchives' , 'jar' , 'compileJava' , 'compileTestJava' , 'javadoc' , 'run'
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version , 'Class-Path' : '../lib/resources.jar', 'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain'
+        attributes 'Implementation-Title': 'M2', 'Implementation-Version': version , 'Class-Path' : '../lib/resources.jar', 'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain'
     }
 }
 
@@ -34,3 +38,12 @@ uploadArchives {
 	   }
 	}
 }
+
+task run (dependsOn: assemble) << {
+	String jarPath = relativePath(new File('/repos' , 'M2-1.0' + ".jar"))
+	
+	javaexec
+	{ main = '-jar'; args jarPath }
+	
+}
+
