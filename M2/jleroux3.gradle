@@ -22,7 +22,7 @@ compileJava {
 
 version = '1.0'
 
-defaultTasks 'jar' , 'compileJava' , 'compileTestJava' , 'javadoc' , 'run'
+defaultTasks 'uploadArchive' , 'jar' , 'compileJava' , 'compileTestJava' , 'javadoc' , 'run'
 
 task run (dependsOn: assemble) << {
     String jarPath = relativePath(new File('/repos' , 'M2-1.0' + ".jar"))
