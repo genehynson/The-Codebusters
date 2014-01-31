@@ -45,22 +45,21 @@
     </EditText>
 
     <TextView
+        android:id="@+id/usernameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/bLogin"
+        android:text="Username:" />
+
+    <TextView
         android:id="@+id/passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etPass"
         android:layout_below="@+id/etUser"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="26dp"
         android:text="Password:" />
-
-    <TextView
-        android:id="@+id/usernameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/etUser"
-        android:layout_alignRight="@+id/passwordText"
-        android:layout_marginBottom="32dp"
-        android:text="Username:" />
 
     <Button
         android:id="@+id/bLogin"
@@ -68,7 +67,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPass"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
         android:text="Login" />
 
 </RelativeLayout>

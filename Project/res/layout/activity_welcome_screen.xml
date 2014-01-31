@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_overlay"
+    android:background="@drawable/buckroos_ic"
     tools:context=".WelcomeScreen" >
 
     <!--
@@ -15,11 +15,5 @@
          This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows.
     -->
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="316dp"
-        android:src="@drawable/ic_launcher" />
 
 </FrameLayout>
