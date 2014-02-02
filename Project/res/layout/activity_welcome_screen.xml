@@ -16,4 +16,33 @@
          android:fitsSystemWindows.
     -->
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/bLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="82dp"
+            android:layout_marginLeft="57dp"
+            android:text="Login" 
+            android:onClick="onClick"/>
+
+        <Button
+            android:id="@+id/bReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/bLog"
+            android:layout_alignBottom="@+id/bLog"
+            android:layout_marginLeft="48dp"
+            android:layout_toRightOf="@+id/bLog"
+            android:text="Register" 
+            android:onClick="onClick"/>
+        
+
+    </RelativeLayout>
+
 </FrameLayout>

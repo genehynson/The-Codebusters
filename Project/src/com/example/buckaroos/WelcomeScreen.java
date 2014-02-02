@@ -1,10 +1,13 @@
 package com.example.buckaroos;
 
-
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import com.example.buckaroos.util.SystemUiHider;
 
 /**
@@ -13,27 +16,30 @@ import com.example.buckaroos.util.SystemUiHider;
  * 
  * @see SystemUiHider
  */
-public class WelcomeScreen extends Activity {
-	
-	Thread t;
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+public class WelcomeScreen extends Activity implements OnClickListener {
+
+	Button bReg, bLog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome_screen);
-		t = new Thread(){
-			public void run() {
-				try {
-					sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} finally {
-					Intent nn = new Intent(WelcomeScreen.this, Login.class);
-					startActivity(nn);
-				}
-			}
-		};
-		t.start();
+		getActionBar().hide();
+		bReg = (Button) findViewById(R.id.bReg);
+		bLog = (Button) findViewById(R.id.bLog);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.bReg:
+			startActivity(new Intent(WelcomeScreen.this, Register.class));
+			break;
+		case R.id.bLog:
+			startActivity(new Intent(WelcomeScreen.this, Login.class));
+			break;
+		}
 	}
 
 }

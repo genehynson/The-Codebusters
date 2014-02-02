@@ -1,6 +1,8 @@
  package com.example.buckaroos;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
@@ -8,9 +10,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Login extends Activity implements OnClickListener  {
 	
-	EditText etUser, etPass;
+	EditText etUser, etLPass;
 	Button bLogin;
 
 	@Override
@@ -23,15 +26,15 @@ public class Login extends Activity implements OnClickListener  {
 
 	private void initialize() {
 		etUser = (EditText) findViewById(R.id.etUser);
-		etPass = (EditText) findViewById(R.id.etPass);
+		etLPass = (EditText) findViewById(R.id.etLPass);
 		bLogin = (Button) findViewById(R.id.bLogin);
-		
+		getActionBar().hide();
 		bLogin.setOnClickListener(this);
 	}
 	
 	@Override
 	public void onClick(View v) {
-		
+		//TODO: continues to main app screen
 	}
 
 	@Override

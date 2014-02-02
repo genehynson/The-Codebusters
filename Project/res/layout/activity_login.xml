@@ -8,19 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Login" >
 
-    <TextView
-        android:id="@+id/BuckroosTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp"
-        android:text="Buckaroos!"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:typeface="serif" />
-
     <EditText
         android:id="@+id/etUser"
         android:layout_width="wrap_content"
@@ -32,7 +19,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/etPass"
+        android:id="@+id/etLPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etUser"
@@ -57,16 +44,31 @@
         android:id="@+id/bLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPass"
+        android:layout_below="@+id/etLPass"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
         android:text="Login" />
+
+    <TextView
+        android:id="@+id/BuckroosTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp"
+        android:text="Buckaroos!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
     <TextView
         android:id="@+id/usernameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/passwordText"
-        android:layout_centerVertical="true"
+        android:layout_alignBottom="@+id/etUser"
+        android:layout_alignLeft="@+id/passwordText"
+        android:layout_marginBottom="44dp"
         android:text="Username:" />
 
 </RelativeLayout>
