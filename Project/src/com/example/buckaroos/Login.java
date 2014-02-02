@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends Activity implements OnClickListener  {
+public class Login extends Activity implements OnClickListener  {
 	
 	EditText etUser, etPass;
 	Button bLogin;
@@ -16,7 +16,7 @@ public class MainActivity extends Activity implements OnClickListener  {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_login);
 		
 		initialize();
 	}

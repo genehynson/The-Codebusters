@@ -28,7 +28,7 @@ public class WelcomeScreen extends Activity {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} finally {
-					Intent nn = new Intent(WelcomeScreen.this, MainActivity.class);
+					Intent nn = new Intent(WelcomeScreen.this, Login.class);
 					startActivity(nn);
 				}
 			}
