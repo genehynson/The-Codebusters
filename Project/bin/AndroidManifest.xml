@@ -18,7 +18,7 @@
         <activity
             android:name="com.example.buckaroos.WelcomeScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_welcome_screen"
+            android:label="@string/buck"
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
