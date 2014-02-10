@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
-//Here is a comment
+//Here is a comment.
 
 /**
  * This class loads credentials stored in a file and has methods that allow for 

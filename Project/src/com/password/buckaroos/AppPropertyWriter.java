@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Enumeration;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
-//Here is a comment
+//Here is a comment.
 
 
 /**
