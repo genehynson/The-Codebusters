@@ -1,5 +1,6 @@
 package com.password.buckaroos;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,10 +25,9 @@ public class AppPropertyWriter {
 	private Properties appProps = new Properties();
 	private Properties emailProps = new Properties();
 	private String registrationError;
-	private static String passwordFile = "appProperties";
-    private static String emailFile = "emailProperties";
-
-
+	private static File passwordFile = new File("/userCredentials/appProperties.txt");
+    private static File emailFile = new File("/userCredentials/emailProperties.txt");
+    private static File credentialFolder = new File("/userCredentials/");
 
 	/**
 	 * Constructs an AppPropertyWriter.
@@ -122,7 +122,7 @@ public class AppPropertyWriter {
 	 * with the old properties
 	 */
 	private static void getOldProperties(Properties applicationProps,
-			String fileName) {
+			File fileName) {
 		Properties defaultProps = new Properties();
 		FileInputStream in;
 		try {
@@ -149,6 +149,16 @@ public class AppPropertyWriter {
 	 */
 	private static void writeDefaultProperties() {
 		//Write admin's default email null in the emailproperties file
+		if (!(credentialFolder.exists())) {
+			credentialFolder.mkdirs();
+			try {
+				passwordFile.createNewFile();
+				emailFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Properties defaultProps = new Properties();
 		getOldProperties(defaultProps, passwordFile);
 		Properties defaultEmailProps = new Properties();

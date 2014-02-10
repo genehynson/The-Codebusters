@@ -1,5 +1,6 @@
 package com.password.buckaroos;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,8 +22,8 @@ public class CredentialConfirmer {
 	private String theEmail = "";
 	private Properties applicationProps = new Properties();
 	private Properties emailProps = new Properties();
-	private static String passwordFile = "appProperties";
-    private static String emailFile = "emailProperties";
+	private static File passwordFile = new File("/userCredentials/appProperties.txt");
+    private static File emailFile = new File("/userCredentials/emailProperties.txt");
 
 	/**
 	 * Constructs a CredentialConfirmer by getting all the keys and values from
