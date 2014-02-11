@@ -1,13 +1,11 @@
 package com.password.buckaroos;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
-//Here is a comment.
 
 /**
  * This class loads credentials stored in a file and has methods that allow for 
@@ -23,8 +21,8 @@ public class CredentialConfirmer {
 	private String theEmail = "";
 	private Properties applicationProps = new Properties();
 	private Properties emailProps = new Properties();
-	private static File passwordFile = new File("/userCredentials/appProperties.txt");
-    private static File emailFile = new File("/userCredentials/emailProperties.txt");
+	private static String passwordFile = "appProperties.txt";
+    private static String emailFile = "emailProperties.txt";
 
 	/**
 	 * Constructs a CredentialConfirmer by getting all the keys and values from

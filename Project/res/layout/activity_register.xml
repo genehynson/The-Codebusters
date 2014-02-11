@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
-        android:text="@string/app_name"
+        android:text="Buckaroos Register"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -34,33 +34,15 @@
         android:layout_alignLeft="@+id/etPass"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="28dp"
-        android:text="Name:"
+        android:text="Username:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/etPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etEmail"
-        android:layout_below="@+id/textView2"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bRegister"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etName"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignRight="@+id/etName"
         android:layout_centerVertical="true"
         android:ems="10"
         android:inputType="textEmailAddress" >
@@ -68,21 +50,44 @@
         <requestFocus />
     </EditText>
 
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignRight="@+id/etPass"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/etEmail"
         android:layout_alignLeft="@+id/etEmail"
+        android:layout_marginBottom="14dp"
         android:text="Email:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etName"
-        android:layout_alignLeft="@+id/etName"
+        android:layout_alignLeft="@+id/etPass"
+        android:layout_below="@+id/etEmail"
+        android:layout_marginTop="14dp"
         android:text="Password:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

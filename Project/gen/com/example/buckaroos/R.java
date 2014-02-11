@@ -44,14 +44,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int bRegister=0x7f090008;
         public static final int etEmail=0x7f09000a;
         public static final int etLPass=0x7f090002;
-        public static final int etName=0x7f09000b;
+        public static final int etName=0x7f09000c;
         public static final int etPass=0x7f090004;
         public static final int etUser=0x7f090000;
         public static final int passwordText=0x7f090003;
         public static final int textView1=0x7f090007;
         public static final int textView2=0x7f090009;
-        public static final int textView3=0x7f09000c;
-        public static final int textView4=0x7f09000d;
+        public static final int textView3=0x7f09000d;
+        public static final int textView4=0x7f09000b;
         public static final int usernameText=0x7f090006;
     }
     public static final class layout {
@@ -74,7 +74,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dummy_button=0x7f060004;
         public static final int dummy_content=0x7f060005;
         public static final int hello_world=0x7f060002;
+        public static final int title_activity_login_success=0x7f060009;
         public static final int title_activity_register=0x7f060006;
+        public static final int title_activity_register_success=0x7f060008;
         public static final int title_activity_welcome_screen=0x7f060003;
     }
     public static final class style {

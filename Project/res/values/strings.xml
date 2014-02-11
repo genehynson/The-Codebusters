@@ -9,5 +9,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_register">Register</string>
     <string name="buck">Buckaroos!</string>
+    <string name="title_activity_register_success">RegisterSuccess</string>
+    <string name="title_activity_login_success">LoginSuccess</string>
 
 </resources>

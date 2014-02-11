@@ -34,6 +34,8 @@
             android:name="com.example.buckaroos.Register"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity android:name="com.example.buckaroos.RegisterSuccess" android:label="@string/title_activity_register_success"></activity>
+        <activity android:name="com.example.buckaroos.LoginSuccess" android:label="@string/title_activity_login_success"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Enumeration;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
-//Here is a comment.
+
+import android.content.Context;
 
 
 /**
@@ -22,19 +23,21 @@ import java.util.Properties;
  */
 public class AppPropertyWriter {
 
-	private Properties appProps = new Properties();
-	private Properties emailProps = new Properties();
+	private static Properties appProps = new Properties();
+	private static Properties emailProps = new Properties();
 	private String registrationError;
-	private static File passwordFile = new File("/userCredentials/appProperties.txt");
-    private static File emailFile = new File("/userCredentials/emailProperties.txt");
+	private static String passwordFile = "appProperties.txt";
+    private static String emailFile = "emailProperties.txt";
     private static File credentialFolder = new File("/userCredentials/");
+    private static Context ctx;
 
 	/**
 	 * Constructs an AppPropertyWriter.
 	 * It gets the old properties that have been written to the application
 	 * previously and is ready to store more accounts and passwords
 	 */
-	public AppPropertyWriter() {
+	public AppPropertyWriter(Context ctx) {
+		this.ctx = ctx;
 		writeDefaultProperties();
 	}
 
@@ -72,8 +75,8 @@ public class AppPropertyWriter {
 				}
 				appProps.setProperty(accountName, sb.toString());
 				try {
-					FileOutputStream out = new FileOutputStream(passwordFile);
-//					FileOutputStream out = openFileOutput(passwordFile, Context.MODE_PRIVATE);
+//					FileOutputStream out = new FileOutputStream(passwordFile);
+					FileOutputStream out = ctx.openFileOutput(passwordFile, Context.MODE_PRIVATE);
 					appProps.store(out, null);
 					out.close();
 				} catch (FileNotFoundException e) {
@@ -93,7 +96,8 @@ public class AppPropertyWriter {
 			getOldProperties(emailProps, emailFile);
 			emailProps.setProperty(accountName, email);
 			try {
-				FileOutputStream out = new FileOutputStream(emailFile);
+//				FileOutputStream out = new FileOutputStream(emailFile);
+				FileOutputStream out = ctx.openFileOutput(emailFile, Context.MODE_PRIVATE);
 				emailProps.store(out, null);
 				out.close();
 			} catch (FileNotFoundException e) {
@@ -122,11 +126,11 @@ public class AppPropertyWriter {
 	 * with the old properties
 	 */
 	private static void getOldProperties(Properties applicationProps,
-			File fileName) {
+			String passwordFile2) {
 		Properties defaultProps = new Properties();
 		FileInputStream in;
 		try {
-			in = new FileInputStream(fileName);
+			in = new FileInputStream(passwordFile2);
 			defaultProps.load(in);
 			in.close();
 		} catch (FileNotFoundException e1) {
@@ -149,16 +153,16 @@ public class AppPropertyWriter {
 	 */
 	private static void writeDefaultProperties() {
 		//Write admin's default email null in the emailproperties file
-		if (!(credentialFolder.exists())) {
-			credentialFolder.mkdirs();
-			try {
-				passwordFile.createNewFile();
-				emailFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		if (!(credentialFolder.exists())) {
+//			credentialFolder.mkdirs();
+//			try {
+//				passwordFile.createNewFile();
+//				emailFile.createNewFile();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		Properties defaultProps = new Properties();
 		getOldProperties(defaultProps, passwordFile);
 		Properties defaultEmailProps = new Properties();
