@@ -2,6 +2,8 @@
 
 import com.password.buckaroos.AppPropertyWriter;
 import com.password.buckaroos.CredentialConfirmer;
+import com.password.buckaroos.DB;
+import com.password.buckaroos.User;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -20,12 +22,13 @@ public class Login extends Activity implements OnClickListener  {
 	
 	EditText etUser, etLPass;
 	Button bLogin;
+	DB db = new DB(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+		db.addUser(new User("admin", "pass123", ""));
 		initialize();
 	}
 
@@ -39,19 +42,20 @@ public class Login extends Activity implements OnClickListener  {
 	
 	@Override
 	public void onClick(View v) {
-		AppPropertyWriter k = new AppPropertyWriter(this);
-		CredentialConfirmer confirm = new CredentialConfirmer();
-		if (confirm.doesAccountExist(etUser.getText().toString())) {
-			if(confirm.isPasswordCorrect(etUser.getText().toString(), etLPass.getText().toString())) {
+//		AppPropertyWriter k = new AppPropertyWriter(this);
+//		CredentialConfirmer confirm = new CredentialConfirmer();
+//		if (confirm.doesAccountExist(etUser.getText().toString())) {
+//			if(confirm.isPasswordCorrect(etUser.getText().toString(), etLPass.getText().toString())) {
+			if (db.isPasswordCorrect(etUser.getText().toString(), etLPass.getText().toString())) {
 				startActivity(new Intent(Login.this, LoginSuccess.class));
 			} else {
 				Toast toast = Toast.makeText(this, "Password incorrect", Toast.LENGTH_SHORT);
 				toast.show();
 			}
-		} else {
-			Toast toast = Toast.makeText(this, "No such account.", Toast.LENGTH_SHORT);
-			toast.show();
-		}
+//		} else {
+//			Toast toast = Toast.makeText(this, "No such account.", Toast.LENGTH_SHORT);
+//			toast.show();
+//		}
 	}
 	
 	@Override
