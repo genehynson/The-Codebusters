@@ -1,5 +1,7 @@
 package com.password.buckaroos;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -40,7 +42,7 @@ public class DB extends SQLiteOpenHelper {
 	public void addUser(User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		//	    values.put(KEY_ACCOUNT, user.get_accountName());
+		values.put(KEY_ACCOUNT, user.get_accountName());
 		values.put(KEY_PASSWORD, user.get_password());
 		values.put(KEY_EMAIL, user.get_email());
 		db.insert(TABLE_ACCOUNTS, null, values);
@@ -49,29 +51,50 @@ public class DB extends SQLiteOpenHelper {
 	}
 
 	public User getUser(String accountName) {
-		SQLiteDatabase db = this.getReadableDatabase();
+		//		SQLiteDatabase db = this.getReadableDatabase();
+		//		User returnUser = null;
+		//		Cursor c = db.rawQuery("SELECT " + KEY_ACCOUNT + ", " + KEY_PASSWORD 
+		//				+ "," + KEY_EMAIL + " FROM " + " " + TABLE_ACCOUNTS, null);
+		//		if (c != null ) { //TODO: Something messed up here??
+		//			if  (c.moveToFirst()) {
+		//				String acc = c.getString(c.getColumnIndex(KEY_ACCOUNT));
+		//				String pw = c.getString(c.getColumnIndex(KEY_PASSWORD));
+		//				String em = c.getString(c.getColumnIndex(KEY_EMAIL));
+		//				returnUser = new User(acc, pw, em);
+		//			}
+		//		}	
+		//		c.close();
 		User returnUser = null;
-		//		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] { KEY_ACCOUNT,
-		//				KEY_PASSWORD, KEY_EMAIL }, KEY_ACCOUNT + "=?",
-		//				new String[] { KEY_ACCOUNT }, null, null, null, null);
-		//		if (cursor != null)
-		//			cursor.moveToFirst();
-		//		User user = new User((cursor.getString(0)), cursor.getString(1), 
-		//				cursor.getString(2));
-		Cursor c = db.rawQuery("SELECT " + KEY_ACCOUNT + ", " + KEY_PASSWORD 
-				+ "," + KEY_EMAIL + " FROM " + " " + TABLE_ACCOUNTS, null);
+		if (accountName != null) {
+			ArrayList<User> users = getAllUsers();
+			for (User user : users) {
+				if (user != null) {
+					String acc = user.get_accountName();
+					if (accountName.equals(acc)) {
+						returnUser = new User(user.get_accountName(), 
+								user.get_password(), user.get_email());
+					}
+				}
+			}
+		}
+		return returnUser;
+	}
 
-		if (c != null ) { //TODO: Something messed up here??
-			if  (c.moveToFirst()) {
+	private ArrayList<User> getAllUsers() {
+		ArrayList<User> userList = new ArrayList<User>();
+		String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS;
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery(selectQuery, null);
+		if (c.moveToFirst()) {
+			do {
 				String acc = c.getString(c.getColumnIndex(KEY_ACCOUNT));
 				String pw = c.getString(c.getColumnIndex(KEY_PASSWORD));
 				String em = c.getString(c.getColumnIndex(KEY_EMAIL));
-				returnUser = new User(acc, pw, em);
-			}
+				User user = new User(acc, pw, em);
+				userList.add(user);
+			} while (c.moveToNext());
 		}
-		//		
-		c.close();
-		return returnUser;
+		return userList;
 	}
 
 	public int updateUser(User user) {
@@ -84,25 +107,34 @@ public class DB extends SQLiteOpenHelper {
 	}
 
 	public boolean isPasswordCorrect(String accountName, String password) {
+		ArrayList<User> userList = getAllUsers();
 		boolean isPasswordCorrect = false;
-		if (accountName != null) {
-			User userToCheck = getUser(accountName);
-			String pw = userToCheck.get_password();
-			if (pw.equals(password)) {
-//			PasswordHash hasher = new PasswordHash();
-//			if (pw.equals(hasher.hashPassword(password))) {
-				isPasswordCorrect = true;
+		for (User user : userList) {
+			if (accountName != null) {
+				if (accountName.equals(user.get_accountName()) &&
+						password.equals(user.get_password())) {
+					isPasswordCorrect = true;
+				}
 			}
 		}
+		//		if (accountName != null) {
+		//			User userToCheck = getUser(accountName);
+		//			String pw = userToCheck.get_password();
+		//			if (pw.equals(password)) {
+		////			PasswordHash hasher = new PasswordHash();
+		////			if (pw.equals(hasher.hashPassword(password))) {
+		//				isPasswordCorrect = true;
+		//			}
+		//		}
 		return isPasswordCorrect;
 	}
 
-	//	public void insertStudent(HashMap<String, String> queryValues) {
+	//	public void insertUser(HashMap<String, String> queryValues) {
 	//        SQLiteDatabase database = this.getWritableDatabase();
 	//        ContentValues values = new ContentValues();
 	//        values.put("AccountName", queryValues.get("AccountName"));
 	//        database.insert("Accounts", null, values);
 	//        database.close();
 	//    }
-	
+
 }

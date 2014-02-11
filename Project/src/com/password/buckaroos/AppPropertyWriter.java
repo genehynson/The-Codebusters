@@ -83,7 +83,7 @@ public class AppPropertyWriter {
 			for (byte b : digest) {
 				sb.append(Integer.toHexString((int) (b & 0xff)));
 			}
-			db.addUser(new User(adminUserName, sb.toString(), ""));
+			db.addUser(new User(adminUserName, sb.toString(), " "));
 		} catch (NoSuchAlgorithmException e) {
 			//Do nothing
 		}
