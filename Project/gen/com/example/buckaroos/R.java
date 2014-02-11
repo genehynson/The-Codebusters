@@ -65,7 +65,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int login_success=0x7f080000;
         public static final int main=0x7f080001;
         public static final int register=0x7f080002;
-        public static final int regiter_success=0x7f080003;
+        public static final int register_success=0x7f080003;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;

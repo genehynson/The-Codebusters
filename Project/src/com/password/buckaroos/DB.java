@@ -61,7 +61,7 @@ public class DB extends SQLiteOpenHelper {
 		Cursor c = db.rawQuery("SELECT " + KEY_ACCOUNT + ", " + KEY_PASSWORD 
 				+ "," + KEY_EMAIL + " FROM " + " " + TABLE_ACCOUNTS, null);
 
-		if (c != null ) {
+		if (c != null ) { //TODO: Something messed up here??
 			if  (c.moveToFirst()) {
 				String acc = c.getString(c.getColumnIndex(KEY_ACCOUNT));
 				String pw = c.getString(c.getColumnIndex(KEY_PASSWORD));
@@ -104,5 +104,5 @@ public class DB extends SQLiteOpenHelper {
 	//        database.insert("Accounts", null, values);
 	//        database.close();
 	//    }
-
+	
 }

@@ -1,11 +1,9 @@
 package com.password.buckaroos;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
+
+import android.content.Context;
 
 /**
  * This class loads credentials stored in a file and has methods that allow for 
@@ -13,36 +11,20 @@ import java.util.Properties;
  * not
  * 
  * @author Jordan LeRoux
- * @version 1.0
+ * @version 2.0
  */
 public class CredentialConfirmer {
 
-	private String thePassword = "";
-	private String theEmail = "";
-	private Properties applicationProps = new Properties();
-	private Properties emailProps = new Properties();
-	private static String passwordFile = "appProperties.txt";
-    private static String emailFile = "emailProperties.txt";
+    private static Context ctx;
+    private static DB db;
 
 	/**
 	 * Constructs a CredentialConfirmer by getting all the keys and values from
 	 * the properties that have been written to the application
 	 */
-	public CredentialConfirmer() {
-		FileInputStream in;
-		try {
-			in = new FileInputStream(passwordFile);
-			applicationProps.load(in);
-			in.close();
-			in = new FileInputStream(emailFile);
-			emailProps.load(in);
-			in.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		} catch (IOException e) {
-			System.out.println("IO Exception");
-		}
-
+	public CredentialConfirmer(Context ctx) {
+		this.ctx = ctx;
+		db = new DB(ctx);
 	}
 	
 	/**
@@ -52,7 +34,7 @@ public class CredentialConfirmer {
 	 * @return true if the account has been registered, false otherwise
 	 */
 	public boolean doesAccountExist(String accountName) {
-		return applicationProps.containsKey(accountName);
+		return (db.getUser(accountName) != null);
 	}
 
 	/**
@@ -64,11 +46,15 @@ public class CredentialConfirmer {
 	 * false otherwise
 	 */
 	public boolean isPasswordCorrect(String accountName, String aPassword) {
+		String thePassword = "";
+		StringBuffer sb = null;
 		if (doesAccountExist(accountName)) {
-			thePassword = (String) applicationProps.get(accountName);
+			thePassword = db.getUser(accountName).get_password();
+			System.out.println("TheAccount: " + accountName);
+			System.out.println("ThePassword: " + thePassword);
 		}
 		MessageDigest md;
-		StringBuffer sb = new StringBuffer();
+		sb = new StringBuffer();
 		sb.append("");
 		try {
 			md = MessageDigest.getInstance("MD5");
@@ -79,10 +65,10 @@ public class CredentialConfirmer {
 				sb.append(Integer.toHexString((int) (b & 0xff)));
 			}
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return this.thePassword.equals(sb.toString());
+		System.out.println("aPassword: " + sb.toString());
+		return thePassword.equals(sb.toString());
 	}
 
 	/**
@@ -93,12 +79,7 @@ public class CredentialConfirmer {
 	 * @return The email associated with the account
 	 */
 	public String getEmail(String accountName) {
-		if (doesAccountExist(accountName)) {
-			theEmail = (String) emailProps.get(accountName);
-		} else {
-			theEmail = null;
-		}
-		return theEmail;
+		return db.getUser(accountName).get_email();
 	}
 }
 

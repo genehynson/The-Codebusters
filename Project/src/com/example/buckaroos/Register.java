@@ -48,7 +48,7 @@ public class Register extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		if(!etName.getText().toString().equals("") && !etEmail.getText().toString().equals("") && !etPass.getText().toString().equals("")) {
 			AppPropertyWriter k = new AppPropertyWriter(this);
-			k.storeAccountEmailAndPassword(etName.getText().toString(), etPass.getText().toString(), etEmail.getText().toString());
+			k.storeAccount(etName.getText().toString(), etPass.getText().toString(), etEmail.getText().toString());
 			startActivity(new Intent(Register.this, RegisterSuccess.class));
 
 		} else {

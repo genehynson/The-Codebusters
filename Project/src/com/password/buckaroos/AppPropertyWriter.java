@@ -1,15 +1,7 @@
 package com.password.buckaroos;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Enumeration;
-import java.util.InvalidPropertiesFormatException;
-import java.util.Properties;
 
 import android.content.Context;
 
@@ -23,14 +15,8 @@ import android.content.Context;
  */
 public class AppPropertyWriter {
 
-	private static Properties appProps = new Properties();
-	private static Properties emailProps = new Properties();
-	private String registrationError;
-	private static String passwordFile = "appProperties.txt";
-    private static String emailFile = "emailProperties.txt";
-    private static File credentialFolder = new File("/userCredentials/");
     private static Context ctx;
-
+    private static DB db;
 	/**
 	 * Constructs an AppPropertyWriter.
 	 * It gets the old properties that have been written to the application
@@ -38,32 +24,19 @@ public class AppPropertyWriter {
 	 */
 	public AppPropertyWriter(Context ctx) {
 		this.ctx = ctx;
+		db = new DB(ctx);
 		writeDefaultProperties();
 	}
 
-	public void storeAccountEmailAndPassword(String accountName, String 
-			password, String email) {
-		getOldProperties(appProps, passwordFile);
-		if (doesAccountExist(accountName)) {
-			registrationError = "The account name has been taken";
-			System.out.println(registrationError);
-		} else {
-			storeAccountAndPassword(accountName,password);
-			storeAccountAndEmail(accountName,email);
-		}
-	}
-
-	/*
+	/**
 	 * Stores a new account and password that has been registered.
 	 * If the account name has been taken, the user is informed
 	 * 
 	 * @param accountName The account name to be created
 	 * @param password The password that corresponds with the new account
 	 */
-	private void storeAccountAndPassword(String accountName, String password) {
-		//Could add some other constraints such as length and requiring an uppercase letter, etc.
-		if (accountName != null && password != null) {
-			getOldProperties(appProps, passwordFile);
+	public void storeAccount(String accountName, String password, String email) {
+		if (accountName != null && email != null && password != null) {
 			MessageDigest md;
 			try {
 				md = MessageDigest.getInstance("MD5");
@@ -73,127 +46,48 @@ public class AppPropertyWriter {
 				for (byte b : digest) {
 					sb.append(Integer.toHexString((int) (b & 0xff)));
 				}
-				appProps.setProperty(accountName, sb.toString());
-				try {
-//					FileOutputStream out = new FileOutputStream(passwordFile);
-					FileOutputStream out = ctx.openFileOutput(passwordFile, Context.MODE_PRIVATE);
-					appProps.store(out, null);
-					out.close();
-				} catch (FileNotFoundException e) {
-					System.out.println("password file not found");
-				} catch (IOException e) {
-					System.out.println("IO Exception");
-				}
+				db.addUser(new User(accountName, sb.toString(), email));
 			} catch (NoSuchAlgorithmException e1) {
-				//DO Nothing
+				//Do Nothing
 			}
 		}
 	}
 
-	private void storeAccountAndEmail(String accountName, String email) {
-		if (accountName != null && email != null) {
-			getOldProperties(appProps, passwordFile);
-			getOldProperties(emailProps, emailFile);
-			emailProps.setProperty(accountName, email);
-			try {
-//				FileOutputStream out = new FileOutputStream(emailFile);
-				FileOutputStream out = ctx.openFileOutput(emailFile, Context.MODE_PRIVATE);
-				emailProps.store(out, null);
-				out.close();
-			} catch (FileNotFoundException e) {
-				System.out.println("email file not found");
-			} catch (IOException e) {
-				System.out.println("IO Exception");
-			}
-		}
-	}
-
-	/*
+	/**
 	 * Returns true if the account name has been stored in the application's
 	 * properties file, false otherwise
 	 * 
 	 * @param accountName The account name whose existence is in question
 	 */
-	private boolean doesAccountExist(String accountName) {
-		return appProps.containsKey(accountName);
+	public boolean doesAccountExist(String accountName) {
+		if (db.getUser(accountName) != null) {
+			return true;
+		}
+		return false;
 	}
 
-	/*
-	 * Loads the file that stores the application properties and adds them to
-	 * the appProps instance that is being maintained
-	 * 
-	 * @param applicationProps The Properties instance that is being updated
-	 * with the old properties
-	 */
-	private static void getOldProperties(Properties applicationProps,
-			String passwordFile2) {
-		Properties defaultProps = new Properties();
-		FileInputStream in;
-		try {
-			in = new FileInputStream(passwordFile2);
-			defaultProps.load(in);
-			in.close();
-		} catch (FileNotFoundException e1) {
-			System.out.println("No old properties");
-		} catch (InvalidPropertiesFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		for (Enumeration<Object> e = defaultProps.keys(); e.hasMoreElements();) {
-			String key = (String) e.nextElement();
-			String value = defaultProps.getProperty(key);
-			applicationProps.setProperty(key, value);
-		}
-	}
 
-	/*
+	/**
 	 * Creates the admin account and password and adds it to the properties to
 	 * be stored
 	 */
 	private static void writeDefaultProperties() {
-		//Write admin's default email null in the emailproperties file
-//		if (!(credentialFolder.exists())) {
-//			credentialFolder.mkdirs();
-//			try {
-//				passwordFile.createNewFile();
-//				emailFile.createNewFile();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-		Properties defaultProps = new Properties();
-		getOldProperties(defaultProps, passwordFile);
-		Properties defaultEmailProps = new Properties();
-		getOldProperties(defaultEmailProps, emailFile);
-		defaultEmailProps.setProperty("admin", "");
-		String original = "pass123";
+		String adminUserName = "admin";
+		String adminPassword = "pass123";
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("MD5");
-			md.update(original.getBytes());
+			md.update(adminPassword.getBytes());
 			byte[] digest = md.digest();
 			StringBuffer sb = new StringBuffer();
 			for (byte b : digest) {
 				sb.append(Integer.toHexString((int) (b & 0xff)));
 			}
-			defaultProps.setProperty("admin", sb.toString());
-			try {
-				FileOutputStream out = new FileOutputStream(passwordFile);
-				defaultProps.store(out, null);
-				out.close();
-				out = new FileOutputStream(emailFile);
-				defaultEmailProps.store(out, null);
-				out.close();
-			} catch (FileNotFoundException e) {
-				System.out.println("File Not Found");
-			} catch (IOException e) {
-				System.out.println("IO Exception");
-			}
-		} catch (NoSuchAlgorithmException e1) {
-			//DO Nothing
+			db.addUser(new User(adminUserName, sb.toString(), ""));
+		} catch (NoSuchAlgorithmException e) {
+			//Do nothing
 		}
+
 	}
 
 }
