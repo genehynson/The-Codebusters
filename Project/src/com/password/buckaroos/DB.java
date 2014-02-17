@@ -49,6 +49,21 @@ public class DB extends SQLiteOpenHelper {
 		System.out.println("just added");
 		db.close();
 	}
+	
+	public void addAccount(Account account, User user) {
+		user.addAccount(account);
+		System.out.println("just added account");
+	}
+	
+	public Account getAccount(User user, String accountName) {
+		ArrayList<Account> accounts = user.getAccounts();
+		for(Account account : accounts) {
+			if (account.getName().equals(accountName)) {
+				return account;
+			}
+		}
+		return null;
+	}
 
 	public User getUser(String accountName) {
 		//		SQLiteDatabase db = this.getReadableDatabase();

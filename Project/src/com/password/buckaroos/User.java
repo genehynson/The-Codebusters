@@ -1,5 +1,7 @@
 package com.password.buckaroos;
 
+import java.util.ArrayList;
+
 /**
  * Class designed to store the user's credentials
  * 
@@ -11,6 +13,7 @@ public class User {
 	private String _accountName;
 	private String _password;
 	private String _email;
+	private ArrayList<Account> accounts;
 	
 	public User(String accountName, String password, String email) {
 		this._accountName = accountName;
@@ -18,6 +21,7 @@ public class User {
 //		this._password = hasher.hashPassword(password);
 		this._password = password;
 		this._email = email;
+		accounts = new ArrayList<Account>();
 	}
 
 	public String get_accountName() {
@@ -46,6 +50,23 @@ public class User {
 		this._email = _email;
 	}
 	
+	public ArrayList<Account> getAccounts() {
+		return accounts;
+	}
 	
+	public void addAccount(Account account) {
+		accounts.add(account);
+	}
+	
+	public boolean equals(Object o) {
+		if (o == null) return false;
+		if (o == this) return true;
+		if (o instanceof Account){
+			if (((User) o).get_accountName().equals(this.get_accountName()) && ((User) o).get_email() == this.get_email()) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }
