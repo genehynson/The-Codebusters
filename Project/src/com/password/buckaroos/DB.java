@@ -64,6 +64,15 @@ public class DB extends SQLiteOpenHelper {
 		}
 		return null;
 	}
+	
+	public void removeAccount(User user, String accountName) {
+		ArrayList<Account> accounts = user.getAccounts();
+		for(Account account : accounts) {
+			if (account.getName().equals(accountName)) {
+				accounts.remove(account);
+			}
+		}
+	}
 
 	public User getUser(String accountName) {
 		//		SQLiteDatabase db = this.getReadableDatabase();

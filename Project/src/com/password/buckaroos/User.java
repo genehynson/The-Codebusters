@@ -58,6 +58,28 @@ public class User {
 		accounts.add(account);
 	}
 	
+	public boolean makeDeposit(String accountName, int amount) {
+		for (Account account : accounts) {
+			if (account.getName().equals(accountName)) {
+				account.setAmount(account.getAmount() + amount);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean makeWithdraw(String accountName, int amount) {
+		for (Account account : accounts) {
+			if (account.getName().equals(accountName)) {
+				if (account.getAmount() - amount >= 0) {
+					account.setAmount(account.getAmount() - amount);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public boolean equals(Object o) {
 		if (o == null) return false;
 		if (o == this) return true;
