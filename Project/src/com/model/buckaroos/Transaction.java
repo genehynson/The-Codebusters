@@ -1,4 +1,4 @@
-package com.password.buckaroos;
+package com.model.buckaroos;
 
 public class Transaction {
 	

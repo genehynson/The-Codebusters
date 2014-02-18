@@ -1,4 +1,4 @@
-package com.example.buckaroos.util;
+package com.ui.buckaroos.util;
 
 import android.app.Activity;
 import android.os.Build;

@@ -1,4 +1,6 @@
-package com.example.buckaroos;
+package com.ui.buckaroos;
+
+import com.example.buckaroos.R;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -1,5 +1,6 @@
-package com.example.buckaroos;
+package com.ui.buckaroos;
 
+import com.example.buckaroos.R;
 import com.password.buckaroos.AppPropertyWriter;
 
 import android.os.Build;

@@ -1,10 +1,11 @@
-package com.example.buckaroos;
+package com.ui.buckaroos;
 
-import com.password.buckaroos.Account;
+import com.controller.buckaroos.UserAccountController;
+import com.example.buckaroos.R;
+import com.model.buckaroos.Account;
+import com.model.buckaroos.User;
 import com.password.buckaroos.AppPropertyWriter;
 import com.password.buckaroos.CredentialConfirmer;
-import com.password.buckaroos.User;
-import com.password.buckaroos.UserAccountController;
 
 import android.os.Bundle;
 import android.app.Activity;

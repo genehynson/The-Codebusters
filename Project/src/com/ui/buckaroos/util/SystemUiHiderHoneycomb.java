@@ -1,4 +1,4 @@
-package com.example.buckaroos.util;
+package com.ui.buckaroos.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

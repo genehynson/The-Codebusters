@@ -1,4 +1,9 @@
-package com.password.buckaroos;
+package com.controller.buckaroos;
+
+import com.model.buckaroos.Account;
+import com.model.buckaroos.DB;
+import com.model.buckaroos.User;
+import com.password.buckaroos.CredentialConfirmer;
 
 public class UserAccountController {
 

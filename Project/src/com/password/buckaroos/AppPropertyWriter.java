@@ -3,6 +3,9 @@ package com.password.buckaroos;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.model.buckaroos.DB;
+import com.model.buckaroos.User;
+
 import android.content.Context;
 
 

@@ -16,7 +16,7 @@
         android:label="@string/buck"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.buckaroos.WelcomeScreen"
+            android:name="com.ui.buckaroos.WelcomeScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/buck"
             android:theme="@style/FullscreenTheme" >
@@ -27,15 +27,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.buckaroos.Login"
+            android:name="com.ui.buckaroos.Login"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.buckaroos.Register"
+            android:name="com.ui.buckaroos.Register"
             android:label="@string/title_activity_register" >
         </activity>
-        <activity android:name="com.example.buckaroos.RegisterSuccess" android:label="@string/title_activity_register_success"></activity>
-        <activity android:name="com.example.buckaroos.LoginSuccess" android:label="@string/title_activity_login_success"></activity>
+        <activity android:name="com.ui.buckaroos.RegisterSuccess" android:label="@string/title_activity_register_success"></activity>
+        <activity android:name="com.ui.buckaroos.LoginSuccess" android:label="@string/title_activity_login_success"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.buckaroos;
+package com.ui.buckaroos;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import com.example.buckaroos.util.SystemUiHider;
+
+import com.example.buckaroos.R;
+import com.ui.buckaroos.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
