@@ -34,8 +34,18 @@
             android:name="com.ui.buckaroos.Register"
             android:label="@string/title_activity_register" >
         </activity>
-        <activity android:name="com.ui.buckaroos.RegisterSuccess" android:label="@string/title_activity_register_success"></activity>
-        <activity android:name="com.ui.buckaroos.LoginSuccess" android:label="@string/title_activity_login_success"></activity>
+        <activity
+            android:name="com.ui.buckaroos.RegisterSuccess"
+            android:label="@string/title_activity_register_success" >
+        </activity>
+        <activity
+            android:name="com.ui.buckaroos.LoginSuccess"
+            android:label="@string/title_activity_login_success" >
+        </activity>
+        <activity
+            android:name="com.example.buckaroos.CreateAccount"
+            android:label="@string/title_activity_create_acount" >
+        </activity>
     </application>
 
 </manifest>

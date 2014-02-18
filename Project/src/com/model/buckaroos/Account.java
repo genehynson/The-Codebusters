@@ -6,19 +6,16 @@ public class Account {
 
 	private String name;
 	private int amount;
+	private double interestRate;
 	private ArrayList<Transaction> transactions;
 	
-	public Account(String name, int amount) {
+	public Account(String name, int amount, double interestRate) {
 		this.setName(name);
 		this.setAmount(amount);
+		this.setInterestRate(interestRate);
 		transactions = new ArrayList<Transaction>();
 	}
 	
-	public Account(String name) {
-		this.setName(name);
-		setAmount(0);
-	}
-
 	public int getAmount() {
 		return amount;
 	}
@@ -51,6 +48,14 @@ public class Account {
 			}
 		}
 		return false;
+	}
+
+	public double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
 	}
 	
 }

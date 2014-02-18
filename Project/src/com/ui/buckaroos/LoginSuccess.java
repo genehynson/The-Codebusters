@@ -1,6 +1,7 @@
 package com.ui.buckaroos;
 
 import com.controller.buckaroos.UserAccountController;
+import com.example.buckaroos.CreateAccount;
 import com.example.buckaroos.R;
 import com.model.buckaroos.Account;
 import com.model.buckaroos.User;
@@ -24,11 +25,7 @@ public class LoginSuccess extends Activity implements OnClickListener {
 	private User user;
 	private UserAccountController controller = new UserAccountController(user);
 	private Account currentAccount;
-	
-	
-	public LoginSuccess(User user) {
-		this.user = user;
-	}
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +70,7 @@ public class LoginSuccess extends Activity implements OnClickListener {
 			currentAccount.setAmount(Integer.parseInt(amount.getText().toString()));
 			break;
 		case R.id.createAccount:
-			//goes to new activity to enter account data
-			//startActivity(new Intent(LoginSuccess.this, LoginSuccess.class));
+			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
 			break;
 		case R.id.changeAccount:
 			//popup that allows user to select account

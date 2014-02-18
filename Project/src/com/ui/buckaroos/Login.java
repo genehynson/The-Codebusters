@@ -19,14 +19,13 @@ import com.password.buckaroos.CredentialConfirmer;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Login extends Activity implements OnClickListener  {
 	
-	EditText etUser, etLPass;
-	Button bLogin;
+	private EditText etUser, etLPass;
+	private Button bLogin;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		AppPropertyWriter defaultAccountWriter = new AppPropertyWriter(this);
 		initialize();
 	}
 
