@@ -16,7 +16,7 @@ import android.content.Context;
 public class CredentialConfirmer {
 
     private static Context ctx;
-    private static DB db;
+    public static DB db;
 
 	/**
 	 * Constructs a CredentialConfirmer by getting all the keys and values from
