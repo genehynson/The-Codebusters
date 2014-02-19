@@ -15,6 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * Register for Buckaroos account screen activity
+ * @author Gene Hynson
+ *
+ */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Register extends Activity implements OnClickListener {
 
@@ -36,6 +41,9 @@ public class Register extends Activity implements OnClickListener {
 		return true;
 	}
 	
+	/**
+	 * Defines fields, buttons 
+	 */
 	private void initialize() {
 		etName = (EditText) findViewById(R.id.etName);
 		etEmail = (EditText) findViewById(R.id.etEmail);
@@ -45,12 +53,15 @@ public class Register extends Activity implements OnClickListener {
 		bRegister.setOnClickListener(this);
 	}
 	
+	/**
+	 * All fields required, creates account, goes to main screen
+	 */
 	@Override
 	public void onClick(View v) {
 		if(!etName.getText().toString().equals("") && !etEmail.getText().toString().equals("") && !etPass.getText().toString().equals("")) {
 			AppPropertyWriter k = new AppPropertyWriter(this);
 			k.storeAccount(etName.getText().toString(), etPass.getText().toString(), etEmail.getText().toString());
-			startActivity(new Intent(Register.this, RegisterSuccess.class));
+			startActivity(new Intent(Register.this, LoginSuccess.class));
 
 		} else {
 			Toast toast = Toast.makeText(this, "All fields required.", Toast.LENGTH_SHORT);

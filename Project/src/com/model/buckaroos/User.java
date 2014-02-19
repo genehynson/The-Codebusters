@@ -2,6 +2,8 @@ package com.model.buckaroos;
 
 import java.util.ArrayList;
 
+import com.controller.buckaroos.UserAccountController;
+
 /**
  * Class designed to store the user's credentials
  * 
@@ -14,8 +16,12 @@ public class User {
 	private String _password;
 	private String _email;
 	private ArrayList<Account> accounts;
+	private UserAccountController controller;
+	private DB db;
 	
 	public User(String accountName, String password, String email) {
+		controller = new UserAccountController();
+		db = controller.getDB();
 		this._accountName = accountName;
 //		PasswordHash hasher = new PasswordHash();
 //		this._password = hasher.hashPassword(password);
@@ -55,29 +61,17 @@ public class User {
 	}
 	
 	public void addAccount(Account account) {
-		accounts.add(account);
+		db.addAccount(account, this);
 	}
 	
 	public boolean makeDeposit(String accountName, int amount) {
-		for (Account account : accounts) {
-			if (account.getName().equals(accountName)) {
-				account.setAmount(account.getAmount() + amount);
-				return true;
-			}
-		}
-		return false;
+		db.addDeposit(db.getAccount(this, accountName), amount);
+		return true;
 	}
 	
 	public boolean makeWithdraw(String accountName, int amount) {
-		for (Account account : accounts) {
-			if (account.getName().equals(accountName)) {
-				if (account.getAmount() - amount >= 0) {
-					account.setAmount(account.getAmount() - amount);
-					return true;
-				}
-			}
-		}
-		return false;
+		db.addWithdraw(db.getAccount(this, accountName), amount);
+		return true;
 	}
 	
 	public boolean equals(Object o) {

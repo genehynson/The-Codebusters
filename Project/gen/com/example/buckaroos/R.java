@@ -56,6 +56,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int etUser=0x7f090008;
         public static final int interestRate=0x7f090004;
         public static final int loginsuccess=0x7f09000f;
+        public static final int logout=0x7f09001c;
         public static final int passwordText=0x7f09000b;
         public static final int startingBalance=0x7f090003;
         public static final int textView1=0x7f090001;
@@ -87,7 +88,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dummy_button=0x7f060004;
         public static final int dummy_content=0x7f060005;
         public static final int hello_world=0x7f060002;
-        public static final int title_activity_create_acount=0x7f06000a;
+        public static final int title_activity_create_account=0x7f06000a;
         public static final int title_activity_login_success=0x7f060009;
         public static final int title_activity_register=0x7f060006;
         public static final int title_activity_register_success=0x7f060008;

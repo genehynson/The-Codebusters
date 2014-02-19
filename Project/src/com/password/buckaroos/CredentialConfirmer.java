@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.model.buckaroos.DB;
+import com.model.buckaroos.User;
 
 import android.content.Context;
 
@@ -18,7 +19,8 @@ import android.content.Context;
 public class CredentialConfirmer {
 
     private static Context ctx;
-    public static DB db;
+    private static DB db;
+    private User currentLoggedInUser;
 
 	/**
 	 * Constructs a CredentialConfirmer by getting all the keys and values from
@@ -70,7 +72,19 @@ public class CredentialConfirmer {
 			e.printStackTrace();
 		}
 		System.out.println("aPassword: " + sb.toString());
-		return thePassword.equals(sb.toString());
+		if (thePassword.equals(sb.toString())) {
+			currentLoggedInUser = db.getUser(accountName);
+			return true;
+		}
+		return false; 
+	}
+	
+	/**
+	 * To retrieve the currently logged in user
+	 * @return
+	 */
+	public User getLoggedInUser() {
+		return currentLoggedInUser;
 	}
 
 	/**
@@ -82,6 +96,10 @@ public class CredentialConfirmer {
 	 */
 	public String getEmail(String accountName) {
 		return db.getUser(accountName).get_email();
+	}
+
+	public DB getDB() {
+		return db;
 	}
 }
 

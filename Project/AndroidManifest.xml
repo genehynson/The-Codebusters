@@ -43,8 +43,8 @@
             android:label="@string/title_activity_login_success" >
         </activity>
         <activity
-            android:name="com.example.buckaroos.CreateAccount"
-            android:label="@string/title_activity_create_acount" >
+            android:name="com.ui.buckaroos.CreateAccount"
+            android:label="@string/title_activity_create_account" >
         </activity>
     </application>
 

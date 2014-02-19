@@ -1,11 +1,12 @@
-package com.example.buckaroos;
+package com.ui.buckaroos;
 
 import com.controller.buckaroos.UserAccountController;
+import com.example.buckaroos.R;
+import com.example.buckaroos.R.id;
+import com.example.buckaroos.R.layout;
+import com.example.buckaroos.R.menu;
 import com.model.buckaroos.User;
 import com.password.buckaroos.AppPropertyWriter;
-import com.ui.buckaroos.LoginSuccess;
-import com.ui.buckaroos.Register;
-import com.ui.buckaroos.RegisterSuccess;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -16,7 +17,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+/**
+ * Create "bank" account activity.
+ * @author Gene Hynson
+ *
+ */
 public class CreateAccount extends Activity implements OnClickListener {
 
 	private EditText accountName;
@@ -33,6 +38,9 @@ public class CreateAccount extends Activity implements OnClickListener {
 		initialize();
 	}
 	
+	/**
+	 * Defines fields, buttons, controller
+	 */
 	private void initialize() {
 		accountName = (EditText) findViewById(R.id.accountName);
 		startingBalance = (EditText) findViewById(R.id.startingBalance);
@@ -40,6 +48,7 @@ public class CreateAccount extends Activity implements OnClickListener {
 		create = (Button) findViewById(R.id.create);
 		getActionBar().hide();
 		create.setOnClickListener(this);
+		controller = new UserAccountController();
 	}
 
 	@Override
@@ -49,10 +58,21 @@ public class CreateAccount extends Activity implements OnClickListener {
 		return true;
 	}
 
+	/**
+	 * Must have accountName filled, creates account, starts main screen activity
+	 */
 	@Override
 	public void onClick(View v) {
-		if(!accountName.getText().toString().equals("") && !startingBalance.getText().toString().equals("") && !interestRate.getText().toString().equals("")) {
-			controller.addAccount(accountName.getText().toString(), Integer.parseInt(startingBalance.getText().toString()), Double.parseDouble(interestRate.getText().toString()));
+		int balance = 0;
+		double interest = 0;
+		if(!accountName.getText().toString().equals("")) {
+			if (!startingBalance.getText().toString().equals("")) {
+				balance = Integer.parseInt(startingBalance.getText().toString());
+			}
+			if (!interestRate.getText().toString().equals("")) {
+				interest = Double.parseDouble(interestRate.getText().toString());
+			}
+			controller.addAccount(accountName.getText().toString(), balance, interest);
 			startActivity(new Intent(CreateAccount.this, LoginSuccess.class));
 
 		} else {

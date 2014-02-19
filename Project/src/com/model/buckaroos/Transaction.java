@@ -1,5 +1,10 @@
 package com.model.buckaroos;
 
+/**
+ * Each transaction has an amount and type (withdraw/deposit)
+ * @author Gene
+ *
+ */
 public class Transaction {
 	
 	private int amount;

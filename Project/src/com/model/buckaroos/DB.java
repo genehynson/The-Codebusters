@@ -50,11 +50,24 @@ public class DB extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	/**
+	 * Adds "bank" account to the user's list of accounts
+	 * Eventually, needs to be in database
+	 * @param account
+	 * @param user
+	 */
 	public void addAccount(Account account, User user) {
-		user.addAccount(account);
+		ArrayList<Account> accounts = user.getAccounts();
+		accounts.add(account);
 		System.out.println("just added account");
 	}
-	
+	/**
+	 * Gets "bank" account from user's list
+	 * Eventually, needs to be in database
+	 * @param user
+	 * @param accountName
+	 * @return
+	 */
 	public Account getAccount(User user, String accountName) {
 		ArrayList<Account> accounts = user.getAccounts();
 		for(Account account : accounts) {
@@ -64,7 +77,26 @@ public class DB extends SQLiteOpenHelper {
 		}
 		return null;
 	}
+	/**
+	 * Gets the first "bank" account in user's list
+	 * Eventually, needs to be in database
+	 * @param user
+	 * @return
+	 */
+	public Account getAccount(User user) {
+		ArrayList<Account> accounts = user.getAccounts();
+		return accounts.get(0);
+	}
 	
+	public ArrayList<Account> getAllAcconts(User user) {
+		return user.getAccounts();
+	}
+	/**
+	 * removes a "bank" account from user's list
+	 * Eventually, needs to be in database
+	 * @param user
+	 * @param accountName
+	 */
 	public void removeAccount(User user, String accountName) {
 		ArrayList<Account> accounts = user.getAccounts();
 		for(Account account : accounts) {
@@ -73,7 +105,36 @@ public class DB extends SQLiteOpenHelper {
 			}
 		}
 	}
+	/**
+	 * Adds transaction to account's list
+	 * Eventually, needs to be in database
+	 * @param account
+	 * @param transaction
+	 */
+	public void addWithdraw(Account account, int amount) {
+		ArrayList<Transaction> transactions = getAllTransactions(account);
+		Transaction trans = new Transaction(amount*(-1));
+		transactions.add(trans);
+		account.setBalance(account.getBalance()-amount);
+	}
+	
+	public void addDeposit(Account account, int amount) {
+		ArrayList<Transaction> transactions = getAllTransactions(account);
+		Transaction trans = new Transaction(amount);
+		transactions.add(trans);
+		account.setBalance(account.getBalance()+amount);
+	}
 
+	/**
+	 * Gets all transactions from accont's list
+	 * Eventually, needs to be in database
+	 * @param account
+	 * @return
+	 */
+	public ArrayList<Transaction> getAllTransactions(Account account) {
+		return account.getAllTransactions();
+	}
+	
 	public User getUser(String accountName) {
 		//		SQLiteDatabase db = this.getReadableDatabase();
 		//		User returnUser = null;
