@@ -28,7 +28,7 @@ public class DB extends SQLiteOpenHelper {
 	private static final String KEY_CATEGORY = "Category";
 
 	public DB(Context applicationcontext) {
-		super(applicationcontext, "chicken.db", null, 1);
+		super(applicationcontext, "app.db", null, 1);
 		Log.d(LOGCAT,"Created");
 	}
 
