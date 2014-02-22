@@ -9,6 +9,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Class that uses SQLite to store all of the app's information into a database
+ * 
+ * @author Jordan
+ * @author Gene
+ * @version 1.3
+ */
 public class DB extends SQLiteOpenHelper {
 
 	private static final String LOGCAT = null;
@@ -76,6 +83,10 @@ public class DB extends SQLiteOpenHelper {
 		onCreate(database);
 	}
 
+	/**
+	 * Adds a user to the database
+	 * @param user The user to be added
+	 */
 	public void addUser(User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -87,6 +98,14 @@ public class DB extends SQLiteOpenHelper {
 		db.close();
 	}
 
+	/**
+	 * Adds an account to the database. 
+	 * Note: This is an account of a user, it is different than the account the
+	 * user logs in with
+	 * 
+	 * @param account The account to be added
+	 * @param user The user that the account is associated with
+	 */
 	public void addAccount(Account account, User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -102,6 +121,17 @@ public class DB extends SQLiteOpenHelper {
 		System.out.println("just added account");
 	}
 
+	/**
+	 * Adds a transaction to the database
+	 * 
+	 * @param account The account the transaction is associated with
+	 * @param userAccountName The account name that the user uses to log in with
+	 * @param amount The amount of the transaction
+	 * @param transactionType Specifies if the transaction is a withdrawal or a
+	 * deposit
+	 * @param currencyType The type of currency used in the transaction
+	 * @param category The expense or income category
+	 */
 	public void addTransaction(Account account, String userAccountName, double 
 			amount, String transactionType, String currencyType, String category) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -121,6 +151,13 @@ public class DB extends SQLiteOpenHelper {
 		System.out.println("just added transaction");
 	}
 
+	/**
+	 * Retrieves an account from the database
+	 * 
+	 * @param accountName The name of the account to be retrieved
+	 * @param user The user associated with the account
+	 * @return The Account if it exists, null otherwise
+	 */
 	public Account getAccount(String accountName, User user) {
 		Account returnAccount = null;
 		if (accountName != null) {
@@ -140,6 +177,13 @@ public class DB extends SQLiteOpenHelper {
 		return returnAccount;
 	}
 
+	/**
+	 * Updates an account with a new balance
+	 * 
+	 * @param account The account to update
+	 * @param userAccountName The name of the user's login account
+	 * @param amount The amount to add/subtract from the balance
+	 */
 	public void updateAccount(Account account, String userAccountName, double amount) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		String selectQuery = "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS
@@ -159,6 +203,11 @@ public class DB extends SQLiteOpenHelper {
 		db.close();
 	}
 
+	/**
+	 * Retrieves all accounts from the database
+	 * 
+	 * @return An ArrayList containing all the accounts in the database
+	 */
 	public ArrayList<Account> getAllAccounts() {
 		ArrayList<Account> accList = new ArrayList<Account>();
 		String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS;
@@ -196,6 +245,12 @@ public class DB extends SQLiteOpenHelper {
 		}
 	}
 
+	/**
+	 * Retrieves a user from the database
+	 * 
+	 * @param accountName The name of the account the user uses to log in with
+	 * @return The user associated with the accountName provided
+	 */
 	public User getUser(String accountName) {
 		//		SQLiteDatabase db = this.getReadableDatabase();
 		//		User returnUser = null;
@@ -226,6 +281,11 @@ public class DB extends SQLiteOpenHelper {
 		return returnUser;
 	}
 
+	/**
+	 * Retrieves all users from the database
+	 * 
+	 * @return An ArrayList containing all the users in the database
+	 */
 	private ArrayList<User> getAllUsers() {
 		ArrayList<User> userList = new ArrayList<User>();
 		String selectQuery = "SELECT  * FROM " + TABLE_CREDENTIALS;
@@ -243,6 +303,14 @@ public class DB extends SQLiteOpenHelper {
 		return userList;
 	}
 
+	/**
+	 * Updates an existing user's password and email.
+	 * Pass in a 
+	 * 
+	 * @param user The user containing the login account name to update and the
+	 * new email and/or password.
+	 * @return The number of rows affected by the update
+	 */
 	public int updateUser(User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -252,6 +320,14 @@ public class DB extends SQLiteOpenHelper {
 				new String[] { user.get_accountName() });
 	}
 
+	/**
+	 * Checks to see if the password is correct for the accountName provided
+	 * 
+	 * @param accountName The name of the account whose password is being 
+	 * checked
+	 * @param password The password to check
+	 * @return True if the password is correct, false otherwise
+	 */
 	public boolean isPasswordCorrect(String accountName, String password) {
 		ArrayList<User> userList = getAllUsers();
 		boolean isPasswordCorrect = false;
