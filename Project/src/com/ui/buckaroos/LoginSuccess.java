@@ -79,12 +79,12 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 	 * @return
 	 */
 	private Account getCurrentAccount() {
-		if (controller.hasAccount()) {
-			return controller.getFirstUserAccount();
-		} else {
+//		if (controller.hasAccount()) {
+//			return controller.getFirstUserAccount();
+//		} else {
 			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
 			return null;
-		}
+//		}
 		
 	}
 	/**
@@ -109,10 +109,10 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 		}
 		switch (v.getId()) {
 		case R.id.withdraw:
-			controller.addWithdraw(Integer.parseInt(amount.getText().toString()));
+			controller.addWithdrawal(Integer.parseInt(amount.getText().toString()), null, null);
 			break;
 		case R.id.deposit:
-			controller.addDeposit(Integer.parseInt(amount.getText().toString()));
+			controller.addDeposit(Integer.parseInt(amount.getText().toString()), null, null);
 			break;
 		case R.id.createAccount:
 			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));

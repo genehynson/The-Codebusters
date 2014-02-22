@@ -3,7 +3,6 @@ package com.model.buckaroos;
 import java.util.ArrayList;
 
 import com.controller.buckaroos.UserAccountController;
-import com.password.buckaroos.CredentialConfirmer;
 /**
  * The "bank" accounts for user. 
  * @author Gene
@@ -12,26 +11,28 @@ import com.password.buckaroos.CredentialConfirmer;
 public class Account {
 
 	private String name;
-	private int balance = 0;
+	private double balance = 0;
 	private double interestRate;
 	private DB db;
 	private ArrayList<Transaction> transactions;
 	private UserAccountController controller;
+	private String userAccountName;
 	
-	public Account(String name, int amount, double interestRate) {
+	public Account(String name, double amount, double interestRate, String userAccountName) {
 		controller = new UserAccountController();
 		transactions = new ArrayList<Transaction>();
 		db = controller.getDB();
 		this.setName(name);
-		this.newDeposit(amount);
+		this.balance = amount;
 		this.setInterestRate(interestRate);
+		this.userAccountName = userAccountName;
 	}
 	
 	/**
 	 * Returns balance of this account
 	 * @return
 	 */
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 	
@@ -43,12 +44,15 @@ public class Account {
 	 * Creates new transaction for this account
 	 * @param amount is the money to withdraw/deposit
 	 */
-	public void newWithdraw(int amount) {
-		db.addWithdraw(this, amount);
+	public void newWithdrawal(double amount, String currencyType, String category) {
+		db.addTransaction(this, userAccountName, amount, "Withdrawal", 
+				currencyType, category);
+		
 	}
 	
-	public void newDeposit(int amount) {
-		db.addDeposit(this, amount);
+	public void newDeposit(double amount, String currencyType, String category) {
+		db.addTransaction(this, userAccountName, amount, "Deposit", 
+				currencyType, category);
 	}
 
 	/**
@@ -88,6 +92,10 @@ public class Account {
 	
 	public ArrayList<Transaction> getAllTransactions() {
 		return transactions;
+	}
+
+	public String getUserAccountName() {
+		return userAccountName;
 	}
 	
 }

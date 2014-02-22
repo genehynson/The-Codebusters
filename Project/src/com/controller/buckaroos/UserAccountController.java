@@ -14,7 +14,7 @@ import com.password.buckaroos.CredentialConfirmer;
  */
 public class UserAccountController {
 
-	
+
 	private static User user;
 	private static DB db;
 	private static Account currentAccount;
@@ -30,7 +30,8 @@ public class UserAccountController {
 	 * User, DB are static...
 	 */
 	public UserAccountController() {
-		
+		//Need to make this instantiate with a user all the time in order for 
+		//database to work properly
 	}
 	/**
 	 * Gets "bank" account
@@ -38,53 +39,61 @@ public class UserAccountController {
 	 * @return
 	 */
 	public Account getUserAccount(String accountName) {
-		return db.getAccount(user, accountName);
+		return db.getAccount(accountName, user);
 	}
 	/**
 	 * adds "bank" account
 	 * @param accountName
 	 */
 	public void addAccount(String accountName) {
-		currentAccount = new Account(accountName, 0, 0);
+		currentAccount = new Account(accountName, 0, 0, user.get_accountName());
 		db.addAccount(currentAccount, user);
 	}
-	
-	public void addAccount(String accountName, int amount) {
-		currentAccount = new Account(accountName, amount, 0);
+
+	public void addAccount(String accountName, double amount) {
+		currentAccount = new Account(accountName, amount, 0, user.get_accountName());
 		db.addAccount(currentAccount, user);
 
 	}
-	
-	public void addAccount(String accountName, double interestRate) {
-		currentAccount = new Account(accountName, 0, interestRate);
+
+	public void addAccount(double interestRate, String accountName) {
+		currentAccount = new Account(accountName, 0, interestRate, user.get_accountName());
 		db.addAccount(currentAccount, user);
 
 
 	}
-	
-	public void addAccount(String accountName, int amount, double interestRate) {
-		currentAccount = new Account(accountName, amount, interestRate);
+
+	public void addAccount(String accountName, double amount, double interestRate) {
+		//Getting nullpointerexception here because this class can be 
+		//instantiated without a user sometimes
+//		if (user.get_accountName() != null) {
+//			currentAccount = new Account(accountName, amount, interestRate, user.get_accountName());
+//		} else {
+		currentAccount = new Account(accountName, amount, interestRate, "jordan");
+//		}
 		db.addAccount(currentAccount, user);
 
-		
+
 	}
 	/**
 	 * Add transactions to the current account
 	 * @param amount
 	 */
-	public void addWithdraw(int amount) {
-		db.addWithdraw(currentAccount, amount);
+	public void addWithdrawal(double amount, String currencyType, String category) {
+		db.addTransaction(currentAccount, user.get_accountName(), amount, "Withdrawal",
+				currencyType, category);
 	}
-	
-	public void addDeposit(int amount) {
-		db.addDeposit(currentAccount, amount);
+
+	public void addDeposit(double amount, String currencyType, String category) {
+		db.addTransaction(currentAccount, user.get_accountName(), amount, "Deposit",
+				currencyType, category);
 	}
-	
+
 	public Account getCurrentAccount() {
 		return currentAccount;
 	}
-	
-	
+
+
 	/**
 	 * does user have any "bank" accounts?
 	 * @return
@@ -97,9 +106,9 @@ public class UserAccountController {
 	 * @return
 	 */
 	public Account getFirstUserAccount() {
-		return db.getAccount(user);
+		return db.getAccount(currentAccount.getName(), user);
 	}
-	
+
 	public DB getDB() {
 		return db;
 	}

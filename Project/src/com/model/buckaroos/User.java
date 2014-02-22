@@ -57,20 +57,24 @@ public class User {
 	}
 	
 	public ArrayList<Account> getAccounts() {
-		return accounts;
+		return db.getAllAccounts();
 	}
 	
 	public void addAccount(Account account) {
 		db.addAccount(account, this);
 	}
 	
-	public boolean makeDeposit(String accountName, int amount) {
-		db.addDeposit(db.getAccount(this, accountName), amount);
+	public boolean makeDeposit(String accountName, double amount, String 
+			currencyType, String category) {
+		db.addTransaction(db.getAccount(accountName, this), _accountName, amount,
+				"Deposit", currencyType, category);
 		return true;
 	}
 	
-	public boolean makeWithdraw(String accountName, int amount) {
-		db.addWithdraw(db.getAccount(this, accountName), amount);
+	public boolean makeWithdrawal(String accountName, double amount, String 
+			currencyType, String category) {
+		db.addTransaction(db.getAccount(accountName, this), _accountName, amount,
+				"Withdrawal", currencyType, category);
 		return true;
 	}
 	

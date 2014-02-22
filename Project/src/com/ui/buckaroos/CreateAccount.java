@@ -46,7 +46,7 @@ public class CreateAccount extends Activity implements OnClickListener {
 		startingBalance = (EditText) findViewById(R.id.startingBalance);
 		interestRate = (EditText) findViewById(R.id.interestRate);
 		create = (Button) findViewById(R.id.create);
-		getActionBar().hide();
+//		getActionBar().hide();
 		create.setOnClickListener(this);
 		controller = new UserAccountController();
 	}
@@ -63,15 +63,19 @@ public class CreateAccount extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View v) {
-		int balance = 0;
+		double balance = 0;
 		double interest = 0;
 		if(!accountName.getText().toString().equals("")) {
 			if (!startingBalance.getText().toString().equals("")) {
-				balance = Integer.parseInt(startingBalance.getText().toString());
+				balance = Double.parseDouble(startingBalance.getText().toString());
 			}
 			if (!interestRate.getText().toString().equals("")) {
 				interest = Double.parseDouble(interestRate.getText().toString());
 			}
+			String test = accountName.getText().toString();
+			System.out.println(test);
+			System.out.println("balance: " + balance);
+			System.out.println("interest: " + interest);
 			controller.addAccount(accountName.getText().toString(), balance, interest);
 			startActivity(new Intent(CreateAccount.this, LoginSuccess.class));
 
