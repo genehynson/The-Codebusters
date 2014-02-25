@@ -31,7 +31,6 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 	private Button withdraw, deposit, makeAccount;
 	private EditText amount;
 	private UserAccountController controller;
-	private Account currentAccount;
 
 
 	@Override
@@ -69,22 +68,21 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 		makeAccount = (Button) findViewById(R.id.createAccount);
 		makeAccount.setOnClickListener(this);
 		amount = (EditText) findViewById(R.id.amount);
-		controller = new UserAccountController();
-		currentAccount = getCurrentAccount();
+		controller = new UserAccountController(this);
 //		registerForContextMenu(makeAccount);
+		ensureCurrentAccount();
 
 	}
 	/**
 	 * Gets current "bank" account
 	 * @return
 	 */
-	private Account getCurrentAccount() {
-//		if (controller.hasAccount()) {
-//			return controller.getFirstUserAccount();
-//		} else {
+	private void ensureCurrentAccount() {
+		if (controller.hasAccount()) {
+			controller.setCurrentAccount(controller.getFirstUserAccount());
+		} else {
 			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
-			return null;
-//		}
+		}
 		
 	}
 	/**
@@ -113,6 +111,7 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 			break;
 		case R.id.deposit:
 			controller.addDeposit(Integer.parseInt(amount.getText().toString()), null, null);
+			//			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
 			break;
 		case R.id.createAccount:
 			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));

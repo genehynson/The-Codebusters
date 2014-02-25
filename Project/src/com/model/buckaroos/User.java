@@ -20,7 +20,7 @@ public class User {
 	private DB db;
 	
 	public User(String accountName, String password, String email) {
-		controller = new UserAccountController();
+		controller = new UserAccountController(this);
 		db = controller.getDB();
 		this._accountName = accountName;
 //		PasswordHash hasher = new PasswordHash();

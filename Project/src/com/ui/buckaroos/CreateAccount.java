@@ -46,9 +46,9 @@ public class CreateAccount extends Activity implements OnClickListener {
 		startingBalance = (EditText) findViewById(R.id.startingBalance);
 		interestRate = (EditText) findViewById(R.id.interestRate);
 		create = (Button) findViewById(R.id.create);
-//		getActionBar().hide();
+		getActionBar().hide();
 		create.setOnClickListener(this);
-		controller = new UserAccountController();
+		controller = new UserAccountController(this);
 	}
 
 	@Override

@@ -17,9 +17,11 @@ public class Account {
 	private ArrayList<Transaction> transactions;
 	private UserAccountController controller;
 	private String userAccountName;
+	private User user;
 	
-	public Account(String name, double amount, double interestRate, String userAccountName) {
-		controller = new UserAccountController();
+	public Account(String name, double amount, double interestRate, String userAccountName, User user) {
+		this.user = user;
+		controller = new UserAccountController(user);
 		transactions = new ArrayList<Transaction>();
 		db = controller.getDB();
 		this.setName(name);
@@ -96,6 +98,10 @@ public class Account {
 
 	public String getUserAccountName() {
 		return userAccountName;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 	
 }

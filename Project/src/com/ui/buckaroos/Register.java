@@ -1,5 +1,6 @@
 package com.ui.buckaroos;
 
+import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 import com.password.buckaroos.AppPropertyWriter;
 
@@ -23,8 +24,9 @@ import android.widget.Toast;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Register extends Activity implements OnClickListener {
 
-	EditText etName, etEmail, etPass;
-	Button bRegister;
+	private EditText etName, etEmail, etPass;
+	private Button bRegister;
+	private UserAccountController controller;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class Register extends Activity implements OnClickListener {
 	 * Defines fields, buttons 
 	 */
 	private void initialize() {
+		controller = new UserAccountController(this);
 		etName = (EditText) findViewById(R.id.etName);
 		etEmail = (EditText) findViewById(R.id.etEmail);
 		etPass = (EditText) findViewById(R.id.etPass);
@@ -59,9 +62,13 @@ public class Register extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(!etName.getText().toString().equals("") && !etEmail.getText().toString().equals("") && !etPass.getText().toString().equals("")) {
-			AppPropertyWriter k = new AppPropertyWriter(this);
-			k.storeAccount(etName.getText().toString(), etPass.getText().toString(), etEmail.getText().toString());
-			startActivity(new Intent(Register.this, LoginSuccess.class));
+			if (controller.getLoginAccount(etName.getText().toString()) == null) {
+				controller.addLoginAccount(etName.getText().toString(), etPass.getText().toString(), etEmail.getText().toString());
+				startActivity(new Intent(Register.this, LoginSuccess.class));
+			} else {
+				Toast toast = Toast.makeText(this, "Account already exists", Toast.LENGTH_SHORT);
+				toast.show();
+			}
 
 		} else {
 			Toast toast = Toast.makeText(this, "All fields required.", Toast.LENGTH_SHORT);

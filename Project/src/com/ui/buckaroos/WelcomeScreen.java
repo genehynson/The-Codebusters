@@ -30,6 +30,7 @@ public class WelcomeScreen extends Activity implements OnClickListener {
 		getActionBar().hide();
 		bReg = (Button) findViewById(R.id.bReg);
 		bLog = (Button) findViewById(R.id.bLog);
+		//need to add AppPropertyWriter?
 	}
 
 	@Override

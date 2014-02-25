@@ -38,7 +38,8 @@ public class AppPropertyWriter {
 	 * @param accountName The account name to be created
 	 * @param password The password that corresponds with the new account
 	 */
-	public void storeAccount(String accountName, String password, String email) {
+	public User storeAccount(String accountName, String password, String email) {
+		User newUser = null;
 		if (accountName != null && email != null && password != null) {
 			MessageDigest md;
 			try {
@@ -49,11 +50,13 @@ public class AppPropertyWriter {
 				for (byte b : digest) {
 					sb.append(Integer.toHexString((int) (b & 0xff)));
 				}
-				db.addUser(new User(accountName, sb.toString(), email));
+				newUser = new User(accountName, sb.toString(), email);
+				db.addUser(newUser);
 			} catch (NoSuchAlgorithmException e1) {
 				//Do Nothing
 			}
 		}
+		return newUser;
 	}
 
 	/**
