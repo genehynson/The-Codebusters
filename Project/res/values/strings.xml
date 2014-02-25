@@ -12,5 +12,6 @@
     <string name="title_activity_register_success">RegisterSuccess</string>
     <string name="title_activity_login_success">LoginSuccess</string>
     <string name="title_activity_create_account">CreateAcount</string>
+    <string name="title_activity_transaction">Transaction</string>
 
 </resources>

@@ -46,6 +46,10 @@
             android:name="com.ui.buckaroos.CreateAccount"
             android:label="@string/title_activity_create_account" >
         </activity>
+        <activity
+            android:name="com.example.buckaroos.Transaction"
+            android:label="@string/title_activity_transaction" >
+        </activity>
     </application>
 
 </manifest>
