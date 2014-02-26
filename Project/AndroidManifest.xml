@@ -50,6 +50,10 @@
             android:name="com.ui.buckaroos.Transaction"
             android:label="@string/title_activity_transaction" >
         </activity>
+        <activity
+            android:name="com.ui.buckaroos.AccountOverview"
+            android:label="@string/title_activity_account_overview" >
+        </activity>
     </application>
 
 </manifest>

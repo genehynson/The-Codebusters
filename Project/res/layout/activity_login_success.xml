@@ -53,5 +53,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="91dp"
         android:text="Add Transaction" />
+
+    <Button
+        android:id="@+id/viewAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/createAccount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
+        android:text="View Account Overview" />
     
 </RelativeLayout>

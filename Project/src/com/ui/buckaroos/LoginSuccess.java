@@ -28,7 +28,7 @@ import android.widget.Toast;
  */
 public class LoginSuccess extends Activity implements OnClickListener, OnCreateContextMenuListener {
 	
-	private Button addTransaction, makeAccount;
+	private Button addTransaction, makeAccount, accountOverview;
 	private UserAccountController controller;
 
 
@@ -111,6 +111,9 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 		case R.id.changeAccount:
 			//popup that allows user to select account
 			break;
+		case R.id.viewAccount:
+			startActivity(new Intent(LoginSuccess.this, AccountOverview.class));
+
 		}
 	}
 	

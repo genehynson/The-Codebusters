@@ -13,5 +13,6 @@
     <string name="title_activity_login_success">LoginSuccess</string>
     <string name="title_activity_create_account">CreateAcount</string>
     <string name="title_activity_transaction">Transaction</string>
+    <string name="title_activity_account_overview">AccountOverview</string>
 
 </resources>
