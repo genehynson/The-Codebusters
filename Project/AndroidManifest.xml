@@ -58,6 +58,10 @@
             android:name="com.ui.buckaroos.ChangeAccount"
             android:label="@string/title_activity_change_account" >
         </activity>
+        <activity
+            android:name="com.ui.buckaroos.DateChooser"
+            android:label="@string/title_activity_date_chooser" >
+        </activity>
     </application>
 
 </manifest>

@@ -137,4 +137,7 @@ public class UserAccountController {
 		return db.getUser(username);
 	}
 	
+	public User getCurrentUser() {
+		return user;
+	}
 }

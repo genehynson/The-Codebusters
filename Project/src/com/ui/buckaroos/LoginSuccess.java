@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 /**
  * The "main screen" of the app 
@@ -30,6 +31,8 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 	
 	private Button addTransaction, makeAccount, accountOverview, changeAccount;
 	private UserAccountController controller;
+	private TextView currentAccountText;
+	private TextView currentLoginUser;
 
 
 	@Override
@@ -46,16 +49,6 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 		return true;
 	}
 	
-//	@Override
-//	public void onCreateContextMenu(ContextMenu menu, View v,
-//	                                ContextMenuInfo menuInfo) {
-//	    super.onCreateContextMenu(menu, v, menuInfo);
-////	    menu.add(R.id.);
-//	    MenuInflater inflater = getMenuInflater();
-//	    inflater.inflate(R.menu.login_success, menu);
-////	invalidateOptionsMenu ()
-//	}
-
 	/**
 	 * Defines fields, buttons, controller, currentAccount
 	 */
@@ -68,10 +61,15 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 		changeAccount.setOnClickListener(this);
 		makeAccount = (Button) findViewById(R.id.createAccount);
 		makeAccount.setOnClickListener(this);
+		currentAccountText = (TextView) findViewById(R.id.currentAccountText);
+		currentLoginUser = (TextView) findViewById(R.id.loginsuccess);
 		controller = new UserAccountController(this);
 		if (controller.getCurrentAccount() == null) {
 			ensureCurrentAccount();
 		}
+		currentAccountText.setText(controller.getCurrentAccount().getName());
+		currentLoginUser.setText(controller.getCurrentUser().get_accountName());
+		
 	}
 	/**
 	 * Gets current "bank" account
