@@ -55,7 +55,7 @@ public class Login extends Activity implements OnClickListener  {
 		CredentialConfirmer confirm = new CredentialConfirmer(this);
 		if (confirm.doesAccountExist(etUser.getText().toString())) {
 			if(confirm.isPasswordCorrect(etUser.getText().toString(), etLPass.getText().toString())) {
-				UserAccountController controller = new UserAccountController(confirm.getLoggedInUser(), confirm.getDB());
+				UserAccountController controller = new UserAccountController(confirm.getLoggedInUser(), this);
 				startActivity(new Intent(Login.this, LoginSuccess.class));
 			} else {
 				Toast toast = Toast.makeText(this, "Password incorrect", Toast.LENGTH_SHORT);

@@ -116,6 +116,16 @@ public class DB extends SQLiteOpenHelper {
 		System.out.println(values);
 		//		values.put(KEY_MODIFIEDDATE, Calendar.getInstance().getTime());
 		db.insert(TABLE_ACCOUNTS, null, values);
+		String query = "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS + " WHERE " + KEY_ACCOUNT + "=" + "'" + user.get_accountName() + "'";
+//		String query = "SELECT Balance FROM " + TABLE_ACCOUNTS;
+		System.out.println(query);
+		Cursor c = db.rawQuery(query, null);
+		if (c != null ) {
+			if  (c.moveToFirst()) {
+				double balance = c.getDouble(c.getColumnIndex(KEY_BALANCE));
+				System.out.println("Balance: " + balance);
+			}
+		}
 		db.close();
 //		user.addAccount(account);
 		System.out.println("just added account");
@@ -125,21 +135,21 @@ public class DB extends SQLiteOpenHelper {
 	 * Adds a transaction to the database
 	 * 
 	 * @param account The account the transaction is associated with
-	 * @param userAccountName The account name that the user uses to log in with
+	 * @param loginAccountName The account name that the user uses to log in with
 	 * @param amount The amount of the transaction
 	 * @param transactionType Specifies if the transaction is a withdrawal or a
 	 * deposit
 	 * @param currencyType The type of currency used in the transaction
 	 * @param category The expense or income category
 	 */
-	public void addTransaction(Account account, String userAccountName, double 
+	public void addTransaction(Account account, String loginAccountName, double 
 			amount, String transactionType, String currencyType, String category) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		if (transactionType.equalsIgnoreCase("Withdrawal")) {
 			amount = -amount;
 		}
-		values.put(KEY_ACCOUNT, userAccountName);
+		values.put(KEY_ACCOUNT, loginAccountName);
 		values.put(KEY_USERACCOUNTNAME, account.getName());
 		values.put(KEY_AMOUNT, amount);
 		values.put(KEY_TRANSACTIONTYPE, transactionType);
@@ -147,7 +157,7 @@ public class DB extends SQLiteOpenHelper {
 		values.put(KEY_CATEGORY, category);
 		db.insert(TABLE_TRANSACTIONS, null, values);
 		db.close();
-		updateAccount(account, userAccountName, amount);
+		updateAccount(account, loginAccountName, amount);
 		System.out.println("just added transaction");
 	}
 
@@ -161,18 +171,32 @@ public class DB extends SQLiteOpenHelper {
 	public Account getAccount(String accountName, User user) {
 		Account returnAccount = null;
 		if (accountName != null) {
-			ArrayList<Account> accounts = getAllAccounts();
+			ArrayList<Account> accounts = getAllAccounts(user);
 			for (Account acc : accounts) {
 				if (acc != null) {
 					String userAccountName = user.get_accountName();
-					String dbUserAccountName = acc.getUserAccountName();
+					String dbUserAccountName = acc.getUser().get_accountName();
 					if (dbUserAccountName.equals(userAccountName)
 							&& acc.getName().equals(accountName)) {
 						returnAccount = new Account(acc.getName(), acc.getBalance(),
-								acc.getInterestRate(), acc.getUserAccountName(), user);
+								acc.getInterestRate(), user);
 					}
 				}
 			}
+		}
+		return returnAccount;
+	}
+	
+	/**
+	 * Retrieves the first account associated with the user
+	 * @param user The user whose account is to be retrieved
+	 * @return The first account associated with the user, null if the user has no accounts
+	 */
+	public Account getFirstAccount(User user) {
+		Account returnAccount = null;
+		ArrayList<Account> accounts = getAllAccounts(user);
+		if (!accounts.isEmpty()) {
+			returnAccount = accounts.get(0);
 		}
 		return returnAccount;
 	}
@@ -181,22 +205,28 @@ public class DB extends SQLiteOpenHelper {
 	 * Updates an account with a new balance
 	 * 
 	 * @param account The account to update
-	 * @param userAccountName The name of the user's login account
+	 * @param loginAccountName The name of the user's login account
 	 * @param amount The amount to add/subtract from the balance
 	 */
-	public void updateAccount(Account account, String userAccountName, double amount) {
+	public void updateAccount(Account account, String loginAccountName, double amount) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		String selectQuery = "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS
-				+ " WHERE " + KEY_ACCOUNT + " = " + userAccountName
-				+ " AND " + KEY_USERACCOUNTNAME + " = " + account.getUserAccountName();
+		String selectQuery = "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS + " WHERE " + KEY_ACCOUNT + "=" + "'" + loginAccountName + "' AND "
+				+ KEY_USERACCOUNTNAME + "= '" + account.getName() + "'";
+//		String selectQuery = "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS
+//				+ " WHERE " + KEY_ACCOUNT + " = " + loginAccountName
+//				+ " AND " + KEY_USERACCOUNTNAME + " = " + account.getName();
 		Cursor c = db.rawQuery(selectQuery, null);
 		if (c != null ) {
 			if  (c.moveToFirst()) {
 				double balance = c.getDouble(c.getColumnIndex(KEY_BALANCE));
 				balance += amount;
+//				String updateQuery = "Update " + TABLE_ACCOUNTS + " SET balance = "
+//						+ balance + " WHERE " + KEY_ACCOUNT + " = " + "'" + loginAccountName + "'"
+//						+ " AND " + KEY_USERACCOUNTNAME + " = " + "'" + account.getName() + "'";
 				String updateQuery = "Update " + TABLE_ACCOUNTS + " SET balance = "
-						+ balance + " WHERE " + KEY_ACCOUNT + " = " + userAccountName
-						+ " AND " + KEY_USERACCOUNTNAME + " = " + account.getUserAccountName();
+						+ balance + " WHERE " + KEY_ACCOUNT + "=" + "'" + loginAccountName + "' AND "
+						+ KEY_USERACCOUNTNAME + "= '" + account.getName() + "'";
+				System.out.println(balance);
 				db.execSQL(updateQuery);
 			}
 		}		
@@ -208,8 +238,9 @@ public class DB extends SQLiteOpenHelper {
 	 * 
 	 * @return An ArrayList containing all the accounts in the database
 	 */
-	public ArrayList<Account> getAllAccounts() {
+	public ArrayList<Account> getAllAccounts(User user) {
 		ArrayList<Account> accList = new ArrayList<Account>();
+//		String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS + " WHERE " + KEY_ACCOUNT + "= " + user.get_accountName();
 		String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS;
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery(selectQuery, null);
@@ -219,8 +250,10 @@ public class DB extends SQLiteOpenHelper {
 				String accName = c.getString(c.getColumnIndex(KEY_USERACCOUNTNAME));
 				double balance = c.getDouble((c.getColumnIndex(KEY_BALANCE)));
 				double interest = c.getDouble(c.getColumnIndex(KEY_INTERESTRATE));
-				Account account = new Account(accName, balance, interest, acc, getUser(accName));
-				accList.add(account);
+				Account account = new Account(accName, balance, interest, user);
+				if (acc.equals(user.get_accountName())) {
+					accList.add(account);
+				}
 			} while (c.moveToNext());
 		}
 		return accList;
@@ -236,14 +269,14 @@ public class DB extends SQLiteOpenHelper {
 	//		return null;
 	//	}
 
-	public void removeAccount(User user, String accountName) {
-		ArrayList<Account> accounts = user.getAccounts();
-		for(Account account : accounts) {
-			if (account.getName().equals(accountName)) {
-				accounts.remove(account);
-			}
-		}
-	}
+//	public void removeAccount(User user, String accountName) {
+//		ArrayList<Account> accounts = user.getAccounts();
+//		for(Account account : accounts) {
+//			if (account.getName().equals(accountName)) {
+//				accounts.remove(account);
+//			}
+//		}
+//	}
 
 	/**
 	 * Retrieves a user from the database

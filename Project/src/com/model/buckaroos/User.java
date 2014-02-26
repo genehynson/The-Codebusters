@@ -15,19 +15,13 @@ public class User {
 	private String _accountName;
 	private String _password;
 	private String _email;
-	private ArrayList<Account> accounts;
-	private UserAccountController controller;
-	private DB db;
 	
 	public User(String accountName, String password, String email) {
-		controller = new UserAccountController(this);
-		db = controller.getDB();
 		this._accountName = accountName;
 //		PasswordHash hasher = new PasswordHash();
 //		this._password = hasher.hashPassword(password);
 		this._password = password;
 		this._email = email;
-		accounts = new ArrayList<Account>();
 	}
 
 	public String get_accountName() {
@@ -54,28 +48,6 @@ public class User {
 
 	public void set_email(String _email) {
 		this._email = _email;
-	}
-	
-	public ArrayList<Account> getAccounts() {
-		return db.getAllAccounts();
-	}
-	
-	public void addAccount(Account account) {
-		db.addAccount(account, this);
-	}
-	
-	public boolean makeDeposit(String accountName, double amount, String 
-			currencyType, String category) {
-		db.addTransaction(db.getAccount(accountName, this), _accountName, amount,
-				"Deposit", currencyType, category);
-		return true;
-	}
-	
-	public boolean makeWithdrawal(String accountName, double amount, String 
-			currencyType, String category) {
-		db.addTransaction(db.getAccount(accountName, this), _accountName, amount,
-				"Withdrawal", currencyType, category);
-		return true;
 	}
 	
 	public boolean equals(Object o) {

@@ -1,6 +1,7 @@
 package com.ui.buckaroos;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
@@ -16,6 +18,7 @@ import com.example.buckaroos.R;
  * Transaction for Buckaroos Transaction activity.
  * 
  * @author Daniel Carnauba
+ * @version 1.0
  * 
  */
 public class Transaction extends Activity implements OnClickListener {
@@ -33,7 +36,8 @@ public class Transaction extends Activity implements OnClickListener {
     }
 
     private void initialize() {
-        amount = (EditText) findViewById(R.id.editAmount);
+    	controller = new UserAccountController(this);
+        amount = (EditText) findViewById(R.id.editText1);
         save = (Button) findViewById(R.id.saveButton);
         withdraw = (RadioButton) findViewById(R.id.withdrawButton);
         deposit = (RadioButton) findViewById(R.id.depositButton);
@@ -50,19 +54,32 @@ public class Transaction extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        // if (!etName.getText().toString().equals("")
-        // && !etEmail.getText().toString().equals("")
-        // && !etPass.getText().toString().equals("")) {
-        // AppPropertyWriter k = new AppPropertyWriter(this);
-        // k.storeAccount(etName.getText().toString(), etPass.getText()
-        // .toString(), etEmail.getText().toString());
-        // startActivity(new Intent(Transaction.this, LoginSuccess.class));
-        //
-        // } else {
-        // Toast toast = Toast.makeText(this, "All fields required.",
-        // Toast.LENGTH_SHORT);
-        // toast.show();
-        // }
+        double newAmount = 0;
+        if (!amount.getText().toString().equals("")) {
+            newAmount = Double.parseDouble(amount.getText().toString());
+            if (withdraw.isChecked()) {
+            	controller.addWithdrawal(newAmount, null, null);
+            	startActivity(new Intent(Transaction.this, LoginSuccess.class));
+            	Toast toast = Toast.makeText(this, "Withdraw Saved.",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (deposit.isChecked()) {
+            	controller.addDeposit(newAmount, null, null);
+            	Toast toast = Toast.makeText(this, "Deposit Saved.",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            	startActivity(new Intent(Transaction.this, LoginSuccess.class));            	
+            } else {
+            	Toast toast = Toast.makeText(this, "All fields required.",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        } else {
+            Toast toast = Toast.makeText(this, "All fields required.",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
     }
 

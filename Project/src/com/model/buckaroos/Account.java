@@ -13,21 +13,13 @@ public class Account {
 	private String name;
 	private double balance = 0;
 	private double interestRate;
-	private DB db;
-	private ArrayList<Transaction> transactions;
-	private UserAccountController controller;
-	private String userAccountName;
 	private User user;
 	
-	public Account(String name, double amount, double interestRate, String userAccountName, User user) {
+	public Account(String name, double amount, double interestRate, User user) {
 		this.user = user;
-		controller = new UserAccountController(user);
-		transactions = new ArrayList<Transaction>();
-		db = controller.getDB();
 		this.setName(name);
 		this.balance = amount;
 		this.setInterestRate(interestRate);
-		this.userAccountName = userAccountName;
 	}
 	
 	/**
@@ -40,21 +32,6 @@ public class Account {
 	
 	public void setBalance(int balance) {
 		this.balance = balance;
-	}
-
-	/**
-	 * Creates new transaction for this account
-	 * @param amount is the money to withdraw/deposit
-	 */
-	public void newWithdrawal(double amount, String currencyType, String category) {
-		db.addTransaction(this, userAccountName, amount, "Withdrawal", 
-				currencyType, category);
-		
-	}
-	
-	public void newDeposit(double amount, String currencyType, String category) {
-		db.addTransaction(this, userAccountName, amount, "Deposit", 
-				currencyType, category);
 	}
 
 	/**
@@ -90,14 +67,6 @@ public class Account {
 
 	public void setInterestRate(double interestRate) {
 		this.interestRate = interestRate;
-	}
-	
-	public ArrayList<Transaction> getAllTransactions() {
-		return transactions;
-	}
-
-	public String getUserAccountName() {
-		return userAccountName;
 	}
 	
 	public User getUser() {

@@ -27,27 +27,17 @@ public class UserAccountController {
 	 * 
 	 * @param user
 	 */
-	public UserAccountController(User user, DB db) {
-		this.user = user;
-		this.db = db;
-	}
-	
-	/**
-	 * User uses this constructor
-	 * @param user
-	 */
-	public UserAccountController(User user) {
+	public UserAccountController(User user, Context ctx) {
+		db = new DB(ctx);
+		this.ctx = ctx;
 		this.user = user;
 	}
 	
-	/**
-	 * UI classes use this constructor
-	 */
 	public UserAccountController(Context ctx) {
 		this.ctx = ctx;
-		//Need to make this instantiate with a user all the time in order for 
-		//database to work properly
+		db = new DB(ctx);
 	}
+
 	/**
 	 * Gets "bank" account
 	 * @param accountName
@@ -61,18 +51,18 @@ public class UserAccountController {
 	 * @param accountName
 	 */
 	public void addAccount(String accountName) {
-		currentAccount = new Account(accountName, 0, 0, user.get_accountName(), user);
+		currentAccount = new Account(accountName, 0, 0, user);
 		db.addAccount(currentAccount, user);
 	}
 
 	public void addAccount(String accountName, double amount) {
-		currentAccount = new Account(accountName, amount, 0, user.get_accountName(), user);
+		currentAccount = new Account(accountName, amount, 0, user);
 		db.addAccount(currentAccount, user);
 
 	}
 
 	public void addAccount(double interestRate, String accountName) {
-		currentAccount = new Account(accountName, 0, interestRate, user.get_accountName(), user);
+		currentAccount = new Account(accountName, 0, interestRate, user);
 		db.addAccount(currentAccount, user);
 
 
@@ -82,7 +72,7 @@ public class UserAccountController {
 		//Getting nullpointerexception here because this class can be 
 		//instantiated without a user sometimes
 		if (user != null) {
-			currentAccount = new Account(accountName, amount, interestRate, user.get_accountName(), user);
+			currentAccount = new Account(accountName, amount, interestRate, user);
 			db.addAccount(currentAccount, user);
 		} else {
 			System.out.println("User is null.");
@@ -114,14 +104,14 @@ public class UserAccountController {
 	 * @return
 	 */
 	public boolean hasAccount() {
-		return !user.getAccounts().isEmpty();
+		return db.getFirstAccount(user) != null;
 	}
 	/**
 	 * gets the first (default) "bank" account
 	 * @return
 	 */
 	public Account getFirstUserAccount() {
-		return db.getAccount(currentAccount.getName(), user);
+		return db.getFirstAccount(user);
 	}
 	
 	public void setCurrentAccount(Account account) {

@@ -72,10 +72,7 @@ public class CreateAccount extends Activity implements OnClickListener {
 			if (!interestRate.getText().toString().equals("")) {
 				interest = Double.parseDouble(interestRate.getText().toString());
 			}
-			String test = accountName.getText().toString();
-			System.out.println(test);
-			System.out.println("balance: " + balance);
-			System.out.println("interest: " + interest);
+			
 			controller.addAccount(accountName.getText().toString(), balance, interest);
 			startActivity(new Intent(CreateAccount.this, LoginSuccess.class));
 

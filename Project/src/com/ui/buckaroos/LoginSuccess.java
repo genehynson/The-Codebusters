@@ -28,8 +28,7 @@ import android.widget.Toast;
  */
 public class LoginSuccess extends Activity implements OnClickListener, OnCreateContextMenuListener {
 	
-	private Button withdraw, deposit, makeAccount;
-	private EditText amount;
+	private Button addTransaction, makeAccount;
 	private UserAccountController controller;
 
 
@@ -61,17 +60,14 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 	 * Defines fields, buttons, controller, currentAccount
 	 */
 	private void initialize() {
-		withdraw = (Button) findViewById(R.id.withdraw);
-		withdraw.setOnClickListener(this);
-		deposit = (Button) findViewById(R.id.deposit);
-		deposit.setOnClickListener(this);
+		addTransaction = (Button) findViewById(R.id.addTransaction);
+		addTransaction.setOnClickListener(this);
 		makeAccount = (Button) findViewById(R.id.createAccount);
 		makeAccount.setOnClickListener(this);
-		amount = (EditText) findViewById(R.id.amount);
 		controller = new UserAccountController(this);
-//		registerForContextMenu(makeAccount);
-		ensureCurrentAccount();
-
+		if (controller.getCurrentAccount() == null) {
+			ensureCurrentAccount();
+		}
 	}
 	/**
 	 * Gets current "bank" account
@@ -106,12 +102,8 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 			v.setId(R.id.createAccount);
 		}
 		switch (v.getId()) {
-		case R.id.withdraw:
-			controller.addWithdrawal(Integer.parseInt(amount.getText().toString()), null, null);
-			break;
-		case R.id.deposit:
-			controller.addDeposit(Integer.parseInt(amount.getText().toString()), null, null);
-			//			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
+		case R.id.addTransaction:
+			startActivity(new Intent(LoginSuccess.this, Transaction.class));
 			break;
 		case R.id.createAccount:
 			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
