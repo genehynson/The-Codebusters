@@ -54,6 +54,10 @@
             android:name="com.ui.buckaroos.AccountOverview"
             android:label="@string/title_activity_account_overview" >
         </activity>
+        <activity
+            android:name="com.ui.buckaroos.ChangeAccount"
+            android:label="@string/title_activity_change_account" >
+        </activity>
     </application>
 
 </manifest>

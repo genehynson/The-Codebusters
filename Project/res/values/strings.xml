@@ -14,5 +14,6 @@
     <string name="title_activity_create_account">CreateAcount</string>
     <string name="title_activity_transaction">Transaction</string>
     <string name="title_activity_account_overview">AccountOverview</string>
+    <string name="title_activity_change_account">ChangeAccount</string>
 
 </resources>

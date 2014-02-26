@@ -28,7 +28,7 @@ import android.widget.Toast;
  */
 public class LoginSuccess extends Activity implements OnClickListener, OnCreateContextMenuListener {
 	
-	private Button addTransaction, makeAccount, accountOverview;
+	private Button addTransaction, makeAccount, accountOverview, changeAccount;
 	private UserAccountController controller;
 
 
@@ -62,6 +62,10 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 	private void initialize() {
 		addTransaction = (Button) findViewById(R.id.addTransaction);
 		addTransaction.setOnClickListener(this);
+		accountOverview = (Button) findViewById(R.id.viewAccount);
+		accountOverview.setOnClickListener(this);
+		changeAccount = (Button) findViewById(R.id.changeAccount);
+		changeAccount.setOnClickListener(this);
 		makeAccount = (Button) findViewById(R.id.createAccount);
 		makeAccount.setOnClickListener(this);
 		controller = new UserAccountController(this);
@@ -109,7 +113,7 @@ public class LoginSuccess extends Activity implements OnClickListener, OnCreateC
 			startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
 			break;
 		case R.id.changeAccount:
-			//popup that allows user to select account
+			startActivity(new Intent(LoginSuccess.this, ChangeAccount.class));
 			break;
 		case R.id.viewAccount:
 			startActivity(new Intent(LoginSuccess.this, AccountOverview.class));
