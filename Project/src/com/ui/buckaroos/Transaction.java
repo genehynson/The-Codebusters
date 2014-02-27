@@ -7,8 +7,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -22,7 +25,7 @@ import com.example.buckaroos.R;
  * @version 1.0
  * 
  */
-public class Transaction extends Activity implements OnClickListener {
+public class Transaction extends Activity implements OnClickListener, OnCheckedChangeListener {
 
     private Button save, date;
     private EditText amount;
@@ -31,7 +34,7 @@ public class Transaction extends Activity implements OnClickListener {
     private DateChooser dateChooser;
     private TimePicker time;
     private static boolean dateChanged = false;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +51,10 @@ public class Transaction extends Activity implements OnClickListener {
         date = (Button) findViewById(R.id.dateButton);
         date.setOnClickListener(this);
         withdraw = (RadioButton) findViewById(R.id.withdrawButton);
+        withdraw.setOnCheckedChangeListener(this);
         deposit = (RadioButton) findViewById(R.id.depositButton);
+        deposit.setOnCheckedChangeListener(this);
+        deposit.setChecked(true);
         time = (TimePicker) findViewById(R.id.timePicker);
         getActionBar().hide();
         if (dateChanged) {
@@ -68,16 +74,18 @@ public class Transaction extends Activity implements OnClickListener {
         double newAmount = 0;
         switch (v.getId()) {
 		case R.id.saveButton:
+			int hour = time.getCurrentHour();
+			int minute = time.getCurrentMinute();
 			if (!amount.getText().toString().equals("")) {
 				newAmount = Double.parseDouble(amount.getText().toString());
 				if (withdraw.isChecked()) {
-					controller.addWithdrawal(newAmount, null, null);
+					controller.addWithdrawal(newAmount, null, null, hour, minute);
 					startActivity(new Intent(Transaction.this, LoginSuccess.class));
 					Toast toast = Toast.makeText(this, "Withdraw Saved.",
 							Toast.LENGTH_SHORT);
 					toast.show();
 				} else if (deposit.isChecked()) {
-					controller.addDeposit(newAmount, null, null);
+					controller.addDeposit(newAmount, null, null, hour, minute);
 					Toast toast = Toast.makeText(this, "Deposit Saved.",
 							Toast.LENGTH_SHORT);
 					toast.show();
@@ -87,7 +95,6 @@ public class Transaction extends Activity implements OnClickListener {
 							Toast.LENGTH_SHORT);
 					toast.show();
 				}
-				//add time catcher
 
 			} else {
 				Toast toast = Toast.makeText(this, "All fields required.",
@@ -100,5 +107,18 @@ public class Transaction extends Activity implements OnClickListener {
 			startActivity(new Intent(Transaction.this, DateChooser.class));
         }
     }
+
+    //TODO: this doesn't work
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		if(buttonView.equals(withdraw) && deposit.isChecked()) {
+			deposit.setChecked(false);
+			withdraw.setChecked(true);
+		} else if (buttonView.equals(deposit) && withdraw.isChecked()) {
+			withdraw.setChecked(false);
+			deposit.setChecked(true);
+		}
+		
+	}
 
 }

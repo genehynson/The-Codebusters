@@ -38,41 +38,44 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int BuckroosTitle=0x7f09000d;
         public static final int accountName=0x7f090004;
-        public static final int action_settings=0x7f090023;
-        public static final int addTransaction=0x7f090016;
-        public static final int bLog=0x7f090021;
+        public static final int accountsListText=0x7f090000;
+        public static final int accountsListView=0x7f090001;
+        public static final int action_settings=0x7f090026;
+        public static final int addTransaction=0x7f090017;
+        public static final int bLog=0x7f090022;
         public static final int bLogin=0x7f090011;
-        public static final int bReg=0x7f090022;
-        public static final int bRegister=0x7f090018;
-        public static final int changeAccount=0x7f090001;
+        public static final int bReg=0x7f090023;
+        public static final int bRegister=0x7f090019;
+        public static final int changeAccount=0x7f090015;
         public static final int create=0x7f090007;
         public static final int createAccount=0x7f090014;
-        public static final int currentAccountText=0x7f090015;
-        public static final int dateButton=0x7f09001d;
+        public static final int currentAccountText=0x7f090016;
+        public static final int dateButton=0x7f09001e;
         public static final int datePicker=0x7f09000a;
-        public static final int depositButton=0x7f090020;
-        public static final int editText1=0x7f09001c;
-        public static final int etEmail=0x7f090019;
+        public static final int depositButton=0x7f090021;
+        public static final int editText1=0x7f09001d;
+        public static final int etEmail=0x7f09001a;
         public static final int etLPass=0x7f09000e;
-        public static final int etName=0x7f09001a;
+        public static final int etName=0x7f09001b;
         public static final int etPass=0x7f090010;
         public static final int etUser=0x7f09000c;
         public static final int interestRate=0x7f090006;
+        public static final int item_userAccountBalance=0x7f090025;
+        public static final int item_userAccountName=0x7f090024;
         public static final int loginsuccess=0x7f090013;
-        public static final int logout=0x7f090024;
+        public static final int logout=0x7f090027;
         public static final int passwordText=0x7f09000f;
-        public static final int saveButton=0x7f09001b;
-        public static final int saveChangeAccount=0x7f090002;
+        public static final int saveButton=0x7f09001c;
         public static final int saveDate=0x7f09000b;
         public static final int startingBalance=0x7f090005;
-        public static final int textView1=0x7f090000;
-        public static final int textView2=0x7f090003;
+        public static final int textView1=0x7f090003;
+        public static final int textView2=0x7f090002;
         public static final int textView3=0x7f090009;
         public static final int textView4=0x7f090008;
-        public static final int timePicker=0x7f09001e;
+        public static final int timePicker=0x7f09001f;
         public static final int usernameText=0x7f090012;
-        public static final int viewAccount=0x7f090017;
-        public static final int withdrawButton=0x7f09001f;
+        public static final int viewAccount=0x7f090018;
+        public static final int withdrawButton=0x7f090020;
     }
     public static final class layout {
         public static final int activity_account_overview=0x7f030000;
@@ -84,6 +87,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_register=0x7f030006;
         public static final int activity_transaction=0x7f030007;
         public static final int activity_welcome_screen=0x7f030008;
+        public static final int item_view=0x7f030009;
     }
     public static final class menu {
         public static final int account_overview=0x7f080000;

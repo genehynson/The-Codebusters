@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,33 +7,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ChangeAccount" >
+    tools:context=".AccountOverview" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/accountsListText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter Account Name"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="My Accounts"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/changeAccount"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/accountsListView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:ems="10" >
+        android:layout_alignLeft="@+id/accountsListText"
+        android:layout_below="@+id/accountsListText" >
 
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/saveChangeAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="107dp"
-        android:text="Save" />
+    </ListView>
 
 </RelativeLayout>

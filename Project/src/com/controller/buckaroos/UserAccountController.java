@@ -80,16 +80,19 @@ public class UserAccountController {
 
 
 	}
+	//TODO: add time/date to database
 	/**
 	 * Add transactions to the current account
 	 * @param amount
+	 * @param minute 
+	 * @param hour 
 	 */
-	public void addWithdrawal(double amount, String currencyType, String category) {
+	public void addWithdrawal(double amount, String currencyType, String category, int hour, int minute) {
 		db.addTransaction(currentAccount, user.get_accountName(), amount, "Withdrawal",
 				currencyType, category);
 	}
 
-	public void addDeposit(double amount, String currencyType, String category) {
+	public void addDeposit(double amount, String currencyType, String category, int hour, int minute) {
 		db.addTransaction(currentAccount, user.get_accountName(), amount, "Deposit",
 				currencyType, category);
 	}
@@ -139,5 +142,9 @@ public class UserAccountController {
 	
 	public User getCurrentUser() {
 		return user;
+	}
+	
+	public ArrayList<Account> getAllUserAccounts() {
+		return db.getAllAccounts(user);
 	}
 }
