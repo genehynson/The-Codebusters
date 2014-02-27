@@ -33,7 +33,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:text="Change Account" />
+        android:text="View Accounts" />
 
     <TextView
         android:id="@+id/currentAccountText"
