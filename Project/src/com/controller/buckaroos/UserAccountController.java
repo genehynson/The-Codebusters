@@ -150,7 +150,6 @@ public class UserAccountController {
 	}
 	
 	public ArrayList<AccountTransaction> getAllAccountTransactions() {
-		return (new ArrayList<AccountTransaction>());
-		//should get from DB
+		return db.getAllAccountTransactions(currentAccount, user);
 	}
 }
