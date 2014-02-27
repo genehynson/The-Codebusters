@@ -64,7 +64,7 @@ public class Register extends Activity implements OnClickListener {
 		if(!etName.getText().toString().equals("") && !etEmail.getText().toString().equals("") && !etPass.getText().toString().equals("")) {
 			if (controller.getLoginAccount(etName.getText().toString()) == null) {
 				controller.addLoginAccount(etName.getText().toString(), etPass.getText().toString(), etEmail.getText().toString());
-				startActivity(new Intent(Register.this, LoginSuccess.class));
+				startActivity(new Intent(Register.this, CreateAccount.class));
 			} else {
 				Toast toast = Toast.makeText(this, "Account already exists", Toast.LENGTH_SHORT);
 				toast.show();

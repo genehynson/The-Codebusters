@@ -259,25 +259,6 @@ public class DB extends SQLiteOpenHelper {
 		return accList;
 	}
 
-	//	public Account getAccount(User user, String accountName) {
-	//		ArrayList<Account> accounts = user.getAccounts();
-	//		for(Account account : accounts) {
-	//			if (account.getName().equals(accountName)) {
-	//				return account;
-	//			}
-	//		}
-	//		return null;
-	//	}
-
-//	public void removeAccount(User user, String accountName) {
-//		ArrayList<Account> accounts = user.getAccounts();
-//		for(Account account : accounts) {
-//			if (account.getName().equals(accountName)) {
-//				accounts.remove(account);
-//			}
-//		}
-//	}
-
 	/**
 	 * Retrieves a user from the database
 	 * 
@@ -392,4 +373,15 @@ public class DB extends SQLiteOpenHelper {
 	//        database.close();
 	//    }
 
+	
+	
+	/**
+	 * JORDAN!!! CHICKEN!!!! Please add this method:
+	 */
+	/**
+	 * @return an arraylist with all of the transactions for one account
+	 */
+	public ArrayList<AccountTransaction> getAllAccountTransactions(Account account) {
+		return null;
+	}
 }

@@ -5,7 +5,7 @@ package com.model.buckaroos;
  * @author Gene
  *
  */
-public class Transaction {
+public class AccountTransaction {
 	
 	private double amount;
 	private String type;
@@ -13,7 +13,7 @@ public class Transaction {
 	private String category;
 	private String time;
 
-	public Transaction(double amount, String currency, String type, String category, String time) {
+	public AccountTransaction(double amount, String currency, String type, String category, String time) {
 		
 		this.type = type;
 		this.amount = amount;

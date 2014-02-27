@@ -1,12 +1,13 @@
 package com.controller.buckaroos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 
 import com.model.buckaroos.Account;
 import com.model.buckaroos.DB;
-import com.model.buckaroos.Transaction;
+import com.model.buckaroos.AccountTransaction;
 import com.model.buckaroos.User;
 import com.password.buckaroos.AppPropertyWriter;
 import com.password.buckaroos.CredentialConfirmer;
@@ -146,5 +147,10 @@ public class UserAccountController {
 	
 	public ArrayList<Account> getAllUserAccounts() {
 		return db.getAllAccounts(user);
+	}
+	
+	public ArrayList<AccountTransaction> getAllAccountTransactions() {
+		return (new ArrayList<AccountTransaction>());
+		//should get from DB
 	}
 }

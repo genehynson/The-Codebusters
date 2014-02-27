@@ -63,13 +63,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
@@ -81,7 +85,8 @@ import com.model.buckaroos.Account;
  */
 public class ChangeAccount extends Activity {
     private List<Account> userAccounts = new ArrayList<Account>();
-
+    UserAccountController controller = new UserAccountController(this);
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -96,19 +101,24 @@ public class ChangeAccount extends Activity {
         populateAccountList();
         populateListView();
 
-        // listView.setOnItemClickListener(new OnItemClickListener() {
-        // public void onItemClick(AdapterView<?> parent, View view,
-        // int position, long id) {
-        // // When clicked, show a toast with the TextView text
-        // Toast.makeText(getApplicationContext(),
-        // ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-        // }
-        // });
+        registerClickCallback();
 
     }
 
-    private void populateAccountList() {
-        UserAccountController controller = new UserAccountController(this);
+    private void registerClickCallback() {
+    	ListView listView = (ListView) findViewById(R.id.accountsListView);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+        	public void onItemClick(AdapterView<?> parent, View view,
+        			int position, long id) {
+        		// When clicked, show a toast with the TextView text
+        		Account clickedAccount = userAccounts.get(position);
+        		controller.setCurrentAccount(clickedAccount);
+        		startActivity(new Intent(ChangeAccount.this, AccountOverview.class));
+        	}
+        });		
+	}
+
+	private void populateAccountList() {
         userAccounts = controller.getAllUserAccounts();
     }
 
