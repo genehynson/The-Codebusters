@@ -61,6 +61,6 @@
         android:layout_above="@+id/createAccount"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="28dp"
-        android:text="View Account Overview" />
+        android:text="View Transaction History" />
     
 </RelativeLayout>
