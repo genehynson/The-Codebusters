@@ -1,5 +1,6 @@
 package com.model.buckaroos;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
@@ -37,7 +38,7 @@ public class DB extends SQLiteOpenHelper {
     private static final String KEY_CATEGORY = "Category";
 
     public DB(Context applicationcontext) {
-        super(applicationcontext, "app.db", null, 1);
+        super(applicationcontext, "app2.db", null, 1);
         Log.d(LOGCAT, "Created");
     }
 
@@ -408,9 +409,17 @@ public class DB extends SQLiteOpenHelper {
         // type, String category, String time)
         ArrayList<AccountTransaction> transactionList = new ArrayList<AccountTransaction>();
         System.out.println("pre query");
-        String selectQuery = "SELECT  * FROM " + TABLE_TRANSACTIONS + " WHERE "
-                + KEY_LOGINACCOUNT + " = '" + user.get_accountName() + "' AND "
-                + KEY_USERACCOUNTNAME + " = '" + account.getName() + "'";
+        // String selectQuery = "SELECT  * FROM " + TABLE_TRANSACTIONS +
+        // " WHERE "
+        // + KEY_LOGINACCOUNT + " = '" + user.get_accountName() + "' AND "
+        // + KEY_USERACCOUNTNAME + " = '" + account.getName() + "'";
+        String selectQuery = "SELECT " + KEY_AMOUNT + ", "
+                + KEY_TRANSACTIONTYPE + ", " + KEY_CURRENCYTYPE + ", "
+                + KEY_CATEGORY + ", "
+                + "(strftime('%s', CreationDate) * 1000) AS CreationDate FROM "
+                + TABLE_TRANSACTIONS + " WHERE " + KEY_LOGINACCOUNT + " = '"
+                + user.get_accountName() + "' AND " + KEY_USERACCOUNTNAME
+                + " = '" + account.getName() + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         System.out.println("executed query");
@@ -422,6 +431,9 @@ public class DB extends SQLiteOpenHelper {
                 String currencyType = c.getString((c
                         .getColumnIndex(KEY_CURRENCYTYPE)));
                 String category = c.getString((c.getColumnIndex(KEY_CATEGORY)));
+                long millis = c.getLong(c
+                        .getColumnIndexOrThrow(KEY_CREATIONDATE));
+                Date date = new Date(millis);
                 // Timestamp date = Timestamp.valueOf(c.getString(c
                 // .getColumnIndex(KEY_CREATIONDATE)));
                 // Date date =
@@ -431,7 +443,7 @@ public class DB extends SQLiteOpenHelper {
                 // Account account = new Account(accName, balance, interest,
                 // user);
                 AccountTransaction transaction = new AccountTransaction(amount,
-                        currencyType, transactionType, category, null);
+                        currencyType, transactionType, category, date);
                 transactionList.add(transaction);
 
             } while (c.moveToNext());
