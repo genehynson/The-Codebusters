@@ -9,8 +9,8 @@ import com.model.buckaroos.Account;
 import com.model.buckaroos.DB;
 import com.model.buckaroos.AccountTransaction;
 import com.model.buckaroos.User;
-import com.password.buckaroos.AppPropertyWriter;
-import com.password.buckaroos.CredentialConfirmer;
+import com.utility.buckaroos.AppPropertyWriter;
+import com.utility.buckaroos.CredentialConfirmer;
 /**
  * Controller between activities and User/Account
  * @author Gene

@@ -2,7 +2,7 @@ package com.ui.buckaroos;
 
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
-import com.password.buckaroos.AppPropertyWriter;
+import com.utility.buckaroos.AppPropertyWriter;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.password.buckaroos;
+package com.utility.buckaroos;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

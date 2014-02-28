@@ -4,8 +4,8 @@ import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 import com.model.buckaroos.Account;
 import com.model.buckaroos.User;
-import com.password.buckaroos.AppPropertyWriter;
-import com.password.buckaroos.CredentialConfirmer;
+import com.utility.buckaroos.AppPropertyWriter;
+import com.utility.buckaroos.CredentialConfirmer;
 
 import android.os.Bundle;
 import android.app.Activity;

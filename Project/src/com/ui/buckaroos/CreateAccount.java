@@ -6,7 +6,7 @@ import com.example.buckaroos.R.id;
 import com.example.buckaroos.R.layout;
 import com.example.buckaroos.R.menu;
 import com.model.buckaroos.User;
-import com.password.buckaroos.AppPropertyWriter;
+import com.utility.buckaroos.AppPropertyWriter;
 
 import android.os.Bundle;
 import android.app.Activity;

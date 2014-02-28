@@ -1,4 +1,4 @@
-package com.password.buckaroos;
+package com.utility.buckaroos;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

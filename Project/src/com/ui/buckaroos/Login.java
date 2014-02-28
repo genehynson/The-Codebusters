@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
-import com.password.buckaroos.AppPropertyWriter;
-import com.password.buckaroos.CredentialConfirmer;
+import com.utility.buckaroos.AppPropertyWriter;
+import com.utility.buckaroos.CredentialConfirmer;
 /**
  * Login activity for app
  * @author Gene
