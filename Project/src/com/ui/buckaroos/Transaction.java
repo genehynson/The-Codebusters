@@ -35,6 +35,9 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
     private DateChooser dateChooser;
     private TimePicker time;
     private static boolean dateChanged = false;
+    private int day;
+    private int year;
+    private int month;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +57,14 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
         withdraw = (RadioButton) findViewById(R.id.withdrawButton);
         deposit = (RadioButton) findViewById(R.id.depositButton);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-//        radioGroup.addView(withdraw);
-//        radioGroup.addView(deposit);
         radioGroup.setOnCheckedChangeListener(this);
         time = (TimePicker) findViewById(R.id.timePicker);
         getActionBar().hide();
+        day = dateChooser.getDay();
+        month = dateChooser.getMonth();
+        year = dateChooser.getYear() + 1;
         if (dateChanged) {
-        	date.setText(String.valueOf(dateChooser.getMonth() + 1) + "/" + String.valueOf(dateChooser.getDay()) + "/" + String.valueOf(dateChooser.getYear()));
+        	date.setText(String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year));
         }
     }
 
@@ -81,13 +85,13 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
 			if (!amount.getText().toString().equals("")) {
 				newAmount = Double.parseDouble(amount.getText().toString());
 				if (withdraw.isChecked()) {
-					controller.addWithdrawal(newAmount, null, null, hour, minute);
+					controller.addWithdrawal(newAmount, null, null, hour, minute, day, month, year);
 					startActivity(new Intent(Transaction.this, LoginSuccess.class));
 					Toast toast = Toast.makeText(this, "Withdraw Saved.",
 							Toast.LENGTH_SHORT);
 					toast.show();
 				} else if (deposit.isChecked()) {
-					controller.addDeposit(newAmount, null, null, hour, minute);
+					controller.addDeposit(newAmount, null, null, hour, minute, day, month, year);
 					Toast toast = Toast.makeText(this, "Deposit Saved.",
 							Toast.LENGTH_SHORT);
 					toast.show();

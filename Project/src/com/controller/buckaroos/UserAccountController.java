@@ -88,12 +88,12 @@ public class UserAccountController {
 	 * @param minute 
 	 * @param hour 
 	 */
-	public void addWithdrawal(double amount, String currencyType, String category, int hour, int minute) {
+	public void addWithdrawal(double amount, String currencyType, String category, int hour, int minute, int day, int month, int year) {
 		db.addTransaction(currentAccount, user.get_accountName(), amount, "Withdrawal",
 				currencyType, category);
 	}
 
-	public void addDeposit(double amount, String currencyType, String category, int hour, int minute) {
+	public void addDeposit(double amount, String currencyType, String category, int hour, int minute, int day, int month, int year) {
 		db.addTransaction(currentAccount, user.get_accountName(), amount, "Deposit",
 				currencyType, category);
 	}
