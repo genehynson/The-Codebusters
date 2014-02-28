@@ -35,48 +35,50 @@
         android:layout_marginTop="14dp"
         android:text="Today" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/accountText"
-        android:layout_centerHorizontal="true"
-        android:text="Enter Amount"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <RadioButton
-        android:id="@+id/withdrawButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/timePicker"
-        android:layout_below="@+id/editText1"
-        android:text="Withdraw" />
-
-    <RadioButton
-        android:id="@+id/depositButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/timePicker"
-        android:layout_marginBottom="27dp"
-        android:layout_toLeftOf="@+id/dateButton"
-        android:text="Deposit" />
-
     <TimePicker
         android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
+   
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+    <RadioButton
+        android:id="@+id/withdrawButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Withdraw" />
+
+    <RadioButton
+        android:id="@+id/depositButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deposit" />
+
+     </RadioGroup>
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/depositButton"
-        android:layout_centerHorizontal="true"
-        android:ems="10" >
+        android:layout_above="@+id/timePicker"
+        android:layout_alignLeft="@+id/timePicker"
+        android:layout_marginBottom="32dp"
+        android:ems="10" />
 
-        <requestFocus />
-    </EditText>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_centerHorizontal="true"
+        android:text="Enter Amount"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

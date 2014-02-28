@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -25,11 +25,12 @@ import com.example.buckaroos.R;
  * @version 1.0
  * 
  */
-public class Transaction extends Activity implements OnClickListener, OnCheckedChangeListener {
+public class Transaction extends Activity implements OnClickListener, OnCheckedChangeListener  {
 
     private Button save, date;
     private EditText amount;
     private RadioButton withdraw, deposit;
+    private RadioGroup radioGroup;
     private UserAccountController controller;
     private DateChooser dateChooser;
     private TimePicker time;
@@ -51,10 +52,11 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
         date = (Button) findViewById(R.id.dateButton);
         date.setOnClickListener(this);
         withdraw = (RadioButton) findViewById(R.id.withdrawButton);
-        withdraw.setOnCheckedChangeListener(this);
         deposit = (RadioButton) findViewById(R.id.depositButton);
-        deposit.setOnCheckedChangeListener(this);
-        deposit.setChecked(true);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+//        radioGroup.addView(withdraw);
+//        radioGroup.addView(deposit);
+        radioGroup.setOnCheckedChangeListener(this);
         time = (TimePicker) findViewById(R.id.timePicker);
         getActionBar().hide();
         if (dateChanged) {
@@ -108,17 +110,9 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
         }
     }
 
-    //TODO: this doesn't work
 	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if(buttonView.equals(withdraw) && deposit.isChecked()) {
-			deposit.setChecked(false);
-			withdraw.setChecked(true);
-		} else if (buttonView.equals(deposit) && withdraw.isChecked()) {
-			withdraw.setChecked(false);
-			deposit.setChecked(true);
-		}
-		
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		group.check(checkedId);
 	}
 
 }

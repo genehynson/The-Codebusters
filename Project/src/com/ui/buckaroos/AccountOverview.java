@@ -52,12 +52,12 @@ public class AccountOverview extends Activity implements OnClickListener {
     }
 
     private void populateAccountList() {
-//        accountTransaction = controller.getAllAccountTransactions();
-    	accountTransaction.add(new AccountTransaction(1, "dollars", "withdraw", "Shopping", "4:00"));
-    	accountTransaction.add(new AccountTransaction(2, "dollars", "withdraw", "Shopping", "4:00"));
-    	accountTransaction.add(new AccountTransaction(3, "dollars", "deposit", "Shopping", "4:00"));
-    	accountTransaction.add(new AccountTransaction(4, "dollars", "withdraw", "Shopping", "4:00"));
-    	accountTransaction.add(new AccountTransaction(5, "dollars", "deposit", "Shopping", "4:00"));
+        accountTransaction = controller.getAllAccountTransactions();
+//    	accountTransaction.add(new AccountTransaction(1, "dollars", "withdraw", "Shopping", "4:00"));
+//    	accountTransaction.add(new AccountTransaction(2, "dollars", "withdraw", "Shopping", "4:00"));
+//    	accountTransaction.add(new AccountTransaction(3, "dollars", "deposit", "Shopping", "4:00"));
+//    	accountTransaction.add(new AccountTransaction(4, "dollars", "withdraw", "Shopping", "4:00"));
+//    	accountTransaction.add(new AccountTransaction(5, "dollars", "deposit", "Shopping", "4:00"));
 
     }
 
