@@ -1,4 +1,3 @@
-//package com.ui.buckaroos;
 //
 //import com.controller.buckaroos.UserAccountController;
 //import com.example.buckaroos.R;
@@ -73,7 +72,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
@@ -86,7 +84,7 @@ import com.model.buckaroos.Account;
 public class ChangeAccount extends Activity {
     private List<Account> userAccounts = new ArrayList<Account>();
     UserAccountController controller = new UserAccountController(this);
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -106,19 +104,20 @@ public class ChangeAccount extends Activity {
     }
 
     private void registerClickCallback() {
-    	ListView listView = (ListView) findViewById(R.id.accountsListView);
+        ListView listView = (ListView) findViewById(R.id.accountsListView);
         listView.setOnItemClickListener(new OnItemClickListener() {
-        	public void onItemClick(AdapterView<?> parent, View view,
-        			int position, long id) {
-        		// When clicked, show a toast with the TextView text
-        		Account clickedAccount = userAccounts.get(position);
-        		controller.setCurrentAccount(clickedAccount);
-        		startActivity(new Intent(ChangeAccount.this, AccountOverview.class));
-        	}
-        });		
-	}
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                // When clicked, show a toast with the TextView text
+                Account clickedAccount = userAccounts.get(position);
+                controller.setCurrentAccount(clickedAccount);
+                startActivity(new Intent(ChangeAccount.this,
+                        AccountOverview.class));
+            }
+        });
+    }
 
-	private void populateAccountList() {
+    private void populateAccountList() {
         userAccounts = controller.getAllUserAccounts();
     }
 

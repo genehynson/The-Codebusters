@@ -99,9 +99,9 @@ public class DB extends SQLiteOpenHelper {
     public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_LOGINACCOUNT, user.get_accountName());
-        values.put(KEY_PASSWORD, user.get_password());
-        values.put(KEY_EMAIL, user.get_email());
+        values.put(KEY_LOGINACCOUNT, user.getAccountName());
+        values.put(KEY_PASSWORD, user.getPassword());
+        values.put(KEY_EMAIL, user.getEmail());
         db.insert(TABLE_CREDENTIALS, null, values);
         System.out.println("just added");
         db.close();
@@ -117,7 +117,7 @@ public class DB extends SQLiteOpenHelper {
     public void addAccount(Account account, User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_LOGINACCOUNT, user.get_accountName());
+        values.put(KEY_LOGINACCOUNT, user.getAccountName());
         values.put(KEY_USERACCOUNTNAME, account.getName());
         values.put(KEY_BALANCE, account.getBalance());
         values.put(KEY_INTERESTRATE, account.getInterestRate());
@@ -126,7 +126,7 @@ public class DB extends SQLiteOpenHelper {
         db.insert(TABLE_ACCOUNTS, null, values);
         String query = "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS
                 + " WHERE " + KEY_LOGINACCOUNT + "=" + "'"
-                + user.get_accountName() + "'";
+                + user.getAccountName() + "'";
         // String query = "SELECT Balance FROM " + TABLE_ACCOUNTS;
         System.out.println(query);
         Cursor c = db.rawQuery(query, null);
@@ -188,8 +188,8 @@ public class DB extends SQLiteOpenHelper {
             ArrayList<Account> accounts = getAllAccounts(user);
             for (Account acc : accounts) {
                 if (acc != null) {
-                    String userAccountName = user.get_accountName();
-                    String dbUserAccountName = acc.getUser().get_accountName();
+                    String userAccountName = user.getAccountName();
+                    String dbUserAccountName = acc.getUser().getAccountName();
                     if (dbUserAccountName.equals(userAccountName)
                             && acc.getName().equals(accountName)) {
                         returnAccount = new Account(acc.getName(),
@@ -279,7 +279,7 @@ public class DB extends SQLiteOpenHelper {
                 double interest = c.getDouble(c
                         .getColumnIndex(KEY_INTERESTRATE));
                 Account account = new Account(accName, balance, interest, user);
-                if (acc.equals(user.get_accountName())) {
+                if (acc.equals(user.getAccountName())) {
                     accList.add(account);
                 }
             } while (c.moveToNext());
@@ -313,10 +313,10 @@ public class DB extends SQLiteOpenHelper {
             ArrayList<User> users = getAllUsers();
             for (User user : users) {
                 if (user != null) {
-                    String acc = user.get_accountName();
+                    String acc = user.getAccountName();
                     if (accountName.equals(acc)) {
-                        returnUser = new User(user.get_accountName(),
-                                user.get_password(), user.get_email());
+                        returnUser = new User(user.getAccountName(),
+                                user.getPassword(), user.getEmail());
                     }
                 }
             }
@@ -357,10 +357,10 @@ public class DB extends SQLiteOpenHelper {
     public int updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_PASSWORD, user.get_password());
-        values.put(KEY_EMAIL, user.get_email());
+        values.put(KEY_PASSWORD, user.getPassword());
+        values.put(KEY_EMAIL, user.getEmail());
         return db.update(TABLE_CREDENTIALS, values, KEY_LOGINACCOUNT + " = ?",
-                new String[] { user.get_accountName() });
+                new String[] { user.getAccountName() });
     }
 
     /**
@@ -376,8 +376,8 @@ public class DB extends SQLiteOpenHelper {
         boolean isPasswordCorrect = false;
         for (User user : userList) {
             if (accountName != null) {
-                if (accountName.equals(user.get_accountName())
-                        && password.equals(user.get_password())) {
+                if (accountName.equals(user.getAccountName())
+                        && password.equals(user.getPassword())) {
                     isPasswordCorrect = true;
                 }
             }
@@ -422,10 +422,10 @@ public class DB extends SQLiteOpenHelper {
         String selectQuery = "SELECT " + KEY_AMOUNT + ", "
                 + KEY_TRANSACTIONTYPE + ", " + KEY_CURRENCYTYPE + ", "
                 + KEY_CATEGORY + ", " + KEY_TRANSACTIONDATE + ", "
-                + KEY_TRANSACTIONTIME + ", " 
+                + KEY_TRANSACTIONTIME + ", "
                 + "(strftime('%s', CreationDate) * 1000) AS CreationDate FROM "
                 + TABLE_TRANSACTIONS + " WHERE " + KEY_LOGINACCOUNT + " = '"
-                + user.get_accountName() + "' AND " + KEY_USERACCOUNTNAME
+                + user.getAccountName() + "' AND " + KEY_USERACCOUNTNAME
                 + " = '" + account.getName() + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);

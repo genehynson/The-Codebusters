@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,7 +24,8 @@ import com.example.buckaroos.R;
  * @version 1.0
  * 
  */
-public class Transaction extends Activity implements OnClickListener, OnCheckedChangeListener  {
+public class Transaction extends Activity implements OnClickListener,
+        OnCheckedChangeListener {
 
     private Button save, date;
     private EditText amount;
@@ -38,7 +38,7 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
     private int day;
     private int year;
     private int month;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +47,8 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
     }
 
     private void initialize() {
-    	controller = new UserAccountController(this);
-    	dateChooser = new DateChooser();
+        controller = new UserAccountController(this);
+        dateChooser = new DateChooser();
         amount = (EditText) findViewById(R.id.editText1);
         save = (Button) findViewById(R.id.saveButton);
         save.setOnClickListener(this);
@@ -64,7 +64,8 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
         month = dateChooser.getMonth();
         year = dateChooser.getYear() + 1;
         if (dateChanged) {
-        	date.setText(String.valueOf(month) + "/" + String.valueOf(day) + "/" + String.valueOf(year));
+            date.setText(String.valueOf(month) + "/" + String.valueOf(day)
+                    + "/" + String.valueOf(year));
         }
     }
 
@@ -79,44 +80,48 @@ public class Transaction extends Activity implements OnClickListener, OnCheckedC
     public void onClick(View v) {
         double newAmount = 0;
         switch (v.getId()) {
-		case R.id.saveButton:
-			int hour = time.getCurrentHour();
-			int minute = time.getCurrentMinute();
-			if (!amount.getText().toString().equals("")) {
-				newAmount = Double.parseDouble(amount.getText().toString());
-				if (withdraw.isChecked()) {
-					controller.addWithdrawal(newAmount, null, null, hour, minute, day, month, year);
-					startActivity(new Intent(Transaction.this, LoginSuccess.class));
-					Toast toast = Toast.makeText(this, "Withdraw Saved.",
-							Toast.LENGTH_SHORT);
-					toast.show();
-				} else if (deposit.isChecked()) {
-					controller.addDeposit(newAmount, null, null, hour, minute, day, month, year);
-					Toast toast = Toast.makeText(this, "Deposit Saved.",
-							Toast.LENGTH_SHORT);
-					toast.show();
-					startActivity(new Intent(Transaction.this, LoginSuccess.class));            	
-				} else {
-					Toast toast = Toast.makeText(this, "All fields required.",
-							Toast.LENGTH_SHORT);
-					toast.show();
-				}
+        case R.id.saveButton:
+            int hour = time.getCurrentHour();
+            int minute = time.getCurrentMinute();
+            if (!amount.getText().toString().equals("")) {
+                newAmount = Double.parseDouble(amount.getText().toString());
+                if (withdraw.isChecked()) {
+                    controller.addWithdrawal(newAmount, null, null, hour,
+                            minute, day, month, year);
+                    startActivity(new Intent(Transaction.this,
+                            LoginSuccess.class));
+                    Toast toast = Toast.makeText(this, "Withdraw Saved.",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                } else if (deposit.isChecked()) {
+                    controller.addDeposit(newAmount, null, null, hour, minute,
+                            day, month, year);
+                    Toast toast = Toast.makeText(this, "Deposit Saved.",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(Transaction.this,
+                            LoginSuccess.class));
+                } else {
+                    Toast toast = Toast.makeText(this, "All fields required.",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
 
-			} else {
-				Toast toast = Toast.makeText(this, "All fields required.",
-						Toast.LENGTH_SHORT);
-				toast.show();
-			}
-			break;
-		case R.id.dateButton:
-			dateChanged = true;
-			startActivity(new Intent(Transaction.this, DateChooser.class));
+            } else {
+                Toast toast = Toast.makeText(this, "All fields required.",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            break;
+        case R.id.dateButton:
+            dateChanged = true;
+            startActivity(new Intent(Transaction.this, DateChooser.class));
         }
     }
 
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		group.check(checkedId);
-	}
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        group.check(checkedId);
+    }
 
 }

@@ -1,9 +1,5 @@
 package com.model.buckaroos;
 
-import java.util.ArrayList;
-
-import com.controller.buckaroos.UserAccountController;
-
 /**
  * Class designed to store the user's credentials
  * 
@@ -11,54 +7,57 @@ import com.controller.buckaroos.UserAccountController;
  * @version 1.0
  */
 public class User {
-	
-	private String _accountName;
-	private String _password;
-	private String _email;
-	
-	public User(String accountName, String password, String email) {
-		this._accountName = accountName;
-//		PasswordHash hasher = new PasswordHash();
-//		this._password = hasher.hashPassword(password);
-		this._password = password;
-		this._email = email;
-	}
 
-	public String get_accountName() {
-		return _accountName;
-	}
+    private String accountName;
+    private String password;
+    private String email;
 
-	public void set_accountName(String _accountName) {
-		this._accountName = _accountName;
-	}
+    public User(String accountName, String password, String email) {
+        this.accountName = accountName;
+        // PasswordHash hasher = new PasswordHash();
+        // this._password = hasher.hashPassword(password);
+        this.password = password;
+        this.email = email;
+    }
 
-	public String get_password() {
-		return _password;
-	}
+    public String getAccountName() {
+        return accountName;
+    }
 
-	public void set_password(String _password) {
-//		PasswordHash hasher = new PasswordHash();
-//		this._password = hasher.hashPassword(_password);
-		this._password = _password;
-	}
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
 
-	public String get_email() {
-		return _email;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void set_email(String _email) {
-		this._email = _email;
-	}
-	
-	public boolean equals(Object o) {
-		if (o == null) return false;
-		if (o == this) return true;
-		if (o instanceof Account){
-			if (((User) o).get_accountName().equals(this.get_accountName()) && ((User) o).get_email() == this.get_email()) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
+    public void setPassword(String password) {
+        // PasswordHash hasher = new PasswordHash();
+        // this._password = hasher.hashPassword(_password);
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
+        if (o == this)
+            return true;
+        if (o instanceof Account) {
+            if (((User) o).getAccountName().equals(this.getAccountName())
+                    && ((User) o).getEmail() == this.getEmail()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

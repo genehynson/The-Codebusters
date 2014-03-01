@@ -11,11 +11,11 @@ import java.security.MessageDigest;
  */
 public class PasswordHash {
 
-	public static int PW_HASH_ITERATION_COUNT = 5000;
+    public static int PW_HASH_ITERATION_COUNT = 5000;
     private static MessageDigest md;
 
     public String hashPassword(String pw) {
-    	String salt = "rjelk;a903u29ujmfadkls;09432ujop;zad";
+        String salt = "rjelk;a903u29ujmfadkls;09432ujop;zad";
         byte[] bSalt;
         byte[] bPw;
 
@@ -30,11 +30,11 @@ public class PasswordHash {
         for (int i = 0; i < PW_HASH_ITERATION_COUNT - 1; i++) {
             digest = run(digest, bSalt);
         }
-        
+
         StringBuffer sb = new StringBuffer();
-		for (byte b : digest) {
-			sb.append(Integer.toHexString((int) (b & 0xff)));
-		}
+        for (byte b : digest) {
+            sb.append(Integer.toHexString((int) (b & 0xff)));
+        }
 
         return sb.toString();
     }
@@ -43,5 +43,5 @@ public class PasswordHash {
         md.update(input);
         return md.digest(salt);
     }
-	
+
 }

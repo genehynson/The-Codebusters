@@ -1,8 +1,6 @@
 package com.ui.buckaroos;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
-import com.model.buckaroos.Account;
 import com.model.buckaroos.AccountTransaction;
 
 /**
@@ -33,7 +30,6 @@ public class AccountOverview extends Activity implements OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.account_overview, menu);
         return true;
     }
@@ -53,12 +49,6 @@ public class AccountOverview extends Activity implements OnClickListener {
 
     private void populateAccountList() {
         accountTransaction = controller.getAllAccountTransactions();
-//    	accountTransaction.add(new AccountTransaction(1, "dollars", "withdraw", "Shopping", "4:00"));
-//    	accountTransaction.add(new AccountTransaction(2, "dollars", "withdraw", "Shopping", "4:00"));
-//    	accountTransaction.add(new AccountTransaction(3, "dollars", "deposit", "Shopping", "4:00"));
-//    	accountTransaction.add(new AccountTransaction(4, "dollars", "withdraw", "Shopping", "4:00"));
-//    	accountTransaction.add(new AccountTransaction(5, "dollars", "deposit", "Shopping", "4:00"));
-
     }
 
     private void populateListView() {
@@ -69,7 +59,8 @@ public class AccountOverview extends Activity implements OnClickListener {
 
     private class MyListAdapter extends ArrayAdapter<AccountTransaction> {
         public MyListAdapter() {
-            super(AccountOverview.this, R.layout.transaction_view, accountTransaction);
+            super(AccountOverview.this, R.layout.transaction_view,
+                    accountTransaction);
         }
 
         @Override
@@ -77,26 +68,21 @@ public class AccountOverview extends Activity implements OnClickListener {
             // Make sure we have a view to work with(may have been given null
             View itemView = convertView;
             if (itemView == null) {
-                itemView = getLayoutInflater().inflate(R.layout.transaction_view,
-                        parent, false);
+                itemView = getLayoutInflater().inflate(
+                        R.layout.transaction_view, parent, false);
             }
 
             AccountTransaction current = accountTransaction.get(position);
-//
-//            TextView accountText = (TextView) itemView
-//                    .findViewById(R.id.item_userAccountName);
-//            accountText.setText(current.getName());
 
             TextView accountBalanceText = (TextView) itemView
                     .findViewById(R.id.item_transaction);
-//            NumberFormat us = NumberFormat.getCurrencyInstance();
             accountBalanceText.setText(current.toString());
             return itemView;
         }
     }
 
-	@Override
-	public void onClick(View v) {
-		startActivity(new Intent(AccountOverview.this, LoginSuccess.class));
-	}
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(AccountOverview.this, LoginSuccess.class));
+    }
 }
