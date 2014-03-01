@@ -15,7 +15,7 @@ import android.util.Log;
  * 
  * @author Jordan
  * @author Gene
- * @version 1.3
+ * @version 1.4
  */
 public class DB extends SQLiteOpenHelper {
 
@@ -28,17 +28,17 @@ public class DB extends SQLiteOpenHelper {
     private static final String KEY_USERACCOUNTNAME = "UserAccountName";
     private static final String KEY_BALANCE = "Balance";
     private static final String KEY_INTERESTRATE = "InterestRate";
-    private static final String KEY_CREATIONDATE = "CreationDate"; // don't know
-                                                                   // if this is
-                                                                   // needed
+    private static final String KEY_CREATIONDATE = "CreationDate";
     private static final String TABLE_TRANSACTIONS = "Transactions";
     private static final String KEY_AMOUNT = "Amount";
     private static final String KEY_TRANSACTIONTYPE = "TransactionType";
     private static final String KEY_CURRENCYTYPE = "CurrencyType";
     private static final String KEY_CATEGORY = "Category";
+    private static final String KEY_TRANSACTIONDATE = "TransactionDate";
+    private static final String KEY_TRANSACTIONTIME = "TransactionTime";
 
     public DB(Context applicationcontext) {
-        super(applicationcontext, "app2.db", null, 1);
+        super(applicationcontext, "app4.db", null, 1);
         Log.d(LOGCAT, "Created");
     }
 
@@ -64,9 +64,11 @@ public class DB extends SQLiteOpenHelper {
         query = "CREATE TABLE Transactions ( Account TEXT NOT NULL, UserAccount"
                 + "Name TEXT NOT NULL, Amount DOUBLE NOT NULL, TransactionType"
                 + " NVARCHAR(15) CHECK (TransactionType IN ('Withdrawal', 'Deposit'))"
-                + ", CurrencyType NVARCHAR(30), Category TEXT, "
-                + "CreationDate DATETIME DEFAULT CURRENT_TIMESTAMP, primary KEY "
-                + "(Amount, Category, CreationDate, Account, UserAccountName),"
+                + ", CurrencyType NVARCHAR(30), Category TEXT, TransactionDate "
+                + "TEXT, CreationDate DATETIME DEFAULT CURRENT_TIMESTAMP, "
+                + "TransactionTime TEXT, "
+                + "primary KEY (Amount, Category, CreationDate, Account, "
+                + "UserAccountName, TransactionDate),"
                 + " foreign KEY (Account) REFERENCES Credentials(Account) ON "
                 + "DELETE CASCADE, foreign KEY (UserAccountName) REFERENCES "
                 + "Accounts(UserAccountName) ON DELETE CASCADE)";
@@ -153,7 +155,7 @@ public class DB extends SQLiteOpenHelper {
      */
     public void addTransaction(Account account, String loginAccountName,
             double amount, String transactionType, String currencyType,
-            String category) {
+            String category, String transactionDate, String transactionTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         if (transactionType.equalsIgnoreCase("Withdrawal")) {
@@ -165,6 +167,8 @@ public class DB extends SQLiteOpenHelper {
         values.put(KEY_TRANSACTIONTYPE, transactionType);
         values.put(KEY_CURRENCYTYPE, currencyType);
         values.put(KEY_CATEGORY, category);
+        values.put(KEY_TRANSACTIONDATE, transactionDate);
+        values.put(KEY_TRANSACTIONTIME, transactionTime);
         db.insert(TABLE_TRANSACTIONS, null, values);
         db.close();
         updateAccount(account, loginAccountName, amount);
@@ -280,6 +284,7 @@ public class DB extends SQLiteOpenHelper {
                 }
             } while (c.moveToNext());
         }
+        db.close();
         return accList;
     }
 
@@ -338,6 +343,7 @@ public class DB extends SQLiteOpenHelper {
                 userList.add(user);
             } while (c.moveToNext());
         }
+        db.close();
         return userList;
     }
 
@@ -415,7 +421,8 @@ public class DB extends SQLiteOpenHelper {
         // + KEY_USERACCOUNTNAME + " = '" + account.getName() + "'";
         String selectQuery = "SELECT " + KEY_AMOUNT + ", "
                 + KEY_TRANSACTIONTYPE + ", " + KEY_CURRENCYTYPE + ", "
-                + KEY_CATEGORY + ", "
+                + KEY_CATEGORY + ", " + KEY_TRANSACTIONDATE + ", "
+                + KEY_TRANSACTIONTIME + ", " 
                 + "(strftime('%s', CreationDate) * 1000) AS CreationDate FROM "
                 + TABLE_TRANSACTIONS + " WHERE " + KEY_LOGINACCOUNT + " = '"
                 + user.get_accountName() + "' AND " + KEY_USERACCOUNTNAME
@@ -434,6 +441,10 @@ public class DB extends SQLiteOpenHelper {
                 long millis = c.getLong(c
                         .getColumnIndexOrThrow(KEY_CREATIONDATE));
                 Date date = new Date(millis);
+                String transactionDate = c.getString((c
+                        .getColumnIndex(KEY_TRANSACTIONDATE)));
+                String transactionTime = c.getString((c
+                        .getColumnIndex(KEY_TRANSACTIONTIME)));
                 // Timestamp date = Timestamp.valueOf(c.getString(c
                 // .getColumnIndex(KEY_CREATIONDATE)));
                 // Date date =
@@ -443,11 +454,13 @@ public class DB extends SQLiteOpenHelper {
                 // Account account = new Account(accName, balance, interest,
                 // user);
                 AccountTransaction transaction = new AccountTransaction(amount,
-                        currencyType, transactionType, category, date);
+                        currencyType, transactionType, category, date,
+                        transactionDate, transactionTime);
                 transactionList.add(transaction);
 
             } while (c.moveToNext());
         }
+        db.close();
         return transactionList;
     }
 

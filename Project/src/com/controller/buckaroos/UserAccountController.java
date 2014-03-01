@@ -1,7 +1,6 @@
 package com.controller.buckaroos;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 
@@ -10,7 +9,6 @@ import com.model.buckaroos.DB;
 import com.model.buckaroos.AccountTransaction;
 import com.model.buckaroos.User;
 import com.utility.buckaroos.AppPropertyWriter;
-import com.utility.buckaroos.CredentialConfirmer;
 /**
  * Controller between activities and User/Account
  * @author Gene
@@ -28,6 +26,7 @@ public class UserAccountController {
 	 * 
 	 * @param user
 	 */
+	@SuppressWarnings("static-access")
 	public UserAccountController(User user, Context ctx) {
 		db = new DB(ctx);
 		this.ctx = ctx;
@@ -88,14 +87,57 @@ public class UserAccountController {
 	 * @param minute 
 	 * @param hour 
 	 */
-	public void addWithdrawal(double amount, String currencyType, String category, int hour, int minute, int day, int month, int year) {
-		db.addTransaction(currentAccount, user.get_accountName(), amount, "Withdrawal",
-				currencyType, category);
+	public void addWithdrawal(double amount, String currencyType, 
+			String category, int hour, int minute, int day, int month, 
+			int year) {
+		String date;
+		String time;
+		String monthStr = String.valueOf(month);
+		String dayStr = String.valueOf(day);
+		String hourStr = String.valueOf(hour);
+		String minuteStr = String.valueOf(minute);
+		if (month < 10) {
+			monthStr = "0" + String.valueOf(month);
+		}
+		if (day < 10) {
+			dayStr = "0" + String.valueOf(day);
+		}
+		date = monthStr + "/" + dayStr + "/" + String.valueOf(year);
+		if (hour < 10) {
+			hourStr = "0" + hour;
+		}
+		if (minute < 10) {
+			minuteStr = "0" + minute;
+		}
+		time = hourStr + ":" + minuteStr;
+		db.addTransaction(currentAccount, user.get_accountName(), amount,
+				"Withdrawal", currencyType, category, date, time);
 	}
 
-	public void addDeposit(double amount, String currencyType, String category, int hour, int minute, int day, int month, int year) {
-		db.addTransaction(currentAccount, user.get_accountName(), amount, "Deposit",
-				currencyType, category);
+	public void addDeposit(double amount, String currencyType, String category,
+			int hour, int minute, int day, int month, int year) {
+		String date;
+		String time;
+		String monthStr = String.valueOf(month);
+		String dayStr = String.valueOf(day);
+		String hourStr = String.valueOf(hour);
+		String minuteStr = String.valueOf(minute);
+		if (month < 10) {
+			monthStr = "0" + String.valueOf(month);
+		}
+		if (day < 10) {
+			dayStr = "0" + String.valueOf(day);
+		}
+		date = monthStr + "/" + dayStr + "/" + String.valueOf(year);
+		if (hour < 10) {
+			hourStr = "0" + hour;
+		}
+		if (minute < 10) {
+			minuteStr = "0" + minute;
+		}
+		time = hourStr + ":" + minuteStr;
+		db.addTransaction(currentAccount, user.get_accountName(), amount,
+				"Deposit", currencyType, category, date, time);
 	}
 
 	public Account getCurrentAccount() {
@@ -151,5 +193,9 @@ public class UserAccountController {
 	
 	public ArrayList<AccountTransaction> getAllAccountTransactions() {
 		return db.getAllAccountTransactions(currentAccount, user);
+	}
+	
+	public boolean doesLoginAccountExist(String accountName) {
+		return db.getUser(accountName) != null;
 	}
 }

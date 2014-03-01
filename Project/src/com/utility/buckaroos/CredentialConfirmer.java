@@ -20,7 +20,7 @@ public class CredentialConfirmer {
 
     private static Context ctx;
     private static DB db;
-    private User currentLoggedInUser;
+    private static User currentLoggedInUser;
 
 	/**
 	 * Constructs a CredentialConfirmer by getting all the keys and values from
