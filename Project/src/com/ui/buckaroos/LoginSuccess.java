@@ -57,11 +57,12 @@ public class LoginSuccess extends Activity implements OnClickListener,
         currentAccountText = (TextView) findViewById(R.id.currentAccountText);
         currentLoginUser = (TextView) findViewById(R.id.loginsuccess);
         controller = new UserAccountController(this);
-        if (controller.getCurrentAccount() == null) {
-            ensureCurrentAccount();
+        if (controller.getCurrentAccount() != null && controller.getCurrentAccount().getUser().equals(controller.getCurrentUser())) {
+        	currentAccountText.setText(controller.getCurrentAccount().getName());
+        	currentLoginUser.setText(controller.getCurrentUser().getAccountName());
+        } else {
+        	ensureCurrentAccount();
         }
-        currentAccountText.setText(controller.getCurrentAccount().getName());
-        currentLoginUser.setText(controller.getCurrentUser().getAccountName());
 
     }
 
