@@ -24,12 +24,13 @@ public class DateChooser extends Activity implements OnClickListener {
     private static int selectedYear;
     private static int selectedMonth;
     private static int selectedDay;
+    private Transaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_chooser);
-
+        transaction = new Transaction();
         today = new Date();
         cal = Calendar.getInstance();
         cal.setTime(today);
@@ -55,9 +56,9 @@ public class DateChooser extends Activity implements OnClickListener {
         @Override
         public void onDateChanged(DatePicker view, int year, int monthOfYear,
                 int dayOfMonth) {
-            selectedYear = year;
-            selectedMonth = monthOfYear;
-            selectedDay = dayOfMonth;
+           transaction.setDay(dayOfMonth);
+           transaction.setMonth(monthOfYear);
+           transaction.setYear(year);
         }
 
     };
@@ -65,18 +66,7 @@ public class DateChooser extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         startActivity(new Intent(DateChooser.this, Transaction.class));
-    }
-
-    public int getDay() {
-        return selectedDay;
-    }
-
-    public int getMonth() {
-        return selectedMonth;
-    }
-
-    public int getYear() {
-        return selectedYear;
+//    	finish();
     }
 
 }

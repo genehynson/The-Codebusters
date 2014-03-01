@@ -35,9 +35,9 @@ public class Transaction extends Activity implements OnClickListener,
     private DateChooser dateChooser;
     private TimePicker time;
     private static boolean dateChanged = false;
-    private int day;
-    private int year;
-    private int month;
+    private static int day;
+    private static int year;
+    private static int month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +60,7 @@ public class Transaction extends Activity implements OnClickListener,
         radioGroup.setOnCheckedChangeListener(this);
         time = (TimePicker) findViewById(R.id.timePicker);
         getActionBar().hide();
-        day = dateChooser.getDay();
-        month = dateChooser.getMonth();
-        year = dateChooser.getYear() + 1;
-        if (dateChanged) {
-            date.setText(String.valueOf(month) + "/" + String.valueOf(day)
-                    + "/" + String.valueOf(year));
-        }
+        setDateText();
     }
 
     @Override
@@ -115,9 +109,30 @@ public class Transaction extends Activity implements OnClickListener,
             break;
         case R.id.dateButton:
             dateChanged = true;
-            startActivity(new Intent(Transaction.this, DateChooser.class));
+            startActivity(new Intent(Transaction.this, DateChooser.class));            
         }
     }
+    
+    public void setDateText() {
+    	if (dateChanged) {
+    		date.setText(String.valueOf(month) + "/" + String.valueOf(day)
+    				+ "/" + String.valueOf(year));
+    	}
+    	
+    }
+    
+    public void setDay(int day) {
+    	Transaction.day = day;
+    }
+    
+    public void setMonth(int month) {
+    	Transaction.month = month + 1;
+    }
+    
+    public void setYear(int year) {
+    	Transaction.year = year;
+    }
+    
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
