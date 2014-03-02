@@ -24,12 +24,6 @@ public class CurrencyConverter {
     private static final double FROMUSDTOAED = 3.673;
     private static final double FROMUSDTOBDT = 77.715;
 
-    // public CurrencyConverter(Enum<Money> fromCurrency, Enum<Money>
-    // toCurrency,
-    // double amount) {
-    // double conversionRate = getConversionRate(fromCurrency, toCurrency);
-    // }
-
     /**
      * Converts a supported currency to another supported currency
      * 
@@ -60,6 +54,14 @@ public class CurrencyConverter {
         return newAmount;
     }
 
+    /*
+     * Converts the amount of money provided using the exchange rate of the
+     * currency taken in to US Dollars.
+     * 
+     * @param fromCurrency The currency to convert from
+     * @param amount The amount of money to convert
+     * @return The value of the amount provided in US Dollars
+     */
     private double convertToDollars(Enum<Money> fromCurrency, double amount) {
         double valueInDollars = -1;
         double conversionRate = 0;
@@ -106,6 +108,14 @@ public class CurrencyConverter {
         return valueInDollars;
     }
 
+    /*
+     * Converts the amount of money provided using the exchange rate of the
+     * currency taken in to the type of currency provided.
+     * 
+     * @param toCurrency The currency to convert to
+     * @param amount The amount of money to convert
+     * @return The value of the amount provided in the type of currency provided
+     */
     private double convertFromDollars(Enum<Money> toCurrency, double amount) {
         double newValue = -1;
         double conversionRate = 0;
