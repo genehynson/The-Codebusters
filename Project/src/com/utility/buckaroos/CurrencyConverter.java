@@ -3,7 +3,7 @@ package com.utility.buckaroos;
 /**
  * This class supports conversion from one type of currency to another.
  * Supported currencies are USD, AUD, BRL, CAD, CNY, EUR, GBP, JPY, INR, CHF,
- * RUB, MXN, and AED.
+ * RUB, MXN, AED, and BDT.
  * 
  * @author Jordan LeRoux
  * @version 1.0
@@ -22,6 +22,7 @@ public class CurrencyConverter {
     private static final double FROMUSDTORUB = 35.8641;
     private static final double FROMUSDTOMXN = 13.2492;
     private static final double FROMUSDTOAED = 3.673;
+    private static final double FROMUSDTOBDT = 77.715;
 
     // public CurrencyConverter(Enum<Money> fromCurrency, Enum<Money>
     // toCurrency,
@@ -98,6 +99,9 @@ public class CurrencyConverter {
         } else if (fromCurrency == Money.valueOf("AED")) {
             conversionRate = 1 / FROMUSDTOAED;
             valueInDollars = amount * conversionRate;
+        } else if (fromCurrency == Money.valueOf("BDT")) {
+        	conversionRate = 1 / FROMUSDTOBDT;
+        	valueInDollars = amount * conversionRate;
         }
         return valueInDollars;
     }
@@ -140,6 +144,9 @@ public class CurrencyConverter {
             newValue = amount * conversionRate;
         } else if (toCurrency == Money.valueOf("AED")) {
             conversionRate = FROMUSDTOAED;
+            newValue = amount * conversionRate;
+        } else if (toCurrency == Money.valueOf("BDT")) {
+            conversionRate = FROMUSDTOBDT;
             newValue = amount * conversionRate;
         }
         return newValue;
