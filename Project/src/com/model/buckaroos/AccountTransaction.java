@@ -43,4 +43,20 @@ public class AccountTransaction {
         return type + " of  " + amount + " in " + currency + " for/from "
                 + category + " on " + dateOfTransaction + " at " + time;
     }
+    
+    public String getDate() {
+    	return dateOfTransaction;
+    }
+    
+    public String getType() {
+    	return type;
+    }
+    
+    public double getAmount() {
+    	return amount;
+    }
+    
+    public String getCategory() {
+    	return category;
+    }
 }

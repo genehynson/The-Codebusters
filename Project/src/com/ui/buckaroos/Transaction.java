@@ -28,7 +28,7 @@ public class Transaction extends Activity implements OnClickListener,
         OnCheckedChangeListener {
 
     private Button save, date;
-    private EditText amount;
+    private EditText amount, category;
     private RadioButton withdraw, deposit;
     private RadioGroup radioGroup;
     private UserAccountController controller;
@@ -50,6 +50,7 @@ public class Transaction extends Activity implements OnClickListener,
         controller = new UserAccountController(this);
         dateChooser = new DateChooser();
         amount = (EditText) findViewById(R.id.editText1);
+        category = (EditText) findViewById(R.id.category);
         save = (Button) findViewById(R.id.saveButton);
         save.setOnClickListener(this);
         date = (Button) findViewById(R.id.dateButton);
@@ -79,8 +80,9 @@ public class Transaction extends Activity implements OnClickListener,
             int minute = time.getCurrentMinute();
             if (!amount.getText().toString().equals("")) {
                 newAmount = Double.parseDouble(amount.getText().toString());
+                String categoryText = category.getText().toString();
                 if (withdraw.isChecked()) {
-                    controller.addWithdrawal(newAmount, null, null, hour,
+                    controller.addWithdrawal(newAmount, null, categoryText, hour,
                             minute, day, month, year);
                     startActivity(new Intent(Transaction.this,
                             LoginSuccess.class));
@@ -88,7 +90,7 @@ public class Transaction extends Activity implements OnClickListener,
                             Toast.LENGTH_SHORT);
                     toast.show();
                 } else if (deposit.isChecked()) {
-                    controller.addDeposit(newAmount, null, null, hour, minute,
+                    controller.addDeposit(newAmount, null, categoryText, hour, minute,
                             day, month, year);
                     Toast toast = Toast.makeText(this, "Deposit Saved.",
                             Toast.LENGTH_SHORT);

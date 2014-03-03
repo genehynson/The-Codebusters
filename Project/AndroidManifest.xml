@@ -62,6 +62,14 @@
             android:name="com.ui.buckaroos.DateChooser"
             android:label="@string/title_activity_date_chooser" >
         </activity>
+        <activity
+            android:name="com.ui.buckaroos.Reports"
+            android:label="@string/title_activity_reports" >
+        </activity>
+        <activity
+            android:name="com.ui.buckaroos.StartEndDate"
+            android:label="@string/title_activity_start_end_date" >
+        </activity>
     </application>
 
 </manifest>

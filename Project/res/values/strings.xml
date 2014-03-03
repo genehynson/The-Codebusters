@@ -16,5 +16,7 @@
     <string name="title_activity_account_overview">AccountOverview</string>
     <string name="title_activity_change_account">ChangeAccount</string>
     <string name="title_activity_date_chooser">DateChooser</string>
+    <string name="title_activity_reports">Reports</string>
+    <string name="title_activity_start_end_date">StartEndDate</string>
 
 </resources>

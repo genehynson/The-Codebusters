@@ -75,8 +75,6 @@ public class UserAccountController {
 
     public void addAccount(String accountName, double amount,
             double interestRate) {
-        // Getting nullpointerexception here because this class can be
-        // instantiated without a user sometimes
         if (user != null) {
             currentAccount = new Account(accountName, amount, interestRate,
                     user);
@@ -87,7 +85,6 @@ public class UserAccountController {
 
     }
 
-    // TODO: add time/date to database
     /**
      * Add transactions to the current account
      * 

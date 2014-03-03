@@ -26,7 +26,7 @@ public class AccountOverview extends Activity implements OnClickListener {
     private ArrayList<AccountTransaction> accountTransaction = new ArrayList<AccountTransaction>();
     private UserAccountController controller = new UserAccountController(this);
     private TextView accountName;
-    private Button menu;
+    private Button menu, report;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,6 +44,8 @@ public class AccountOverview extends Activity implements OnClickListener {
         accountName.setText(controller.getCurrentAccount().getName());
         menu = (Button) findViewById(R.id.menu);
         menu.setOnClickListener(this);
+        report = (Button) findViewById(R.id.reports);
+        report.setOnClickListener(this);
 
     }
 
@@ -57,7 +59,7 @@ public class AccountOverview extends Activity implements OnClickListener {
         list.setAdapter(adapter);
     }
 
-    private class MyListAdapter extends ArrayAdapter<AccountTransaction> {
+    public class MyListAdapter extends ArrayAdapter<AccountTransaction> {
         public MyListAdapter() {
             super(AccountOverview.this, R.layout.transaction_view,
                     accountTransaction);
@@ -83,6 +85,13 @@ public class AccountOverview extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(AccountOverview.this, LoginSuccess.class));
+    	switch (v.getId()) {
+		case R.id.menu:
+			startActivity(new Intent(AccountOverview.this, LoginSuccess.class));			
+			break;
+		case R.id.reports:
+			startActivity(new Intent(AccountOverview.this, StartEndDate.class));			
+			break;
+		}
     }
 }
