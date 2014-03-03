@@ -49,7 +49,7 @@ public class Transaction extends Activity implements OnClickListener,
     private void initialize() {
         controller = new UserAccountController(this);
         dateChooser = new DateChooser();
-        amount = (EditText) findViewById(R.id.editText1);
+        amount = (EditText) findViewById(R.id.accountNickName);
         category = (EditText) findViewById(R.id.category);
         save = (Button) findViewById(R.id.saveButton);
         save.setOnClickListener(this);

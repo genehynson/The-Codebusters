@@ -14,28 +14,6 @@
         android:layout_height="wrap_content"
         android:text="Create Account" />
 
-    <TextView
-        android:id="@+id/accountText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Account Name:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/accountName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/accountText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
     <EditText
         android:id="@+id/startingBalance"
         android:layout_width="wrap_content"
@@ -81,5 +59,42 @@
         android:layout_marginBottom="18dp"
         android:text="Starting Balance:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/accountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:text="Account Name:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/accountName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/startingBalance"
+        android:layout_below="@+id/accountText"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/accountName"
+        android:layout_centerHorizontal="true"
+        android:text="Account Nick Name:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/accountNickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignLeft="@+id/accountName"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

@@ -12,11 +12,13 @@ public class Account {
     private double balance = 0;
     private double interestRate;
     private User user;
+    private String nickName;
 
-    public Account(String name, double amount, double interestRate, User user) {
+    public Account(String name, String nickName, double amount, double interestRate, User user) {
         this.user = user;
         this.setName(name);
         this.balance = amount;
+        this.nickName = nickName;
         this.setInterestRate(interestRate);
     }
 
@@ -67,6 +69,10 @@ public class Account {
 
     public double getInterestRate() {
         return interestRate;
+    }
+    
+    public String getNickName() {
+    	return nickName;
     }
 
     public void setInterestRate(double interestRate) {

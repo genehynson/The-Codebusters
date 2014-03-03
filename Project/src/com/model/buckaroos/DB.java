@@ -192,7 +192,7 @@ public class DB extends SQLiteOpenHelper {
                     String dbUserAccountName = acc.getUser().getAccountName();
                     if (dbUserAccountName.equals(userAccountName)
                             && acc.getName().equals(accountName)) {
-                        returnAccount = new Account(acc.getName(),
+                        returnAccount = new Account(acc.getName(), acc.getNickName(),
                                 acc.getBalance(), acc.getInterestRate(), user);
                     }
                 }
@@ -278,7 +278,8 @@ public class DB extends SQLiteOpenHelper {
                 double balance = c.getDouble((c.getColumnIndex(KEY_BALANCE)));
                 double interest = c.getDouble(c
                         .getColumnIndex(KEY_INTERESTRATE));
-                Account account = new Account(accName, balance, interest, user);
+                //CHANGE AccName to NICKNAME
+                Account account = new Account(accName, accName, balance, interest, user);
                 if (acc.equals(user.getAccountName())) {
                     accList.add(account);
                 }

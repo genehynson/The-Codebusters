@@ -56,27 +56,27 @@ public class UserAccountController {
      * 
      * @param accountName
      */
-    public void addAccount(String accountName) {
-        currentAccount = new Account(accountName, 0, 0, user);
+    public void addAccount(String accountName, String accountNickName) {
+        currentAccount = new Account(accountName, accountNickName, 0, 0, user);
         db.addAccount(currentAccount, user);
     }
 
-    public void addAccount(String accountName, double amount) {
-        currentAccount = new Account(accountName, amount, 0, user);
-        db.addAccount(currentAccount, user);
-
-    }
-
-    public void addAccount(double interestRate, String accountName) {
-        currentAccount = new Account(accountName, 0, interestRate, user);
+    public void addAccount(String accountName, String accountNickName, double amount) {
+        currentAccount = new Account(accountName, accountNickName, amount, 0, user);
         db.addAccount(currentAccount, user);
 
     }
 
-    public void addAccount(String accountName, double amount,
+    public void addAccount(double interestRate, String accountName, String accountNickName) {
+        currentAccount = new Account(accountName, accountNickName, 0, interestRate, user);
+        db.addAccount(currentAccount, user);
+
+    }
+
+    public void addAccount(String accountName, String accountNickName, double amount,
             double interestRate) {
         if (user != null) {
-            currentAccount = new Account(accountName, amount, interestRate,
+            currentAccount = new Account(accountName, accountNickName, amount, interestRate,
                     user);
             db.addAccount(currentAccount, user);
         } else {

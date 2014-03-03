@@ -22,6 +22,7 @@ import com.example.buckaroos.R;
 public class CreateAccount extends Activity implements OnClickListener {
 
     private EditText accountName;
+    private EditText accountNickName;
     private EditText startingBalance;
     private EditText interestRate;
     private Button create;
@@ -39,6 +40,7 @@ public class CreateAccount extends Activity implements OnClickListener {
      */
     private void initialize() {
         accountName = (EditText) findViewById(R.id.accountName);
+        accountNickName = (EditText) findViewById(R.id.accountNickName);
         startingBalance = (EditText) findViewById(R.id.startingBalance);
         interestRate = (EditText) findViewById(R.id.interestRate);
         create = (Button) findViewById(R.id.create);
@@ -62,6 +64,7 @@ public class CreateAccount extends Activity implements OnClickListener {
     public void onClick(View v) {
         double balance = 0;
         double interest = 0;
+        String nickname;
         if (!accountName.getText().toString().equals("")) {
             if (!startingBalance.getText().toString().equals("")) {
                 balance = Double.parseDouble(startingBalance.getText()
@@ -71,8 +74,13 @@ public class CreateAccount extends Activity implements OnClickListener {
                 interest = Double
                         .parseDouble(interestRate.getText().toString());
             }
+            if (!accountNickName.getText().toString().equals("")) {
+            	nickname = accountNickName.getText().toString();
+            } else {
+            	nickname = accountName.getText().toString();
+            }
 
-            controller.addAccount(accountName.getText().toString(), balance,
+            controller.addAccount(accountName.getText().toString(), nickname, balance,
                     interest);
             startActivity(new Intent(CreateAccount.this, LoginSuccess.class));
 
