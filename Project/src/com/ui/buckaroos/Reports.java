@@ -103,6 +103,7 @@ public class Reports extends Activity implements OnClickListener {
 			}
 		//Use this to populate views
 		categoryTotals.put("Total", totalSpending);
+		categoryNames.add("Total");
 	}
 	
     private void populateListView() {
