@@ -26,6 +26,7 @@ public class DB extends SQLiteOpenHelper {
     private static final String KEY_EMAIL = "Email";
     private static final String TABLE_ACCOUNTS = "Accounts";
     private static final String KEY_USERACCOUNTNAME = "UserAccountName";
+    private static final String KEY_ACCOUNTNICKNAME = "AccountNickName";
     private static final String KEY_BALANCE = "Balance";
     private static final String KEY_INTERESTRATE = "InterestRate";
     private static final String KEY_CREATIONDATE = "CreationDate";
@@ -38,7 +39,7 @@ public class DB extends SQLiteOpenHelper {
     private static final String KEY_TRANSACTIONTIME = "TransactionTime";
 
     public DB(Context applicationcontext) {
-        super(applicationcontext, "app4.db", null, 1);
+        super(applicationcontext, "app5.db", null, 1);
         Log.d(LOGCAT, "Created");
     }
 
@@ -54,7 +55,8 @@ public class DB extends SQLiteOpenHelper {
         // Need to change balnce in account class to BigDecimal
         query = "CREATE TABLE Accounts ( Account TEXT, UserAccountName TEXT, "
                 + "Balance DOUBLE NOT NULL, InterestRate DOUBLE, CreationDate "
-                + "DATETIME DEFAULT CURRENT_TIMESTAMP, primary KEY (UserAccountName), "
+                + "DATETIME DEFAULT CURRENT_TIMESTAMP, AccountNickName TEXT, "
+                + "primary KEY (UserAccountName), "
                 + "foreign KEY (Account) REFERENCES Credentials(Account) ON "
                 + "DELETE CASCADE)";
         // Was CreationDate DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -121,6 +123,7 @@ public class DB extends SQLiteOpenHelper {
         values.put(KEY_USERACCOUNTNAME, account.getName());
         values.put(KEY_BALANCE, account.getBalance());
         values.put(KEY_INTERESTRATE, account.getInterestRate());
+        values.put(KEY_ACCOUNTNICKNAME, account.getNickName());
         System.out.println(values);
         // values.put(KEY_MODIFIEDDATE, Calendar.getInstance().getTime());
         db.insert(TABLE_ACCOUNTS, null, values);
@@ -190,8 +193,8 @@ public class DB extends SQLiteOpenHelper {
                 if (acc != null) {
                     String userAccountName = user.getAccountName();
                     String dbUserAccountName = acc.getUser().getAccountName();
-                    if (dbUserAccountName.equals(userAccountName)
-                            && acc.getName().equals(accountName)) {
+                    if (dbUserAccountName.equalsIgnoreCase(userAccountName)
+                            && acc.getName().equalsIgnoreCase(accountName)) {
                         returnAccount = new Account(acc.getName(), acc.getNickName(),
                                 acc.getBalance(), acc.getInterestRate(), user);
                     }
@@ -275,12 +278,15 @@ public class DB extends SQLiteOpenHelper {
                 String acc = c.getString(c.getColumnIndex(KEY_LOGINACCOUNT));
                 String accName = c.getString(c
                         .getColumnIndex(KEY_USERACCOUNTNAME));
+                String nickName = c.getString(c
+                        .getColumnIndex(KEY_ACCOUNTNICKNAME));
                 double balance = c.getDouble((c.getColumnIndex(KEY_BALANCE)));
                 double interest = c.getDouble(c
                         .getColumnIndex(KEY_INTERESTRATE));
                 //CHANGE AccName to NICKNAME
-                Account account = new Account(accName, accName, balance, interest, user);
-                if (acc.equals(user.getAccountName())) {
+                Account account = new Account(accName, nickName, balance,
+                        interest, user);
+                if (acc.equalsIgnoreCase(user.getAccountName())) {
                     accList.add(account);
                 }
             } while (c.moveToNext());
