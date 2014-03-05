@@ -177,6 +177,54 @@ public class DB extends SQLiteOpenHelper {
         updateAccount(account, loginAccountName, amount);
         System.out.println("just added transaction");
     }
+    
+    /**
+     * Removes a transaction from the user's account and updates the account's
+     * balance to reflect the deletion.
+     * 
+     * @param account The account of the transaction that is being deleted
+     * @param user The user whose account is being updated
+     * @param transaction The transaction that is to be deleted
+     */
+    public void removeTransaction(Account account, User user,
+            AccountTransaction transaction) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT " + KEY_AMOUNT + ", "
+                + KEY_TRANSACTIONTYPE + " FROM "
+                + TABLE_TRANSACTIONS + " WHERE " + KEY_LOGINACCOUNT + " = '"
+                + user.getAccountName() + "' AND " + KEY_USERACCOUNTNAME
+                + " = '" + account.getName() + "' AND " + KEY_AMOUNT + " = '"
+                + transaction.getAmount() + "' AND " + KEY_CATEGORY + " = '"
+                + transaction.getCategory() + "' AND " + KEY_CREATIONDATE
+                + " = '" + transaction.getCreationDate() + "' AND "
+                + KEY_TRANSACTIONDATE + " = '" + transaction.getDate() + "'";
+        Cursor c = db.rawQuery(selectQuery, null);
+        String query = "DELETE FROM " + TABLE_TRANSACTIONS + " WHERE "
+                + KEY_LOGINACCOUNT + " = '" + user.getAccountName() + "' AND "
+                + KEY_USERACCOUNTNAME + " = '" + account.getName() + "' AND "
+                + KEY_AMOUNT + " = '" + transaction.getAmount() + "' AND "
+                + KEY_CATEGORY + " = '" + transaction.getCategory() + "' AND "
+                + KEY_CREATIONDATE + " = '" + transaction.getCreationDate() 
+                + "' AND " + KEY_TRANSACTIONDATE + " = '" 
+                + transaction.getDate() + "'";
+        db.rawQuery(query, null);
+        if (c != null) {
+            if (c.moveToFirst()) {
+                double amount = c.getDouble(c.getColumnIndex(KEY_AMOUNT));
+                String type = c
+                        .getString(c.getColumnIndex(KEY_TRANSACTIONTYPE));
+                // If the transaction is a deposit and you delete it, you will
+                // subtract it from the balance, so you update with a negative
+                // amount
+                if (type.equalsIgnoreCase("Deposit")) {
+                    amount = -amount;
+                }
+                updateAccount(account, user.getAccountName(), amount);
+            }
+        }
+        db.close();
+    }
+    
 
     /**
      * Retrieves an account from the database

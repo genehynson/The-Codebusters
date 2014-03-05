@@ -59,4 +59,8 @@ public class AccountTransaction {
     public String getCategory() {
     	return category;
     }
+
+    public Date getCreationDate() {
+        return dateCreated;
+    }
 }
