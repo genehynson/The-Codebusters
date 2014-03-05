@@ -20,6 +20,9 @@ import com.example.buckaroos.R;
 import com.model.buckaroos.AccountTransaction;
 
 /**
+ * This class implements a ListView that allows the user to view an account
+ * overview.
+ * 
  * @author Daniel Carnauba
  * @version 1.0
  */
@@ -28,7 +31,8 @@ public class AccountOverview extends Activity implements OnClickListener {
             new ArrayList<AccountTransaction>();
     private UserAccountController controller = new UserAccountController(this);
     private TextView accountName;
-    private Button menu, report;
+    private Button menu;
+    private Button report;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,7 +65,11 @@ public class AccountOverview extends Activity implements OnClickListener {
         list.setAdapter(adapter);
     }
 
-    public class MyListAdapter extends ArrayAdapter<AccountTransaction> {
+    private class MyListAdapter extends ArrayAdapter<AccountTransaction> {
+
+        /**
+         * Constructs a list adapter for the list view.
+         */
         public MyListAdapter() {
             super(AccountOverview.this, R.layout.transaction_view,
                     accountTransaction);

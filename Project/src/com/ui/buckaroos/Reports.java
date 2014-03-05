@@ -97,7 +97,8 @@ public class Reports extends Activity implements OnClickListener {
                                     transaction.getAmount());
                             categoryNames.add(transaction.getCategory());
                         } else {
-                            categoryTotals.put(transaction.getCategory(),
+                            categoryTotals.put(
+                                    transaction.getCategory(),
                                     categoryTotals.get(transaction
                                             .getCategory())
                                             + transaction.getAmount());
