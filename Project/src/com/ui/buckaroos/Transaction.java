@@ -82,59 +82,62 @@ public class Transaction extends Activity implements OnClickListener,
                 newAmount = Double.parseDouble(amount.getText().toString());
                 String categoryText = category.getText().toString();
                 if (withdraw.isChecked()) {
-                    controller.addWithdrawal(newAmount, null, categoryText, hour,
-                            minute, day, month, year);
+                    controller.addWithdrawal(newAmount, null, categoryText,
+                            hour, minute, day, month, year);
                     startActivity(new Intent(Transaction.this,
                             LoginSuccess.class));
-                    Toast toast = Toast.makeText(this, "Withdraw Saved.",
-                            Toast.LENGTH_SHORT);
+                    Toast toast =
+                            Toast.makeText(this, "Withdraw Saved.",
+                                    Toast.LENGTH_SHORT);
                     toast.show();
                 } else if (deposit.isChecked()) {
-                    controller.addDeposit(newAmount, null, categoryText, hour, minute,
-                            day, month, year);
-                    Toast toast = Toast.makeText(this, "Deposit Saved.",
-                            Toast.LENGTH_SHORT);
+                    controller.addDeposit(newAmount, null, categoryText, hour,
+                            minute, day, month, year);
+                    Toast toast =
+                            Toast.makeText(this, "Deposit Saved.",
+                                    Toast.LENGTH_SHORT);
                     toast.show();
                     startActivity(new Intent(Transaction.this,
                             LoginSuccess.class));
                 } else {
-                    Toast toast = Toast.makeText(this, "All fields required.",
-                            Toast.LENGTH_SHORT);
+                    Toast toast =
+                            Toast.makeText(this, "All fields required.",
+                                    Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
             } else {
-                Toast toast = Toast.makeText(this, "All fields required.",
-                        Toast.LENGTH_SHORT);
+                Toast toast =
+                        Toast.makeText(this, "All fields required.",
+                                Toast.LENGTH_SHORT);
                 toast.show();
             }
             break;
         case R.id.dateButton:
             dateChanged = true;
-            startActivity(new Intent(Transaction.this, DateChooser.class));            
+            startActivity(new Intent(Transaction.this, DateChooser.class));
         }
     }
-    
+
     public void setDateText() {
-    	if (dateChanged) {
-    		date.setText(String.valueOf(month) + "/" + String.valueOf(day)
-    				+ "/" + String.valueOf(year));
-    	}
-    	
+        if (dateChanged) {
+            date.setText(String.valueOf(month) + "/" + String.valueOf(day)
+                    + "/" + String.valueOf(year));
+        }
+
     }
-    
+
     public void setDay(int day) {
-    	Transaction.day = day;
+        Transaction.day = day;
     }
-    
+
     public void setMonth(int month) {
-    	Transaction.month = month + 1;
+        Transaction.month = month + 1;
     }
-    
+
     public void setYear(int year) {
-    	Transaction.year = year;
+        Transaction.year = year;
     }
-    
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

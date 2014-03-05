@@ -51,22 +51,23 @@ public class DateChooser extends Activity implements OnClickListener {
         return true;
     }
 
-    private DatePicker.OnDateChangedListener dateChanged = new DatePicker.OnDateChangedListener() {
+    private DatePicker.OnDateChangedListener dateChanged =
+            new DatePicker.OnDateChangedListener() {
 
-        @Override
-        public void onDateChanged(DatePicker view, int year, int monthOfYear,
-                int dayOfMonth) {
-           transaction.setDay(dayOfMonth);
-           transaction.setMonth(monthOfYear);
-           transaction.setYear(year);
-        }
+                @Override
+                public void onDateChanged(DatePicker view, int year,
+                        int monthOfYear, int dayOfMonth) {
+                    transaction.setDay(dayOfMonth);
+                    transaction.setMonth(monthOfYear);
+                    transaction.setYear(year);
+                }
 
-    };
+            };
 
     @Override
     public void onClick(View v) {
         startActivity(new Intent(DateChooser.this, Transaction.class));
-//    	finish();
+        // finish();
     }
 
 }

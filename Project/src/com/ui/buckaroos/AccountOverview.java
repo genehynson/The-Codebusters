@@ -1,6 +1,7 @@
 package com.ui.buckaroos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +24,8 @@ import com.model.buckaroos.AccountTransaction;
  * @version 1.0
  */
 public class AccountOverview extends Activity implements OnClickListener {
-    private ArrayList<AccountTransaction> accountTransaction = new ArrayList<AccountTransaction>();
+    private List<AccountTransaction> accountTransaction =
+            new ArrayList<AccountTransaction>();
     private UserAccountController controller = new UserAccountController(this);
     private TextView accountName;
     private Button menu, report;
@@ -70,14 +72,15 @@ public class AccountOverview extends Activity implements OnClickListener {
             // Make sure we have a view to work with(may have been given null
             View itemView = convertView;
             if (itemView == null) {
-                itemView = getLayoutInflater().inflate(
-                        R.layout.transaction_view, parent, false);
+                itemView =
+                        getLayoutInflater().inflate(R.layout.transaction_view,
+                                parent, false);
             }
 
             AccountTransaction current = accountTransaction.get(position);
 
-            TextView accountBalanceText = (TextView) itemView
-                    .findViewById(R.id.item_transaction);
+            TextView accountBalanceText =
+                    (TextView) itemView.findViewById(R.id.item_transaction);
             accountBalanceText.setText(current.toString());
             return itemView;
         }
@@ -85,13 +88,13 @@ public class AccountOverview extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-    	switch (v.getId()) {
-		case R.id.menu:
-			startActivity(new Intent(AccountOverview.this, LoginSuccess.class));			
-			break;
-		case R.id.reports:
-			startActivity(new Intent(AccountOverview.this, StartEndDate.class));			
-			break;
-		}
+        switch (v.getId()) {
+        case R.id.menu:
+            startActivity(new Intent(AccountOverview.this, LoginSuccess.class));
+            break;
+        case R.id.reports:
+            startActivity(new Intent(AccountOverview.this, StartEndDate.class));
+            break;
+        }
     }
 }
