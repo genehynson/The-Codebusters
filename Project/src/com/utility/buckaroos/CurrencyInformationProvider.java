@@ -7,14 +7,9 @@ package com.utility.buckaroos;
  * @author Jordan LeRoux
  * @version 1.1
  */
-public class CurrencyInformationProvider {
+public class CurrencyInformationProvider implements CurrencyInformationInterface {
 
-	/**
-	 * Returns the full name of currency when provided with the currency's enum
-	 * 
-	 * @param currencyAbbrev The abbreviation of the currency
-	 * @return The full name of the currency
-	 */
+    @Override
     public String getFullCurrencyName(Enum<Money> currencyAbbrev) {
         String fullNameOfCurrency = "";
         if (currencyAbbrev == Money.valueOf("AUD")) {
@@ -47,12 +42,7 @@ public class CurrencyInformationProvider {
         return fullNameOfCurrency;
     }
 
-    /**
-     * Returns the symbol of the currency when provided with the currency's enum
-	 * 
-	 * @param currencyAbbrev The abbreviation of the currency
-	 * @return The symbol of the currency
-     */
+    @Override
     public String getSymbolOfCurrency(Enum<Money> currencyAbbrev) {
         // Locale locale = Locale.UK;
         // Currency curr = Currency.getInstance(locale);
