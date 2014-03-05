@@ -235,20 +235,25 @@ public class DB extends SQLiteOpenHelper {
      */
     public Account getAccount(String accountName, User user) {
         Account returnAccount = null;
-        if (accountName != null) {
-            ArrayList<Account> accounts = getAllAccounts(user);
-            for (Account acc : accounts) {
-                if (acc != null) {
-                    String userAccountName = user.getAccountName();
-                    String dbUserAccountName = acc.getUser().getAccountName();
-                    if (dbUserAccountName.equalsIgnoreCase(userAccountName)
-                            && acc.getName().equalsIgnoreCase(accountName)) {
-                        returnAccount = new Account(acc.getName(), acc.getNickName(),
-                                acc.getBalance(), acc.getInterestRate(), user);
-                    }
-                }
-            }
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS + " WHERE "
+                + KEY_LOGINACCOUNT + " = '" + user.getAccountName() + "' AND "
+                + KEY_USERACCOUNTNAME + " = '" + accountName + "'";
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                String accName = c.getString(c
+                        .getColumnIndex(KEY_USERACCOUNTNAME));
+                String nickName = c.getString(c
+                        .getColumnIndex(KEY_ACCOUNTNICKNAME));
+                double balance = c.getDouble((c.getColumnIndex(KEY_BALANCE)));
+                double interest = c.getDouble(c
+                        .getColumnIndex(KEY_INTERESTRATE));
+                returnAccount = new Account(accName, nickName, balance,
+                        interest, user);
+            } while (c.moveToNext());
         }
+        db.close();
         return returnAccount;
     }
 
@@ -316,9 +321,9 @@ public class DB extends SQLiteOpenHelper {
      */
     public ArrayList<Account> getAllAccounts(User user) {
         ArrayList<Account> accList = new ArrayList<Account>();
-        // String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS + " WHERE " +
-        // KEY_ACCOUNT + "= " + user.get_accountName();
-        String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS;
+        String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS + " WHERE "
+                + KEY_LOGINACCOUNT + "= '" + user.getAccountName() + "'";
+        // String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
@@ -331,7 +336,6 @@ public class DB extends SQLiteOpenHelper {
                 double balance = c.getDouble((c.getColumnIndex(KEY_BALANCE)));
                 double interest = c.getDouble(c
                         .getColumnIndex(KEY_INTERESTRATE));
-                //CHANGE AccName to NICKNAME
                 Account account = new Account(accName, nickName, balance,
                         interest, user);
                 if (acc.equalsIgnoreCase(user.getAccountName())) {
