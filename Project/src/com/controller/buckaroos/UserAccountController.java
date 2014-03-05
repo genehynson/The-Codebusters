@@ -1,6 +1,6 @@
 package com.controller.buckaroos;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 
@@ -200,11 +200,11 @@ public class UserAccountController {
         return user;
     }
 
-    public ArrayList<Account> getAllUserAccounts() {
+    public List<Account> getAllUserAccounts() {
         return db.getAllAccounts(user);
     }
 
-    public ArrayList<AccountTransaction> getAllAccountTransactions() {
+    public List<AccountTransaction> getAllAccountTransactions() {
         return db.getAllAccountTransactions(currentAccount, user);
     }
 

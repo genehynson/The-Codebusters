@@ -52,7 +52,8 @@ public class User {
         if (o == this)
             return true;
         if (o instanceof Account) {
-            if (((User) o).getAccountName().equals(this.getAccountName())
+            if (((User) o).getAccountName().equalsIgnoreCase(
+                    this.getAccountName())
                     && ((User) o).getEmail() == this.getEmail()) {
                 return true;
             }

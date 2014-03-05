@@ -14,7 +14,8 @@ public class Account {
     private User user;
     private String nickName;
 
-    public Account(String name, String nickName, double amount, double interestRate, User user) {
+    public Account(String name, String nickName, double amount,
+            double interestRate, User user) {
         this.user = user;
         this.setName(name);
         this.balance = amount;
@@ -59,7 +60,7 @@ public class Account {
         if (o == this)
             return true;
         if (o instanceof Account) {
-            if (((Account) o).getName().equals(this.getName())
+            if (((Account) o).getName().equalsIgnoreCase(this.getName())
                     && ((Account) o).getBalance() == this.getBalance()) {
                 return true;
             }
@@ -70,9 +71,9 @@ public class Account {
     public double getInterestRate() {
         return interestRate;
     }
-    
+
     public String getNickName() {
-    	return nickName;
+        return nickName;
     }
 
     public void setInterestRate(double interestRate) {
