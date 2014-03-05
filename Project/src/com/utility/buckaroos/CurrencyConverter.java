@@ -8,7 +8,7 @@ package com.utility.buckaroos;
  * @author Jordan LeRoux
  * @version 1.0
  */
-public class CurrencyConverter {
+public class CurrencyConverter implements CurrencyConverterInterface {
 
     private static final double FROMUSDTOAUD = 1.1206;
     private static final double FROMUSDTOBRL = 2.3443;
@@ -24,14 +24,7 @@ public class CurrencyConverter {
     private static final double FROMUSDTOAED = 3.673;
     private static final double FROMUSDTOBDT = 77.715;
 
-    /**
-     * Converts a supported currency to another supported currency
-     * 
-     * @param fromCurrency The currency to convert from
-     * @param toCurrency The currency to convert to
-     * @param amount The amount of currency to convert
-     * @return The amount of money in the new currency
-     */
+    @Override
     public double convertCurrency(Enum<Money> fromCurrency,
             Enum<Money> toCurrency, double amount) {
         double newAmount = 0;
