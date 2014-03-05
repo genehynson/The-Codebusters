@@ -367,20 +367,38 @@ public class DB extends SQLiteOpenHelper {
         // }
         // }
         // c.close();
+
         User returnUser = null;
-        if (accountName != null) {
-            ArrayList<User> users = getAllUsers();
-            for (User user : users) {
-                if (user != null) {
-                    String acc = user.getAccountName();
-                    if (accountName.equals(acc)) {
-                        returnUser = new User(user.getAccountName(),
-                                user.getPassword(), user.getEmail());
-                    }
-                }
-            }
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_CREDENTIALS + " WHERE "
+                + KEY_LOGINACCOUNT + " = '" + accountName + "'";
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                String accName = c
+                        .getString(c.getColumnIndex(KEY_LOGINACCOUNT));
+                String pw = c.getString(c.getColumnIndex(KEY_PASSWORD));
+                String email = c.getString((c.getColumnIndex(KEY_EMAIL)));
+                returnUser = new User(accName, pw, email);
+            } while (c.moveToNext());
         }
+        db.close();
         return returnUser;
+
+        // User returnUser = null;
+        // if (accountName != null) {
+        // ArrayList<User> users = getAllUsers();
+        // for (User user : users) {
+        // if (user != null) {
+        // String acc = user.getAccountName();
+        // if (accountName.equals(acc)) {
+        // returnUser = new User(user.getAccountName(),
+        // user.getPassword(), user.getEmail());
+        // }
+        // }
+        // }
+        // }
+        // return returnUser;
     }
 
     /**
