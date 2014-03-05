@@ -114,46 +114,10 @@ public class Reports extends Activity implements OnClickListener {
 					}
 				}
 			}
-			for (AccountTransaction transaction : importedTransactions) {
-				date = transaction.getDate();
-				if (!date.equals("00/00/0")) {
-					System.out.println("Date: " + date);
-					try {
-						theDate = sdf.parse(date);
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-
-					System.out.println(beforeDate + " " + afterDate + " "
-							+ theDate);
-					if ((beforeDate.before(theDate) && afterDate.after(theDate))
-							|| beforeDate.equals(theDate)
-							|| afterDate.equals(theDate)) {
-						if (transaction.getType().equals("Withdrawal")) {
-							if (!categoryTotals.containsKey(transaction
-									.getCategory())) {
-								categoryTotals.put(transaction.getCategory(),
-										transaction.getAmount());
-								categoryNames.add(transaction.getCategory());
-							} else {
-								categoryTotals.put(
-										transaction.getCategory(),
-										categoryTotals.get(transaction
-												.getCategory())
-												+ transaction.getAmount());
-							}
-							totalSpending = transaction.getAmount()
-									+ totalSpending;
-							// list of all applicable transactions...isn't used.
-							sortedTransactions.add(transaction);
-						}
-					}
-				}
-			}
-			categoryTotals.put("Total", totalSpending);
-			categoryNames.add("Total");
-			controller.setCurrentAccount(actualCurrentAccount);
 		}
+		categoryTotals.put("Total", totalSpending);
+		categoryNames.add("Total");
+		controller.setCurrentAccount(actualCurrentAccount);
 	}
 
 	private void populateListView() {
