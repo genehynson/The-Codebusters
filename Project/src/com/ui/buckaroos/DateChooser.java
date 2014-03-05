@@ -20,10 +20,10 @@ public class DateChooser extends Activity implements OnClickListener {
     private DatePicker chooser;
     private Date today;
     private Calendar cal;
-
-    private static int selectedYear;
-    private static int selectedMonth;
-    private static int selectedDay;
+    private static Date date;
+    private int currentYear;
+    private int currentMonth;
+    private int currentDay;
     private Transaction transaction;
 
     @Override
@@ -31,17 +31,22 @@ public class DateChooser extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date_chooser);
         transaction = new Transaction();
+        
         today = new Date();
         cal = Calendar.getInstance();
         cal.setTime(today);
-        selectedYear = cal.get(Calendar.YEAR);
-        selectedMonth = cal.get(Calendar.MONTH);
-        selectedDay = cal.get(Calendar.DAY_OF_MONTH);
+        currentYear = cal.get(Calendar.YEAR);
+        currentMonth = cal.get(Calendar.MONTH);
+        currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        date = new Date();
+        
         save = (Button) findViewById(R.id.saveDate);
         save.setOnClickListener(this);
         chooser = (DatePicker) findViewById(R.id.datePicker);
-        chooser.init(selectedYear, selectedMonth, selectedDay, dateChanged);
+        chooser.init(currentYear, currentMonth, currentDay, dateChanged);
         getActionBar().hide();
+        
+        setDateForTransaction(currentYear, currentMonth, currentDay);
     }
 
     @Override
@@ -50,6 +55,14 @@ public class DateChooser extends Activity implements OnClickListener {
         getMenuInflater().inflate(R.menu.date_chooser, menu);
         return true;
     }
+    
+    @SuppressWarnings("deprecation")
+	private void setDateForTransaction(int year, int month, int day) {
+		date.setDate(day);
+    	date.setMonth(month);
+    	date.setYear(year);
+    	transaction.setDate(date);
+    }
 
     private DatePicker.OnDateChangedListener dateChanged =
             new DatePicker.OnDateChangedListener() {
@@ -57,17 +70,13 @@ public class DateChooser extends Activity implements OnClickListener {
                 @Override
                 public void onDateChanged(DatePicker view, int year,
                         int monthOfYear, int dayOfMonth) {
-                    transaction.setDay(dayOfMonth);
-                    transaction.setMonth(monthOfYear);
-                    transaction.setYear(year);
+                    setDateForTransaction(year, monthOfYear, dayOfMonth);
                 }
-
             };
 
     @Override
     public void onClick(View v) {
         startActivity(new Intent(DateChooser.this, Transaction.class));
-        // finish();
     }
 
 }

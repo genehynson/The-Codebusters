@@ -1,5 +1,9 @@
 package com.ui.buckaroos;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +18,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.controller.buckaroos.ControllerInterface;
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
@@ -31,13 +36,12 @@ public class Transaction extends Activity implements OnClickListener,
     private EditText amount, category;
     private RadioButton withdraw, deposit;
     private RadioGroup radioGroup;
-    private UserAccountController controller;
-    private DateChooser dateChooser;
+    private ControllerInterface controller;
     private TimePicker time;
+    private static Date dateChosen;
     private static boolean dateChanged = false;
-    private static int day;
-    private static int year;
-    private static int month;
+	SimpleDateFormat dateFormat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,9 @@ public class Transaction extends Activity implements OnClickListener,
 
     private void initialize() {
         controller = new UserAccountController(this);
-        dateChooser = new DateChooser();
+    	dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
+    	dateChosen = new Date();
+    	
         amount = (EditText) findViewById(R.id.accountNickName);
         category = (EditText) findViewById(R.id.category);
         save = (Button) findViewById(R.id.saveButton);
@@ -60,6 +66,7 @@ public class Transaction extends Activity implements OnClickListener,
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
         time = (TimePicker) findViewById(R.id.timePicker);
+        
         getActionBar().hide();
         setDateText();
     }
@@ -71,19 +78,22 @@ public class Transaction extends Activity implements OnClickListener,
         return true;
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void onClick(View v) {
         double newAmount = 0;
         switch (v.getId()) {
         case R.id.saveButton:
             int hour = time.getCurrentHour();
             int minute = time.getCurrentMinute();
+            dateChosen.setHours(hour);
+            dateChosen.setMinutes(minute);
             if (!amount.getText().toString().equals("")) {
                 newAmount = Double.parseDouble(amount.getText().toString());
                 String categoryText = category.getText().toString();
                 if (withdraw.isChecked()) {
-                    controller.addWithdrawal(newAmount, null, categoryText,
-                            hour, minute, day, month, year);
+                    controller.addWithdrawal(newAmount, "dollars", categoryText,
+                            dateChosen);
                     startActivity(new Intent(Transaction.this,
                             LoginSuccess.class));
                     Toast toast =
@@ -91,8 +101,7 @@ public class Transaction extends Activity implements OnClickListener,
                                     Toast.LENGTH_SHORT);
                     toast.show();
                 } else if (deposit.isChecked()) {
-                    controller.addDeposit(newAmount, null, categoryText, hour,
-                            minute, day, month, year);
+                    controller.addDeposit(newAmount, "dollars", categoryText, dateChosen);
                     Toast toast =
                             Toast.makeText(this, "Deposit Saved.",
                                     Toast.LENGTH_SHORT);
@@ -121,22 +130,13 @@ public class Transaction extends Activity implements OnClickListener,
 
     public void setDateText() {
         if (dateChanged) {
-            date.setText(String.valueOf(month) + "/" + String.valueOf(day)
-                    + "/" + String.valueOf(year));
+            date.setText(dateFormat.format(dateChosen).toString());
         }
 
     }
 
-    public void setDay(int day) {
-        Transaction.day = day;
-    }
-
-    public void setMonth(int month) {
-        Transaction.month = month + 1;
-    }
-
-    public void setYear(int year) {
-        Transaction.year = year;
+    public void setDate(Date date) {
+        Transaction.dateChosen = date;
     }
 
     @Override
