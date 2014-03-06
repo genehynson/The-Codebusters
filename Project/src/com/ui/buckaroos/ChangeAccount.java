@@ -94,7 +94,7 @@ public class ChangeAccount extends Activity {
 
             TextView accountText =
                     (TextView) itemView.findViewById(R.id.item_userAccountName);
-            accountText.setText(current.getName());
+            accountText.setText(current.getNickName());
 
             TextView accountBalanceText =
                     (TextView) itemView

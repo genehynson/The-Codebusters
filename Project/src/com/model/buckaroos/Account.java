@@ -76,6 +76,10 @@ public class Account {
         return nickName;
     }
 
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
