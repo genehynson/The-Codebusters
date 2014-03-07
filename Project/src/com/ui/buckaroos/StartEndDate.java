@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
 public class StartEndDate extends Activity implements OnClickListener {
@@ -20,62 +21,53 @@ public class StartEndDate extends Activity implements OnClickListener {
     private DatePicker fromChooser, endChooser;
     private Date today;
     private Calendar cal;
-    private Reports reports;
 
-    private static int selectedYear;
-    private static int selectedMonth;
-    private static int selectedDay;
+    private int currentYear;
+    private int currentMonth;
+    private int currentDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_end_date);
+        
         today = new Date();
-        reports = new Reports();
         cal = Calendar.getInstance();
         cal.setTime(today);
-        selectedYear = cal.get(Calendar.YEAR);
-        selectedMonth = cal.get(Calendar.MONTH);
-        selectedDay = cal.get(Calendar.DAY_OF_MONTH);
+        currentYear = cal.get(Calendar.YEAR);
+        currentMonth = cal.get(Calendar.MONTH);
+        currentDay = cal.get(Calendar.DAY_OF_MONTH);
+        
+        UserAccountController.setBeginDate(today);
+        UserAccountController.setEndDate(today);
+
         continueButton = (Button) findViewById(R.id.continueButton);
         continueButton.setOnClickListener(this);
         fromChooser = (DatePicker) findViewById(R.id.fromDatePicker);
-        fromChooser.init(selectedYear, selectedMonth, selectedDay, dateChanged);
+        fromChooser.init(currentYear, currentMonth, currentDay, dateChanged);
         endChooser = (DatePicker) findViewById(R.id.endDatePicker);
-        endChooser.init(selectedYear, selectedMonth, selectedDay, dateChanged);
+        endChooser.init(currentYear, currentMonth, currentDay, dateChanged);
         getActionBar().hide();
     }
 
     private DatePicker.OnDateChangedListener dateChanged =
             new DatePicker.OnDateChangedListener() {
 
-                @Override
+                @SuppressWarnings("deprecation")
+				@Override
                 public void onDateChanged(DatePicker view, int year,
                         int monthOfYear, int dayOfMonth) {
                     if (view.getId() == R.id.fromDatePicker) {
-                        reports.setBeginDate(convertDate(year, monthOfYear + 1,
-                                dayOfMonth));
+                    	Date begin = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        UserAccountController.setBeginDate(begin);
                     } else {
-                        reports.setEndDate(convertDate(year, monthOfYear + 1,
-                                dayOfMonth));
+                    	Date end = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        UserAccountController.setEndDate(end);
                     }
                 }
 
             };
 
-    public String convertDate(int year, int month, int day) {
-        String date;
-        String monthStr = String.valueOf(month);
-        String dayStr = String.valueOf(day);
-        if (month < 10) {
-            monthStr = "0" + String.valueOf(month);
-        }
-        if (day < 10) {
-            dayStr = "0" + String.valueOf(day);
-        }
-        date = monthStr + "/" + dayStr + "/" + String.valueOf(year);
-        return date;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

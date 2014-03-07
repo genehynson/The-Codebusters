@@ -3,18 +3,21 @@ package com.controller.buckaroos;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 import android.content.Context;
 
 import com.model.buckaroos.Account;
 import com.model.buckaroos.AccountTransaction;
 import com.model.buckaroos.DB;
+import com.model.buckaroos.DataMap;
 import com.model.buckaroos.User;
 import com.utility.buckaroos.AppPropertyWriter;
+import com.utility.buckaroos.CredentialConfirmer;
 
 /**
  * Controller between activities and User/Account
@@ -29,6 +32,10 @@ public class UserAccountController implements ControllerInterface {
     private static DB db;
     private static Account currentAccount;
     private Context ctx;
+    private static Date beginDate;
+    private static Date theDate;
+    private static Date endDate;
+    private static DataMap map;
 
     /**
      * Gets user/DB after login from CredientialConfirmer in Login activity
@@ -53,39 +60,6 @@ public class UserAccountController implements ControllerInterface {
     @Override
 	public Account getUserAccount(String accountName) {
         return db.getAccount(accountName, user);
-    }
-
-    /* (non-Javadoc)
-	 * @see com.controller.buckaroos.ControllerInterface#addAccount(java.lang.String, java.lang.String)
-	 */
-    @Override
-	public void addAccount(String accountName, String accountNickName) {
-        currentAccount = new Account(accountName, accountNickName, 0, 0, user);
-        db.addAccount(currentAccount, user);
-    }
-
-    /* (non-Javadoc)
-	 * @see com.controller.buckaroos.ControllerInterface#addAccount(java.lang.String, java.lang.String, double)
-	 */
-    @Override
-	public void addAccount(String accountName, String accountNickName,
-            double amount) {
-        currentAccount =
-                new Account(accountName, accountNickName, amount, 0, user);
-        db.addAccount(currentAccount, user);
-
-    }
-
-    /* (non-Javadoc)
-	 * @see com.controller.buckaroos.ControllerInterface#addAccount(double, java.lang.String, java.lang.String)
-	 */
-    @Override
-	public void addAccount(double interestRate, String accountName,
-            String accountNickName) {
-        currentAccount =
-                new Account(accountName, accountNickName, 0, interestRate, user);
-        db.addAccount(currentAccount, user);
-
     }
 
     /* (non-Javadoc)
@@ -132,7 +106,7 @@ public class UserAccountController implements ControllerInterface {
      * @param minute
      * @return
      */
-    private String convertTimeToString(Date date) {
+    public String convertTimeToString(Date date) {
     	DateFormat df = new SimpleDateFormat("HH:mm");
     	return df.format(date);
     }
@@ -142,9 +116,20 @@ public class UserAccountController implements ControllerInterface {
      * @param date
      * @return
      */
-    private String convertDateToString(Date date) {
+    public String convertDateToString(Date date) {
     	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
     	return df.format(date);
+    }
+    
+    public Date convertStringToDate(String dateString) {
+    	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+    	Date date = new Date();
+    	try {
+			date = df.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	return date;
     }
 
     /* (non-Javadoc)
@@ -235,4 +220,154 @@ public class UserAccountController implements ControllerInterface {
 	public boolean doesLoginAccountExist(String accountName) {
         return db.getUser(accountName) != null;
     }
+    
+    public Map<String, Double> getTransactionsInDate() {
+        List<AccountTransaction> importedTransactions = getAllAccountTransactions();
+        List<Account> allAccounts = getAllUserAccounts();
+        Account actualCurrentAccount = getCurrentAccount();
+        
+        List<String> categoryNames = new ArrayList<String>();
+        Map<String, Double> categoryTotals = new HashMap<String, Double>();
+        
+        String date;
+        double totalSpending = 0;
+        
+        for (Account account : allAccounts) {
+            setCurrentAccount(account);
+            importedTransactions = getAllAccountTransactions();
+            for (AccountTransaction transaction : importedTransactions) {
+                date = transaction.getDate();
+                if (!date.equals("00/00/0")) {
+                    theDate = convertStringToDate(date);
+                    System.out.println("before " + beginDate);
+                    System.out.println(theDate.toString());
+                    System.out.println("after " + endDate);
+                    if ((beginDate.before(theDate) && endDate.after(theDate))
+                            || beginDate.equals(theDate)
+                            || endDate.equals(theDate)) {
+                    	System.out.println("found date");
+                        if (transaction.getType().equals("Withdrawal")) {
+                            if (!categoryTotals.containsKey(transaction
+                                    .getCategory())) {
+                                categoryTotals.put(transaction.getCategory(),
+                                        transaction.getAmount());
+                                categoryNames.add(transaction.getCategory());
+                            } else {
+                                categoryTotals.put(
+                                        transaction.getCategory(),
+                                        categoryTotals.get(transaction
+                                                .getCategory())
+                                                + transaction.getAmount());
+                            }
+                            totalSpending =
+                                    transaction.getAmount() + totalSpending;
+                        }
+                    }
+                }
+            }
+        }
+        categoryTotals.put("Total", totalSpending);
+        categoryNames.add("Total");
+        setCurrentAccount(actualCurrentAccount);
+        return categoryTotals;
+    }
+    
+    @Override
+    public List<String> getTransactionNamesInDate() {
+    	List<String> categoryNames = new ArrayList<String>();
+    	
+        List<AccountTransaction> importedTransactions = getAllAccountTransactions();
+        List<Account> allAccounts = getAllUserAccounts();
+        Account actualCurrentAccount = getCurrentAccount();
+        
+        String date;
+        
+        for (Account account : allAccounts) {
+            setCurrentAccount(account);
+            importedTransactions = getAllAccountTransactions();
+            for (AccountTransaction transaction : importedTransactions) {
+                date = transaction.getDate();
+                if (!date.equals("00/00/0")) {
+                    theDate = convertStringToDate(date);
+                    if ((beginDate.before(theDate) && endDate.after(theDate))
+                            || beginDate.equals(theDate)
+                            || endDate.equals(theDate)) {
+                        if (transaction.getType().equals("Withdrawal")) {
+                            if (!categoryNames.contains(transaction.getCategory())) {
+                                categoryNames.add(transaction.getCategory());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        categoryNames.add("Total");
+        setCurrentAccount(actualCurrentAccount);
+        return categoryNames;
+    }
+    
+    public boolean confirmLogin(String username, String password, CredentialConfirmer confirm) {
+        if (confirm.doesAccountExist(username)) {
+            if (confirm.isPasswordCorrect(username, password)) {
+            	user = confirm.getLoggedInUser();
+            	return true;
+            }
+        }
+        return false;
+    }
+
+	/**
+	 * @return the beginDate
+	 */
+	public static Date getBeginDate() {
+		return beginDate;
+	}
+
+	/**
+	 * @param beginDate the beginDate to set
+	 */
+	public static void setBeginDate(Date beginDate) {
+		UserAccountController.beginDate = beginDate;
+	}
+
+	/**
+	 * @return the theDate
+	 */
+	public static Date getTheDate() {
+		return theDate;
+	}
+
+	/**
+	 * @param theDate the theDate to set
+	 */
+	public static void setTheDate(Date theDate) {
+		UserAccountController.theDate = theDate;
+	}
+
+	/**
+	 * @return the endDate
+	 */
+	public static Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public static void setEndDate(Date endDate) {
+		UserAccountController.endDate = endDate;
+	}
+	
+	public void addObject(String name, Object o) {
+		map.add(name, o);
+	}
+	
+	public Object getObject(String name) {
+		return map.getObject(name);
+	}
+	
+	public List<String> getAllObjectNames() {
+		return map.getAllObjectNames();
+	}
+	
 }

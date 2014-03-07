@@ -2,11 +2,13 @@ package com.controller.buckaroos;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.model.buckaroos.Account;
 import com.model.buckaroos.AccountTransaction;
 import com.model.buckaroos.DB;
 import com.model.buckaroos.User;
+import com.utility.buckaroos.CredentialConfirmer;
 
 public interface ControllerInterface {
 
@@ -17,31 +19,6 @@ public interface ControllerInterface {
 	 * @return
 	 */
 	public abstract Account getUserAccount(String accountName);
-
-	/**
-	 * adds "bank" account
-	 * 
-	 * @param accountName
-	 */
-	public abstract void addAccount(String accountName, String accountNickName);
-
-	/**
-	 *  adds "bank" account
-	 * @param accountName
-	 * @param accountNickName
-	 * @param amount
-	 */
-	public abstract void addAccount(String accountName, String accountNickName,
-			double amount);
-
-	/**
-	 *  adds "bank" account
-	 * @param interestRate
-	 * @param accountName
-	 * @param accountNickName
-	 */
-	public abstract void addAccount(double interestRate, String accountName,
-			String accountNickName);
 
 	/**
 	 *  adds "bank" account
@@ -135,4 +112,16 @@ public interface ControllerInterface {
 	 */
 	public abstract boolean doesLoginAccountExist(String accountName);
 
+	public abstract Map<String, Double> getTransactionsInDate();
+
+	public abstract List<String> getTransactionNamesInDate();
+
+	public abstract boolean confirmLogin(String string, String string2,
+			CredentialConfirmer confirm);
+	public abstract List<String> getAllObjectNames();
+		
+	public abstract Object getObject(String name);
+
+	public abstract void addObject(String name, Object o);
+	
 }

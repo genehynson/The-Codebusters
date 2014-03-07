@@ -14,44 +14,65 @@ public class User {
 
     public User(String accountName, String password, String email) {
         this.accountName = accountName;
-        // PasswordHash hasher = new PasswordHash();
-        // this._password = hasher.hashPassword(password);
         this.password = password;
         this.email = email;
     }
 
-    public String getAccountName() {
+    /**
+     * Return login account name
+     * @return
+     */
+	public String getAccountName() {
         return accountName;
     }
 
-    public void setAccountName(String accountName) {
+	/**
+	 * Set login account name
+	 * @param accountName
+	 */
+	public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
 
-    public String getPassword() {
+	/**
+	 * Return password
+	 * @return
+	 */
+	public String getPassword() {
         return password;
     }
-
+	
+	/**
+	 * Set login password
+	 * @param password
+	 */
     public void setPassword(String password) {
-        // PasswordHash hasher = new PasswordHash();
-        // this._password = hasher.hashPassword(_password);
         this.password = password;
     }
 
-    public String getEmail() {
+   /**
+    * Returns user's email
+    * @return
+    */
+	public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+	/**
+	 * Sets user email
+	 * @param email
+	 */
+	public void setEmail(String email) {
         this.email = email;
     }
 
+	@Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
         if (o == this)
             return true;
-        if (o instanceof Account) {
+        if (o instanceof User) {
             if (((User) o).getAccountName().equalsIgnoreCase(
                     this.getAccountName())
                     && ((User) o).getEmail() == this.getEmail()) {

@@ -18,7 +18,6 @@ import com.model.buckaroos.User;
  */
 public class CredentialConfirmer {
 
-    private static Context ctx;
     private static DB db;
     private static User currentLoggedInUser;
 
@@ -27,7 +26,6 @@ public class CredentialConfirmer {
      * the properties that have been written to the application
      */
     public CredentialConfirmer(Context ctx) {
-        this.ctx = ctx;
         db = new DB(ctx);
     }
 

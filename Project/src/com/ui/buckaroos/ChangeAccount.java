@@ -56,7 +56,6 @@ public class ChangeAccount extends Activity {
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-                // When clicked, show a toast with the TextView text
                 Account clickedAccount = userAccounts.get(position);
                 controller.setCurrentAccount(clickedAccount);
                 startActivity(new Intent(ChangeAccount.this,

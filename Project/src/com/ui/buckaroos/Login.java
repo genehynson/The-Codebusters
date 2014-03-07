@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.controller.buckaroos.ControllerInterface;
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 import com.utility.buckaroos.CredentialConfirmer;
@@ -27,6 +28,7 @@ public class Login extends Activity implements OnClickListener {
 
     private EditText etUser, etLPass;
     private Button bLogin;
+    private ControllerInterface controller = new UserAccountController(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +55,10 @@ public class Login extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         CredentialConfirmer confirm = new CredentialConfirmer(this);
-        if (confirm.doesAccountExist(etUser.getText().toString())) {
-            if (confirm.isPasswordCorrect(etUser.getText().toString(), etLPass
-                    .getText().toString())) {
-                UserAccountController controller = new UserAccountController(
-                        confirm.getLoggedInUser(), this);
-                startActivity(new Intent(Login.this, LoginSuccess.class));
-            } else {
-                Toast toast = Toast.makeText(this, "Password incorrect",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            }
+        if (controller.confirmLogin(etUser.getText().toString(), etLPass.getText().toString(), confirm)) { 
+            startActivity(new Intent(Login.this, LoginSuccess.class));
         } else {
-            Toast toast = Toast.makeText(this, "No such account.",
+            Toast toast = Toast.makeText(this, "Username or password incorrect.",
                     Toast.LENGTH_SHORT);
             toast.show();
         }

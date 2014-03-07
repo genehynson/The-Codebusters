@@ -32,6 +32,10 @@ public class Account {
         return balance;
     }
 
+    /**
+     * Sets account balance
+     * @param balance
+     */
     public void setBalance(int balance) {
         this.balance = balance;
     }
@@ -68,22 +72,42 @@ public class Account {
         return false;
     }
 
+    /**
+     * Returns interest rate
+     * @return
+     */
     public double getInterestRate() {
         return interestRate;
     }
 
+    /**
+     * Returns nickname
+     * @return
+     */
     public String getNickName() {
         return nickName;
     }
 
+    /**
+     * Sets nickname
+     * @param nickName
+     */
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
+    /**
+     * Set interest rate
+     * @param interestRate
+     */
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
 
+    /**
+     * Returns this account's user
+     * @return
+     */
     public User getUser() {
         return user;
     }
