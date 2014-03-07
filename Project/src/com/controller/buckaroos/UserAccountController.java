@@ -369,5 +369,4 @@ public class UserAccountController implements ControllerInterface {
 	public List<String> getAllObjectNames() {
 		return map.getAllObjectNames();
 	}
-	
 }

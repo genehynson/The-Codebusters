@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class DataMap {
 	
-	private HashMap<String, Object> map;
-	private List<String> objectNames;
+	private static HashMap<String, Object> map;
+	private static List<String> objectNames;
 	
 	public DataMap() {
 		map = new HashMap<String, Object>();

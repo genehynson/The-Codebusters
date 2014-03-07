@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
+import com.model.buckaroos.DataMap;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -29,6 +30,8 @@ public class WelcomeScreen extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
         getActionBar().hide();
+        controller.addObject("bReg", bReg);
+        controller.addObject("bLog", bLog);
         bReg = (Button) findViewById(R.id.bReg);
         bLog = (Button) findViewById(R.id.bLog);
         controller = new UserAccountController(this);
