@@ -49,18 +49,17 @@
         android:id="@+id/addTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/createAccount"
+        android:layout_below="@+id/loginsuccess"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="91dp"
+        android:layout_marginTop="36dp"
         android:text="Add Transaction" />
 
     <Button
         android:id="@+id/viewAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/createAccount"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp"
+        android:layout_centerVertical="true"
         android:text="View Transaction History" />
     
 </RelativeLayout>

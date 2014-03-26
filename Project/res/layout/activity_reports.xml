@@ -12,14 +12,14 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Spending Report" />
+        android:text="Spending Category Report" />
 
     <ListView
         android:id="@+id/spendingView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/menuButton"
         android:layout_marginRight="19dp" >
     </ListView>
 
@@ -31,5 +31,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/textView1"
         android:text="Menu" />
+
+    <TextView
+        android:id="@+id/dateRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:text="Transactions date range" />
 
 </RelativeLayout>

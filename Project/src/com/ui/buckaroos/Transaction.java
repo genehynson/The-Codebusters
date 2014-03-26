@@ -40,8 +40,7 @@ public class Transaction extends Activity implements OnClickListener,
     private TimePicker time;
     private static Date dateChosen;
     private static boolean dateChanged = false;
-	SimpleDateFormat dateFormat;
-
+    SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +51,9 @@ public class Transaction extends Activity implements OnClickListener,
 
     private void initialize() {
         controller = new UserAccountController(this);
-    	dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
-    	dateChosen = new Date();
-    	
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
+        dateChosen = new Date();
+
         amount = (EditText) findViewById(R.id.accountNickName);
         category = (EditText) findViewById(R.id.category);
         save = (Button) findViewById(R.id.saveButton);
@@ -66,7 +65,7 @@ public class Transaction extends Activity implements OnClickListener,
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(this);
         time = (TimePicker) findViewById(R.id.timePicker);
-        
+
         getActionBar().hide();
         setDateText();
     }
@@ -79,21 +78,23 @@ public class Transaction extends Activity implements OnClickListener,
     }
 
     @SuppressWarnings("deprecation")
-	@Override
+    @Override
     public void onClick(View v) {
         double newAmount = 0;
         switch (v.getId()) {
         case R.id.saveButton:
             int hour = time.getCurrentHour();
             int minute = time.getCurrentMinute();
+            // Calendar.set(Calendar.HOUR_OF_DAY, hour);
             dateChosen.setHours(hour);
+            // Calendar.set(Calendar.MINUTE, minute);
             dateChosen.setMinutes(minute);
             if (!amount.getText().toString().equals("")) {
                 newAmount = Double.parseDouble(amount.getText().toString());
                 String categoryText = category.getText().toString();
                 if (withdraw.isChecked()) {
-                    controller.addWithdrawal(newAmount, "dollars", categoryText,
-                            dateChosen);
+                    controller.addWithdrawal(newAmount, "dollars",
+                            categoryText, dateChosen);
                     startActivity(new Intent(Transaction.this,
                             LoginSuccess.class));
                     Toast toast =
@@ -101,7 +102,8 @@ public class Transaction extends Activity implements OnClickListener,
                                     Toast.LENGTH_SHORT);
                     toast.show();
                 } else if (deposit.isChecked()) {
-                    controller.addDeposit(newAmount, "dollars", categoryText, dateChosen);
+                    controller.addDeposit(newAmount, "dollars", categoryText,
+                            dateChosen);
                     Toast toast =
                             Toast.makeText(this, "Deposit Saved.",
                                     Toast.LENGTH_SHORT);
@@ -132,7 +134,6 @@ public class Transaction extends Activity implements OnClickListener,
         if (dateChanged) {
             date.setText(dateFormat.format(dateChosen).toString());
         }
-
     }
 
     public void setDate(Date date) {

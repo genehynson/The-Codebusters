@@ -1,10 +1,7 @@
 package com.ui.buckaroos;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +21,6 @@ import android.widget.TextView;
 import com.controller.buckaroos.ControllerInterface;
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
-import com.model.buckaroos.Account;
-import com.model.buckaroos.AccountTransaction;
 
 public class Reports extends Activity implements OnClickListener {
 
@@ -46,6 +41,9 @@ public class Reports extends Activity implements OnClickListener {
         getActionBar().hide();
         categoryTotals = controller.getTransactionsInDate();
         categoryNames = controller.getTransactionNamesInDate();
+        // categoryTotals = controller.getIncomeTransactionsInDate();
+        // categoryNames = controller.getIncomeTransactionNamesInDate();
+
         populateListView();
     }
 
@@ -82,6 +80,12 @@ public class Reports extends Activity implements OnClickListener {
                     (TextView) itemView.findViewById(R.id.item_report_balace);
             NumberFormat us = NumberFormat.getCurrencyInstance();
             balanceText.setText("Total: " + us.format(total));
+
+            TextView dateText =
+                    (TextView) itemView.findViewById(R.id.dateRange);
+            // dateText.setText("From: " + UserAccountController.getBeginDate()
+            // + " To: " + UserAccountController.getEndDate());
+            // dateText.setText("testing date");
             return itemView;
         }
     }
