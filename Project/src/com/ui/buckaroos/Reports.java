@@ -79,7 +79,7 @@ public class Reports extends Activity implements OnClickListener {
             TextView balanceText =
                     (TextView) itemView.findViewById(R.id.item_report_balace);
             NumberFormat us = NumberFormat.getCurrencyInstance();
-            balanceText.setText("Total: " + us.format(total));
+            balanceText.setText(us.format(total));
 
             TextView dateText =
                     (TextView) itemView.findViewById(R.id.dateRange);

@@ -49,10 +49,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int bReg=0x7f09002f;
         public static final int bRegister=0x7f09001e;
         public static final int category=0x7f09002d;
-        public static final int changeAccount=0x7f09001a;
+        public static final int changeAccount=0x7f090019;
         public static final int continueButton=0x7f090026;
         public static final int create=0x7f090009;
-        public static final int createAccount=0x7f090019;
+        public static final int createAccount=0x7f09001a;
         public static final int currentAccountText=0x7f09001b;
         public static final int dateButton=0x7f09002c;
         public static final int datePicker=0x7f09000f;

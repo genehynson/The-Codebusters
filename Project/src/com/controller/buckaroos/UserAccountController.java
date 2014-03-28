@@ -422,14 +422,90 @@ public class UserAccountController implements ControllerInterface {
 
     @Override
     public Map<String, Double> getTransactionHistoryTotalInDate() {
-        // TODO Auto-generated method stub
-        return null;
+        List<AccountTransaction> importedTransactions =
+                getAllAccountTransactions();
+        List<Account> allAccounts = getAllUserAccounts();
+        Account actualCurrentAccount = getCurrentAccount();
+
+        List<String> categoryNames = new ArrayList<String>();
+        Map<String, Double> categoryTotals = new HashMap<String, Double>();
+
+        String date;
+        double totalIncome = 0;
+
+        for (Account account : allAccounts) {
+            setCurrentAccount(account);
+            importedTransactions = getAllAccountTransactions();
+            for (AccountTransaction transaction : importedTransactions) {
+                date = transaction.getDate();
+                if (!date.equals("00/00/0")) {
+                    theDate = convertStringToDate(date);
+                    System.out.println("before " + beginDate);
+                    System.out.println(theDate.toString());
+                    System.out.println("after " + endDate);
+                    if ((beginDate.before(theDate) && endDate.after(theDate))
+                            || beginDate.equals(theDate)
+                            || endDate.equals(theDate)) {
+                        System.out.println("found date");
+                        if (transaction.getType().equals("Deposit")) {
+                            if (!categoryTotals.containsKey(transaction
+                                    .getCategory())) {
+                                categoryTotals.put(transaction.getCategory(),
+                                        transaction.getAmount());
+                                categoryNames.add(transaction.getCategory());
+                            } else {
+                                categoryTotals.put(
+                                        transaction.getCategory(),
+                                        categoryTotals.get(transaction
+                                                .getCategory())
+                                                + transaction.getAmount());
+                            }
+                            totalIncome = transaction.getAmount() + totalIncome;
+                        }
+                    }
+                }
+            }
+        }
+        categoryTotals.put("Total", totalIncome);
+        categoryNames.add("Total");
+        setCurrentAccount(actualCurrentAccount);
+        return categoryTotals;
     }
 
     @Override
     public List<String> getTransactionHistoryNamesInDate() {
-        // TODO Auto-generated method stub
-        return null;
+        List<String> categoryNames = new ArrayList<String>();
+
+        List<AccountTransaction> importedTransactions =
+                getAllAccountTransactions();
+        List<Account> allAccounts = getAllUserAccounts();
+        Account actualCurrentAccount = getCurrentAccount();
+
+        String date;
+
+        for (Account account : allAccounts) {
+            setCurrentAccount(account);
+            importedTransactions = getAllAccountTransactions();
+            for (AccountTransaction transaction : importedTransactions) {
+                date = transaction.getDate();
+                if (!date.equals("00/00/0")) {
+                    theDate = convertStringToDate(date);
+                    if ((beginDate.before(theDate) && endDate.after(theDate))
+                            || beginDate.equals(theDate)
+                            || endDate.equals(theDate)) {
+                        if (transaction.getType().equals("Deposit")) {
+                            if (!categoryNames.contains(transaction
+                                    .getCategory())) {
+                                categoryNames.add(transaction.getCategory());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        categoryNames.add("Total");
+        setCurrentAccount(actualCurrentAccount);
+        return categoryNames;
     }
 
     public boolean confirmLogin(String username, String password,

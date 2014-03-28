@@ -18,20 +18,12 @@
         android:text="Login Successful!" />
 
     <Button
-        android:id="@+id/createAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="78dp"
-        android:text="Create New Account" />
-
-    <Button
         android:id="@+id/changeAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/createAccount"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/createAccount"
         android:layout_marginBottom="30dp"
         android:text="View Accounts" />
 
@@ -49,8 +41,9 @@
         android:id="@+id/addTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/viewAccount"
+        android:layout_alignRight="@+id/viewAccount"
         android:layout_below="@+id/loginsuccess"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
         android:text="Add Transaction" />
 
@@ -61,5 +54,15 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="View Transaction History" />
+
+    <Button
+        android:id="@+id/createAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/changeAccount"
+        android:layout_alignLeft="@+id/viewAccount"
+        android:layout_alignRight="@+id/viewAccount"
+        android:layout_marginBottom="24dp"
+        android:text="Create New Account" />
     
 </RelativeLayout>
