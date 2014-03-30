@@ -8,6 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//Download mysql server from here: http://dev.mysql.com/downloads/mysql/
+//and then set the server up on your computer to use for testing.
+//Once you create a password, change yourPasswordHere to whatever your password
+//is in the constructor
+
 /**
  * This class establishes a connection with a MYSQL Server and provides the java
  * code necessary to communicate with that server
@@ -38,7 +43,7 @@ public class MySQLAccess {
         // connecting to Deloitte's server
         connect = DriverManager
                 .getConnection("jdbc:mysql://localhost:3307/test"
-                        + "?user=Jordan&password=test");
+                        + "?user=root&password=yourPasswordHere");
     }
 
     /*
