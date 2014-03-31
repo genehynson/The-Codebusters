@@ -10,7 +10,8 @@ import com.utility.buckaroos.CurrencyConverterInterface;
 import com.utility.buckaroos.Money;
 
 /**
- * This is a test class for the CurrencyConverter
+ * This is a test class for the CurrencyConverter. This JUnit test has been
+ * written to fulfill the M10 requirements.
  * 
  * @author Jordan
  */
