@@ -12,7 +12,7 @@
         android:id="@+id/accountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose Date of Transaction" />
+        android:text="@string/choose_date_of_transaction" />
 
     <DatePicker
         android:id="@+id/datePicker"
@@ -29,6 +29,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:text="Save" />
+        android:text="@string/save" />
 
 </RelativeLayout>

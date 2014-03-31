@@ -11,79 +11,87 @@ import com.model.buckaroos.User;
 import com.utility.buckaroos.CredentialConfirmer;
 
 /**
+ * This class defines an Interface for the controller object.
+ * 
  * @author Gene Hynson
  * @author Daniel Carnauba
+ * @version 1.0
  */
 public interface ControllerInterface {
 
     /**
-     * Gets "bank" account
+     * Gets the user "bank" account.
      * 
-     * @param accountName
-     * @return
+     * @param accountName The user's account name.
+     * @return The user's account. ("THE BANK ACCOUNT")
      */
     public abstract Account getUserAccount(String accountName);
 
     /**
-     * adds "bank" account
+     * Adds a "bank" account for the logged in user.
      * 
-     * @param accountName
-     * @param accountNickName
-     * @param amount
-     * @param interestRate
+     * @param accountName The official account name (i.e savings)
+     * @param accountNickName The account nickname for display (i.e cashstash)
+     * @param amount The initial amount for the account being created.
+     * @param interestRate The interest rate for this account created.
      */
     public abstract void addAccount(String accountName, String accountNickName,
             double amount, double interestRate);
 
     /**
-     * Add transactions to the current account
+     * Adds a withdrawal transaction to the current active account.
      * 
-     * @param amount
-     * @param minute
-     * @param hour
+     * @param amount The withdrawal amount.
+     * @param currencyType The currency type for the transaction.
+     * @param category The category of the transaction. (Food, bills, etc.)
+     * @param date The date when the transaction takes place.
      */
     public abstract void addWithdrawal(double amount, String currencyType,
             String category, Date date);
 
     /**
-     * @param amount
-     * @param currencyType
-     * @param category
-     * @param date
+     * Adds a deposit transaction to the current active account.
+     * 
+     * @param amount The deposit amount for this transaction.
+     * @param currencyType The currency type for this transaction.
+     * @param category The source of income for this transaction (i.e Paycheck)
+     * @param date The date when the transaction takes place.
      */
     public abstract void addDeposit(double amount, String currencyType,
             String category, Date date);
 
     /**
-     * @return
+     * Gets the current active account.
+     * 
+     * @return The current account that is currently active.
      */
     public abstract Account getCurrentAccount();
 
     /**
-     * does user have any "bank" accounts?
+     * Checks if the user has an account.(i.e savings, checking, etc.)
      * 
-     * @return
+     * @return True if such account exists, False otherwise.
      */
     public abstract boolean hasAccount();
 
     /**
-     * gets the first (default) "bank" account
+     * Gets the first (default) "bank" account.
      * 
-     * @return
+     * @return The default user "bank" account.
      */
     public abstract Account getFirstUserAccount();
 
     /**
-     * Sets current "bank" account
+     * Sets the current "bank" account.
      * 
-     * @param account
+     * @param account The account to be set.
      */
     public abstract void setCurrentAccount(Account account);
 
     /**
-     * Returns the database
+     * Gets the database.
      * 
-     * @return
+     * @return The database object.
      */
     public abstract DB getDB();
 
@@ -98,47 +106,86 @@ public interface ControllerInterface {
             String email);
 
     /**
-     * Returns user's login account
+     * Gets user's login account.
      * 
-     * @param username
+     * @param username The user's user name.
      */
     public abstract User getLoginAccount(String username);
 
     /**
-     * Gets current user
+     * Gets the current user.
      * 
-     * @return
+     * @return The current user object.
      */
     public abstract User getCurrentUser();
 
     /**
-     * Returns a list of all user "bank" accounts
+     * Gets a list of all user "bank" accounts.
      * 
-     * @return
+     * @return A list of all existing accounts for one user.
      */
     public abstract List<Account> getAllUserAccounts();
 
     /**
-     * Returns a list of all current user transactions
+     * Gets a list of all current user transactions.
      * 
-     * @return
+     * @return A list of all transactions within a user's account.
      */
     public abstract List<AccountTransaction> getAllAccountTransactions();
 
     /**
-     * Checks if account exists
+     * Checks if the login account exists.
      * 
-     * @param accountName
-     * @return
+     * @param accountName The name of the login account.
+     * @return True if account exists, False otherwise.
      */
     public abstract boolean doesLoginAccountExist(String accountName);
 
     /**
-     * Gets the t
+     * Generates a Spending category report across all user accounts. Summarizes
+     * withdrawal transactions by category for a specified time period. Sum up
+     * all the withdrawal transactions for each category and then display.
      * 
-     * @return The transaction category totals.
+     * @return The spending category report across all user accounts.
      */
-    public abstract Map<String, Double> getTransactionsInDate();
+    public abstract Map<String, Double> generateSpendingCategoryReport();
+
+    /**
+     * Generates a source of income report. Summarizes deposit transactions by
+     * source for a specified time period. Sum up all the deposit transactions
+     * for each source and then display.
+     * 
+     * @return The source of income report across all user accounts.
+     */
+    public abstract Map<String, Double> generateIncomeSourceReport();
+
+    /**
+     * Generates a cash flow report Compares withdrawals to deposits for a given
+     * period of time. Simply sum up all the withdrawals and subtract them from
+     * all the deposits.
+     * 
+     * @return The cash flow report.
+     */
+    public abstract Map<String, Double> generateCashFlowReport();
+
+    /**
+     * Generates an account listing report. Shows all the accounts for the user
+     * with their current balance. Should have to option to go to the
+     * transaction history for that account and rollback or commit a previously
+     * rollbacked transaction.
+     * 
+     * @return
+     */
+    public abstract Map<String, Double> generateAccountListingReport();
+
+    /**
+     * Generates a transaction history report for an specific account. For any
+     * given account, you should be able to view all the transactions over a
+     * given time period that have affected the balance of that account.
+     * 
+     * @return
+     */
+    public abstract Map<String, Double> generateTransactionHistoryReport();
 
     /**
      * @return The transaction category names.
@@ -146,31 +193,39 @@ public interface ControllerInterface {
     public abstract List<String> getTransactionNamesInDate();
 
     /**
-     * @return The income transactions totals.
+     * @return The transaction category names.
      */
-    public abstract Map<String, Double> getIncomeTransactionsTotalInDate();
+    public abstract Map<String, Double> getTransactionsInDate();
+
+    //
+    // /**
+    // * @return The income transactions totals.
+    // */
+    // public abstract Map<String, Double> getIncomeTransactionsTotalInDate();
+    //
+    // /**
+    // * @return The transaction income source.
+    // */
+    // public abstract List<String> getIncomeTransactionSourceInDate();
+    //
+    // /**
+    // * @return
+    // */
+    // public abstract Map<String, Double> getTransactionHistoryTotalInDate();
+    //
+    // /**
+    // * @return
+    // */
+    // public abstract List<String> getTransactionHistoryNamesInDate();
 
     /**
-     * @return The transaction income source.
+     * Confirms the login credentials for an user.
+     * 
+     * @param username The user's user name.
+     * @param password The user's password.
+     * @param confirm The CredentialCorfimer object.
+     * @return True if the credentials are confirmed, False otherwise.
      */
-    public abstract List<String> getIncomeTransactionSourceInDate();
-
-    /**
-     * @return
-     */
-    public abstract Map<String, Double> getTransactionHistoryTotalInDate();
-
-    /**
-     * @return
-     */
-    public abstract List<String> getTransactionHistoryNamesInDate();
-
-    /**
-     * @param string
-     * @param string2
-     * @param confirm
-     * @return
-     */
-    public abstract boolean confirmLogin(String string, String string2,
+    public abstract boolean confirmLogin(String username, String password,
             CredentialConfirmer confirm);
 }

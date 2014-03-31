@@ -2,7 +2,9 @@ package com.model.buckaroos;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,10 +14,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
+ * This class defines a database to provide persistence to the application.
  * Class that uses SQLite to store all of the app's information into a database
  * 
- * @author Jordan
- * @author Gene
+ * @author Jordan LeRoux
+ * @author Gene Hynson
  * @version 1.4
  */
 public class DB extends SQLiteOpenHelper {
@@ -495,5 +498,78 @@ public class DB extends SQLiteOpenHelper {
         }
         db.close();
         return transactionList;
+    }
+
+    /*
+     * Called by getIncomeSourceInfo and getSpendingCategoryInfo. Performs a
+     * select query to retrieve the appropriate information needed to produce
+     * spending category and income source reports. Takes in a transactionType
+     * to know which type of report to retrieve info for. Returns null if a
+     * database error occurs
+     */
+    private Map<String, Double> getTransactionCategoryInfo(String username,
+            String accountName, String startDate, String endDate,
+            String transType) {
+        // The date passed in needs to be formatted as YYYY/MM/DD
+        Map<String, Double> categoryMap = new HashMap<String, Double>();
+        String selectQuery =
+                "SELECT Category, SUM(Amount) AS amount FROM "
+                        + "Transactions WHERE Account = '" + username
+                        + "' AND " + "UserAccountName = '" + accountName
+                        + "' AND " + "TransactionType = '" + transType
+                        + "' AND TransactionDate > '" + startDate
+                        + "' AND TransactionDate < '" + endDate + "' GROUP "
+                        + "BY Category";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                String category = c.getString(1);
+                double totalSpending = c.getDouble(2);
+                categoryMap.put(category, totalSpending);
+            } while (c.moveToNext());
+        }
+        return categoryMap;
+    }
+
+    /**
+     * Retrieves the spending categories and the amount spent in those
+     * categories associated with a username and account between a startDate and
+     * endDate
+     * 
+     * @param username The username with which the spending categories are to be
+     *            retrieved from
+     * @param accountName The accountName with which the spending categories are
+     *            to be retrieved from
+     * @param startDate The beginning of the date range to retrieve transactions
+     *            from
+     * @param endDate The end of the date range to retrieve transactions from
+     * @return A hashmap containing the spending categories as keys and the
+     *         amount spent as values or null if a database error occurs
+     */
+    public Map<String, Double> getSpendingCategoryInfo(String username,
+            String accountName, String startDate, String endDate) {
+        return getTransactionCategoryInfo(username, accountName, startDate,
+                endDate, "Withdrawal");
+    }
+
+    /**
+     * Retrieves the income sources and the amount earned in those categories
+     * associated with a username and account between a startDate and endDate
+     * 
+     * @param username The username with which the income sources are to be
+     *            retrieved from
+     * @param accountName The accountName with which the income sources are to
+     *            be retrieved from
+     * @param startDate The beginning of the date range to retrieve transactions
+     *            from
+     * @param endDate The end of the date range to retrieve transactions from
+     * @return A hashmap containing the income sources as keys and the amount
+     *         earned as values or null if a database error occurs
+     */
+    public Map<String, Double> getIncomeSourceInfo(String username,
+            String accountName, String startDate, String endDate) {
+        return getTransactionCategoryInfo(username, accountName, startDate,
+                endDate, "Deposit");
     }
 }

@@ -1,9 +1,11 @@
 package com.model.buckaroos;
 
 /**
- * The "bank" accounts for user.
+ * This class defines an Account object to interact with the User object. It
+ * constructs a "bank" account for a system user.
  * 
- * @author Gene
+ * @author Gene Hynson
+ * @version 1.0
  * 
  */
 public class Account {
@@ -14,6 +16,15 @@ public class Account {
     private User user;
     private String nickName;
 
+    /**
+     * Constructs an Account object.
+     * 
+     * @param name The account's name.
+     * @param nickName The account's nickname.
+     * @param amount The account's initial balance.
+     * @param interestRate The account's interest rate.
+     * @param user The account's owner.
+     */
     public Account(String name, String nickName, double amount,
             double interestRate, User user) {
         this.user = user;
@@ -24,40 +35,42 @@ public class Account {
     }
 
     /**
-     * Returns balance of this account
+     * Gets the account's current balance.
      * 
-     * @return
+     * @return The account's current balance.
      */
     public double getBalance() {
         return balance;
     }
 
     /**
-     * Sets account balance
-     * @param balance
+     * Sets the account's balance.
+     * 
+     * @param balance The balance to be set for.
      */
     public void setBalance(int balance) {
         this.balance = balance;
     }
 
     /**
-     * get name of account
+     * Gets the account's name.
      * 
-     * @return
+     * @return The name of this account.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * set name of account
+     * Sets the account's name.
      * 
-     * @param name
+     * @param name The name to be set for.
      */
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
@@ -73,40 +86,45 @@ public class Account {
     }
 
     /**
-     * Returns interest rate
-     * @return
+     * Gets the account's interest rate.
+     * 
+     * @return The interest rate for this account.
      */
     public double getInterestRate() {
         return interestRate;
     }
 
     /**
-     * Returns nickname
-     * @return
+     * Gets the account's nickname.
+     * 
+     * @return The nickname of this account.
      */
     public String getNickName() {
         return nickName;
     }
 
     /**
-     * Sets nickname
-     * @param nickName
+     * Sets the account's nickname.
+     * 
+     * @param nickName The account's nickname.
      */
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
     /**
-     * Set interest rate
-     * @param interestRate
+     * Sets the interest rate for this account.
+     * 
+     * @param interestRate The interest rate to be set for.
      */
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
 
     /**
-     * Returns this account's user
-     * @return
+     * Gets this account's user.
+     * 
+     * @return The account's rightful owner.
      */
     public User getUser() {
         return user;

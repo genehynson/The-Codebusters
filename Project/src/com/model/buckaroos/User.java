@@ -1,9 +1,10 @@
 package com.model.buckaroos;
 
 /**
- * Class designed to store the user's credentials
+ * This class defines an User object. Class designed to store the user's
+ * credentials
  * 
- * @author Jordan
+ * @author Jordan LeRoux
  * @version 1.0
  */
 public class User {
@@ -12,6 +13,13 @@ public class User {
     private String password;
     private String email;
 
+    /**
+     * Constructs the User object.
+     * 
+     * @param accountName The user's account name.
+     * @param password The user's password.
+     * @param email The user's email.
+     */
     public User(String accountName, String password, String email) {
         this.accountName = accountName;
         this.password = password;
@@ -19,54 +27,60 @@ public class User {
     }
 
     /**
-     * Return login account name
-     * @return
+     * Gets the login account name.
+     * 
+     * @return The user's account name.
      */
-	public String getAccountName() {
+    public String getAccountName() {
         return accountName;
     }
 
-	/**
-	 * Set login account name
-	 * @param accountName
-	 */
-	public void setAccountName(String accountName) {
+    /**
+     * Sets the login account name.
+     * 
+     * @param accountName The account name to be set.
+     */
+    public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
 
-	/**
-	 * Return password
-	 * @return
-	 */
-	public String getPassword() {
+    /**
+     * Gets the user's password.
+     * 
+     * @return The user's login account password.
+     */
+    public String getPassword() {
         return password;
     }
-	
-	/**
-	 * Set login password
-	 * @param password
-	 */
+
+    /**
+     * Sets the user's login account password.
+     * 
+     * @param password The user's login account password.
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-   /**
-    * Returns user's email
-    * @return
-    */
-	public String getEmail() {
+    /**
+     * Gets the user's login account email.
+     * 
+     * @return The user's login account email.
+     */
+    public String getEmail() {
         return email;
     }
 
-	/**
-	 * Sets user email
-	 * @param email
-	 */
-	public void setEmail(String email) {
+    /**
+     * Sets user login account email.
+     * 
+     * @param email The user's login account email.
+     */
+    public void setEmail(String email) {
         this.email = email;
     }
 
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;

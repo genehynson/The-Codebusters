@@ -1,8 +1,6 @@
 package com.ui.buckaroos;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,16 +27,30 @@ public class Reports extends Activity implements OnClickListener {
     private Map<String, Double> categoryTotals;
     private List<String> categoryNames;
 
+    // private Map<String, Double> spendingMap = new HashMap<String, Double>();
+    // private List<String> categoryNames = new ArrayList<String>();
+
+    // private List<Double> categoryTotals = new ArrayList<Double>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
         controller = new UserAccountController(this);
-        categoryTotals = new HashMap<String, Double>();
-        categoryNames = new ArrayList<String>();
+        // categoryTotals = new HashMap<String, Double>();
+        // categoryNames = new ArrayList<String>();
         menu = (Button) findViewById(R.id.menuButton);
         menu.setOnClickListener(this);
         getActionBar().hide();
+        // spendingMap = controller.generateSpendingCategoryReport();
+        // for (Double total : spendingMap.values()) {
+        // categoryTotals.add(total);
+        // System.out.println(total);
+        // }
+        // for (String category : spendingMap.keySet()) {
+        // categoryNames.add(category);
+        // System.out.println();
+        // }
         categoryTotals = controller.getTransactionsInDate();
         categoryNames = controller.getTransactionNamesInDate();
         // categoryTotals = controller.getIncomeTransactionsInDate();
@@ -70,6 +82,7 @@ public class Reports extends Activity implements OnClickListener {
 
             String name = categoryNames.get(position);
             double total = categoryTotals.get(name);
+            // double total = spendingMap.get(name);
             System.out.println(name + " -> " + total);
 
             TextView accountBalanceText =

@@ -18,5 +18,7 @@
     <string name="title_activity_date_chooser">DateChooser</string>
     <string name="title_activity_reports">Reports</string>
     <string name="title_activity_start_end_date">StartEndDate</string>
+    <string name="choose_date_of_transaction">Choose Date of Transaction</string>
+    <string name="save">Save</string>
 
 </resources>

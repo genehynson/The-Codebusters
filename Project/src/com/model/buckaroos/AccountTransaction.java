@@ -3,27 +3,41 @@ package com.model.buckaroos;
 import java.sql.Date;
 
 /**
- * Each transaction has an amount and type (withdraw/deposit)
+ * This class defines an AccountTransaction object. Each transaction has an
+ * amount, currency Type, category, creation date, date of transaction, and
+ * time.
  * 
  * @author Gene
+ * @version 1.0
  * 
  */
 public class AccountTransaction {
 
     private double amount;
     private String type;
-    private String currency;
+    private String currencyType;
     private String category;
     private String dateOfTransaction;
     private Date dateCreated;
     private String time;
 
-    public AccountTransaction(double amount, String currency, String type,
+    /**
+     * Constructs an AccountTransaction object.
+     * 
+     * @param amount The transaction amount.
+     * @param currency The currency type.
+     * @param type The transaction type (Withdrawal/Deposit).
+     * @param category The transaction category.
+     * @param creationDate The date of creation of this transaction.
+     * @param dateOfTransaction The date set by the user.
+     * @param time The time in which this transaction takes place.
+     */
+    public AccountTransaction(double amount, String currencyType, String type,
             String category, Date creationDate, String dateOfTransaction,
             String time) {
         this.type = type;
         this.amount = amount;
-        this.currency = currency;
+        this.currencyType = currencyType;
         this.category = category;
         this.dateCreated = creationDate;
         this.dateOfTransaction = dateOfTransaction;
@@ -31,95 +45,114 @@ public class AccountTransaction {
     }
 
     /**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+     * Sets the transaction's amount.
+     * 
+     * @param amount The amount to be set.
+     */
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
+    /**
+     * Sets the transaction's type.
+     * 
+     * @param type The type to set (Withdrawal/Deposit).
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	/**
-	 * @param currency the currency to set
-	 */
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
+    /**
+     * Sets the transaction's currency type
+     * 
+     * @param currency the currency to set
+     */
+    public void setCurrency(String currencyType) {
+        this.currencyType = currencyType;
+    }
 
-	/**
-	 * @param category the category to set
-	 */
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    /**
+     * Sets the transaction's category.
+     * 
+     * @param category The category to be set.
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	/**
-	 * @param dateOfTransaction the dateOfTransaction to set
-	 */
-	public void setDateOfTransaction(String dateOfTransaction) {
-		this.dateOfTransaction = dateOfTransaction;
-	}
+    /**
+     * Sets the date on which the transaction takes place.
+     * 
+     * @param dateOfTransaction The dateOfTransaction to set.
+     */
+    public void setDateOfTransaction(String dateOfTransaction) {
+        this.dateOfTransaction = dateOfTransaction;
+    }
 
-	/**
-	 * @param dateCreated the dateCreated to set
-	 */
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
+    /**
+     * Sets the transaction's date of creation.
+     * 
+     * @param dateCreated The dateCreated to set.
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
-	}
+    /**
+     * Sets the transaction's time.
+     * 
+     * @param time The time to set.
+     */
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-	@Override
+    @Override
     public String toString() {
-        return type + " of  " + amount + " in " + currency + " for/from "
+        return type + " of  " + amount + " in " + currencyType + " for/from "
                 + category + " on " + dateOfTransaction + " at " + time;
     }
-    
+
     /**
-     * Returns date of transaction set by user
-     * @return
+     * Gets the date of transaction set by user.
+     * 
+     * @return The date transaction date set by the user.
      */
     public String getDate() {
-    	return dateOfTransaction;
-    }
-    
-    /**
-     * Returns type of transaction
-     * @return
-     */
-    public String getType() {
-    	return type;
-    }
-    
-    /**
-     * Returns amount of transaction
-     * @return
-     */
-    public double getAmount() {
-    	return amount;
-    }
-    
-    /**
-     * Returns transaction's category
-     * @return
-     */
-    public String getCategory() {
-    	return category;
+        return dateOfTransaction;
     }
 
     /**
-     * Returns the creation date of transaction
-     * @return
+     * Gets the transaction's type.
+     * 
+     * @return The type of this transaction (Withdrawal or Deposit).
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Gets the transaction's amount.
+     * 
+     * @return The amount of this transaction.
+     */
+    public double getAmount() {
+        return amount;
+    }
+
+    /**
+     * Gets the transaction's category.
+     * 
+     * @return The category of this transaction.
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * Gets the date of creation for this transaction.
+     * 
+     * @return The date on which this transaction was created.
      */
     public Date getCreationDate() {
         return dateCreated;
