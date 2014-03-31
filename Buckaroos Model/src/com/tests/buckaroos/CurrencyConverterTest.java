@@ -9,6 +9,11 @@ import com.utility.buckaroos.CurrencyConverter;
 import com.utility.buckaroos.CurrencyConverterInterface;
 import com.utility.buckaroos.Money;
 
+/**
+ * This is a test class for the CurrencyConverter
+ * 
+ * @author Jordan
+ */
 public class CurrencyConverterTest {
 
     private CurrencyConverterInterface cc;
