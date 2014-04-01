@@ -23,7 +23,9 @@ public class CredentialConfirmer {
 
     /**
      * Constructs a CredentialConfirmer by getting all the keys and values from
-     * the properties that have been written to the application
+     * the properties that have been written to the application.
+     * 
+     * @param ctx The context object.
      */
     public CredentialConfirmer(Context ctx) {
         db = new DB(ctx);
@@ -78,9 +80,9 @@ public class CredentialConfirmer {
     }
 
     /**
-     * To retrieve the currently logged in user
+     * Retrieves the currently logged in user
      * 
-     * @return
+     * @return The current logged in user.
      */
     public User getLoggedInUser() {
         return currentLoggedInUser;
@@ -97,6 +99,11 @@ public class CredentialConfirmer {
         return db.getUser(accountName).getEmail();
     }
 
+    /**
+     * Gets an instance of the database.
+     * 
+     * @return An instance of the database object.
+     */
     public DB getDB() {
         return db;
     }

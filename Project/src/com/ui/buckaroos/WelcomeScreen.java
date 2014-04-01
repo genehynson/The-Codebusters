@@ -13,8 +13,12 @@ import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * This class defines a Welcome Screen activity for the application. An example
+ * full-screen activity that shows and hides the system UI (i.e. status bar and
+ * navigation/system bar) with user interaction.
+ * 
+ * @author Gene Hynson
+ * @version 1.1
  * 
  * @see SystemUiHider
  */

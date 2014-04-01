@@ -14,9 +14,11 @@ import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
 /**
- * Create "bank" account activity.
+ * This class defines an account creation activity. It Creates a "bank" account
+ * activity.
  * 
  * @author Gene Hynson
+ * @version 1.0
  * 
  */
 public class CreateAccount extends Activity implements OnClickListener {
@@ -36,7 +38,8 @@ public class CreateAccount extends Activity implements OnClickListener {
     }
 
     /**
-     * Defines fields, buttons, controller
+     * Defines and initializes all fields, buttons, and an instance of the
+     * controller.
      */
     private void initialize() {
         accountName = (EditText) findViewById(R.id.accountName);
@@ -67,26 +70,27 @@ public class CreateAccount extends Activity implements OnClickListener {
         String nickname;
         if (!accountName.getText().toString().equals("")) {
             if (!startingBalance.getText().toString().equals("")) {
-                balance = Double.parseDouble(startingBalance.getText()
-                        .toString());
+                balance =
+                        Double.parseDouble(startingBalance.getText().toString());
             }
             if (!interestRate.getText().toString().equals("")) {
-                interest = Double
-                        .parseDouble(interestRate.getText().toString());
+                interest =
+                        Double.parseDouble(interestRate.getText().toString());
             }
             if (!accountNickName.getText().toString().equals("")) {
-            	nickname = accountNickName.getText().toString();
+                nickname = accountNickName.getText().toString();
             } else {
-            	nickname = accountName.getText().toString();
+                nickname = accountName.getText().toString();
             }
 
-            controller.addAccount(accountName.getText().toString(), nickname, balance,
-                    interest);
+            controller.addAccount(accountName.getText().toString(), nickname,
+                    balance, interest);
             startActivity(new Intent(CreateAccount.this, LoginSuccess.class));
 
         } else {
-            Toast toast = Toast.makeText(this, "All fields required.",
-                    Toast.LENGTH_SHORT);
+            Toast toast =
+                    Toast.makeText(this, "All fields required.",
+                            Toast.LENGTH_SHORT);
             toast.show();
         }
     }

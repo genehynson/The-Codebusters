@@ -15,9 +15,9 @@ import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
 /**
- * The "main screen" of the app
+ * This class defines the "main screen" activity for the application.
  * 
- * @author Gene
+ * @author Gene Hynson
  * @version 1.0
  */
 public class LoginSuccess extends Activity implements OnClickListener,
@@ -43,7 +43,7 @@ public class LoginSuccess extends Activity implements OnClickListener,
     }
 
     /**
-     * Defines fields, buttons, controller, currentAccount
+     * Defines and initializes all fields, buttons, controller, currentAccount
      */
     private void initialize() {
         addTransaction = (Button) findViewById(R.id.addTransaction);
@@ -58,8 +58,8 @@ public class LoginSuccess extends Activity implements OnClickListener,
         currentLoginUser = (TextView) findViewById(R.id.loginsuccess);
         controller = new UserAccountController(this);
         if (controller.getCurrentAccount() != null
-                && controller.getCurrentAccount().getUser().equals(
-                        controller.getCurrentUser())) {
+                && controller.getCurrentAccount().getUser()
+                        .equals(controller.getCurrentUser())) {
             currentAccountText.setText(controller.getCurrentAccount()
                     .getNickName());
             currentLoginUser.setText(controller.getCurrentUser()
@@ -70,9 +70,7 @@ public class LoginSuccess extends Activity implements OnClickListener,
     }
 
     /**
-     * Gets current "bank" account
-     * 
-     * @return
+     * Gets the current "bank" account.
      */
     private void ensureCurrentAccount() {
         if (controller.hasAccount()) {
@@ -84,7 +82,7 @@ public class LoginSuccess extends Activity implements OnClickListener,
     }
 
     /**
-     * adds "logout" option to dropdown menu
+     * Adds "logout" option to drop-down menu
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -20,6 +20,13 @@ import com.controller.buckaroos.ControllerInterface;
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
+/**
+ * This class defines an activity to display account reports.
+ * 
+ * @author Gene Hynson
+ * @author Daniel Carnauba
+ * @version 1.0
+ */
 public class Reports extends Activity implements OnClickListener {
 
     private ControllerInterface controller;
@@ -59,12 +66,21 @@ public class Reports extends Activity implements OnClickListener {
         populateListView();
     }
 
+    /**
+     * 
+     */
     private void populateListView() {
         ArrayAdapter<String> adapter = new MyListAdapter();
         ListView list = (ListView) findViewById(R.id.spendingView);
         list.setAdapter(adapter);
     }
 
+    /**
+     * This private class defines a List Adapter object.
+     * 
+     * @author Daniel Carnauba
+     * @version 1.0
+     */
     private class MyListAdapter extends ArrayAdapter<String> {
         public MyListAdapter() {
             super(Reports.this, R.layout.reports_view, categoryNames);
@@ -94,8 +110,8 @@ public class Reports extends Activity implements OnClickListener {
             NumberFormat us = NumberFormat.getCurrencyInstance();
             balanceText.setText(us.format(total));
 
-            TextView dateText =
-                    (TextView) itemView.findViewById(R.id.dateRange);
+            // TextView dateText =
+            // (TextView) itemView.findViewById(R.id.dateRange);
             // dateText.setText("From: " + UserAccountController.getBeginDate()
             // + " To: " + UserAccountController.getEndDate());
             // dateText.setText("testing date");

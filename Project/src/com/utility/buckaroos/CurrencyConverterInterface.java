@@ -1,5 +1,11 @@
 package com.utility.buckaroos;
 
+/**
+ * This class defines an interface for the Currency Converter object.
+ * 
+ * @author Jordan LeRoux
+ * @version 1.0
+ */
 public interface CurrencyConverterInterface {
 
     /**

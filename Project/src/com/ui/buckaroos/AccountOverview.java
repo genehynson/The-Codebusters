@@ -55,16 +55,25 @@ public class AccountOverview extends Activity implements OnClickListener {
 
     }
 
+    /*
+     * Populates the account list.
+     */
     private void populateAccountList() {
         accountTransaction = controller.getAllAccountTransactions();
     }
 
+    /*
+     * Populates the list view.
+     */
     private void populateListView() {
         ArrayAdapter<AccountTransaction> adapter = new MyListAdapter();
         ListView list = (ListView) findViewById(R.id.transactionListView);
         list.setAdapter(adapter);
     }
 
+    /*
+     * @author Daniel Carnauba
+     */
     private class MyListAdapter extends ArrayAdapter<AccountTransaction> {
 
         /**

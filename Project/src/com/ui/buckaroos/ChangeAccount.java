@@ -51,9 +51,13 @@ public class ChangeAccount extends Activity {
 
     }
 
+    /*
+     * Defines a click call back listener making the list view responsive.
+     */
     private void registerClickCallback() {
         ListView listView = (ListView) findViewById(R.id.accountsListView);
         listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
                 Account clickedAccount = userAccounts.get(position);
@@ -64,17 +68,33 @@ public class ChangeAccount extends Activity {
         });
     }
 
+    /*
+     * Populates the account list.
+     */
     private void populateAccountList() {
         userAccounts = controller.getAllUserAccounts();
     }
 
+    /*
+     * Populates the list view.
+     */
     private void populateListView() {
         ArrayAdapter<Account> adapter = new MyListAdapter();
         ListView list = (ListView) findViewById(R.id.accountsListView);
         list.setAdapter(adapter);
     }
 
+    /*
+     * This private class defines a list adapter object.
+     * 
+     * @author Daniel Carnauba
+     * 
+     * @version 1.0
+     */
     private class MyListAdapter extends ArrayAdapter<Account> {
+        /**
+         * Constructs a List adapter object.
+         */
         public MyListAdapter() {
             super(ChangeAccount.this, R.layout.item_view, userAccounts);
         }

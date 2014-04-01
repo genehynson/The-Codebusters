@@ -30,8 +30,8 @@ public interface ControllerInterface {
     /**
      * Adds a "bank" account for the logged in user.
      * 
-     * @param accountName The official account name (i.e savings)
-     * @param accountNickName The account nickname for display (i.e cashstash)
+     * @param accountName The official account name (e.g. savings)
+     * @param accountNickName The account nickname for display (e.g. cash stash)
      * @param amount The initial amount for the account being created.
      * @param interestRate The interest rate for this account created.
      */
@@ -44,21 +44,21 @@ public interface ControllerInterface {
      * @param amount The withdrawal amount.
      * @param currencyType The currency type for the transaction.
      * @param category The category of the transaction. (Food, bills, etc.)
-     * @param date The date when the transaction takes place.
+     * @param dateChosen The date when the transaction takes place.
      */
     public abstract void addWithdrawal(double amount, String currencyType,
-            String category, Date date);
+            String category, Date dateChosen);
 
     /**
      * Adds a deposit transaction to the current active account.
      * 
      * @param amount The deposit amount for this transaction.
      * @param currencyType The currency type for this transaction.
-     * @param category The source of income for this transaction (i.e Paycheck)
-     * @param date The date when the transaction takes place.
+     * @param category The source of income for this transaction (e.g. Paycheck)
+     * @param dateChosen The date when the transaction takes place.
      */
     public abstract void addDeposit(double amount, String currencyType,
-            String category, Date date);
+            String category, Date dateChosen);
 
     /**
      * Gets the current active account.
@@ -68,7 +68,7 @@ public interface ControllerInterface {
     public abstract Account getCurrentAccount();
 
     /**
-     * Checks if the user has an account.(i.e savings, checking, etc.)
+     * Checks if the user has an account.(e.g. savings, checking, etc.)
      * 
      * @return True if such account exists, False otherwise.
      */
@@ -96,11 +96,11 @@ public interface ControllerInterface {
     public abstract DB getDB();
 
     /**
-     * Adds login account and sets static user
+     * Adds a login account and sets static user.
      * 
-     * @param name
-     * @param password
-     * @param email
+     * @param name The user's user name.
+     * @param password The user's account password.
+     * @param email The user's email address.
      */
     public abstract void addLoginAccount(String name, String password,
             String email);
@@ -174,7 +174,7 @@ public interface ControllerInterface {
      * transaction history for that account and rollback or commit a previously
      * rollbacked transaction.
      * 
-     * @return
+     * @return The list of all user's accounts.
      */
     public abstract Map<String, Double> generateAccountListingReport();
 
@@ -183,7 +183,7 @@ public interface ControllerInterface {
      * given account, you should be able to view all the transactions over a
      * given time period that have affected the balance of that account.
      * 
-     * @return
+     * @return The transaction list report.
      */
     public abstract Map<String, Double> generateTransactionHistoryReport();
 
@@ -228,4 +228,29 @@ public interface ControllerInterface {
      */
     public abstract boolean confirmLogin(String username, String password,
             CredentialConfirmer confirm);
+
+    /**
+     * Converts an integer time to a string representation.
+     * 
+     * @param date The date from which the time is being derived from.
+     * @return The formatted time string representation.
+     */
+    public abstract String convertTimeToString(Date date);
+
+    /**
+     * Converts a Date object into a string.
+     * 
+     * @param date The date object to be converted to a string.
+     * @return The string conversion of the date object.
+     */
+    public abstract String convertDateToString(Date date);
+
+    /**
+     * Converts a string to a Date object.
+     * 
+     * @param dateString The date string passed in for conversion.
+     * @return The date object converted from the string.
+     */
+    public abstract Date convertStringToDate(String dateString);
+
 }

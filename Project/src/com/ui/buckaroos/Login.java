@@ -18,9 +18,10 @@ import com.example.buckaroos.R;
 import com.utility.buckaroos.CredentialConfirmer;
 
 /**
- * Login activity for app
+ * This class defines a Login activity for the application.
  * 
- * @author Gene
+ * @author Gene Hynson
+ * @version 1.0
  * 
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -38,7 +39,7 @@ public class Login extends Activity implements OnClickListener {
     }
 
     /**
-     * Defines fields, buttons
+     * Defines and initializes all fields and buttons.
      */
     private void initialize() {
         etUser = (EditText) findViewById(R.id.etUser);
@@ -49,17 +50,19 @@ public class Login extends Activity implements OnClickListener {
     }
 
     /**
-     * checks if account exists checks if password is right logs user in or
+     * Checks if account exists checks if password is right logs user in or
      * displays a message
      */
     @Override
     public void onClick(View v) {
         CredentialConfirmer confirm = new CredentialConfirmer(this);
-        if (controller.confirmLogin(etUser.getText().toString(), etLPass.getText().toString(), confirm)) { 
+        if (controller.confirmLogin(etUser.getText().toString(), etLPass
+                .getText().toString(), confirm)) {
             startActivity(new Intent(Login.this, LoginSuccess.class));
         } else {
-            Toast toast = Toast.makeText(this, "Username or password incorrect.",
-                    Toast.LENGTH_SHORT);
+            Toast toast =
+                    Toast.makeText(this, "Username or password incorrect.",
+                            Toast.LENGTH_SHORT);
             toast.show();
         }
     }

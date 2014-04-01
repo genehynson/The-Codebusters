@@ -23,7 +23,8 @@ import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
 /**
- * Transaction for Buckaroos Transaction activity.
+ * This class defines a Transaction activity. The Transaction for Buckaroos
+ * Transaction activity.
  * 
  * @author Daniel Carnauba
  * @version 1.0
@@ -49,6 +50,10 @@ public class Transaction extends Activity implements OnClickListener,
         initialize();
     }
 
+    /*
+     * Initializes the object instances and fields involved on the transaction
+     * activity.
+     */
     private void initialize() {
         controller = new UserAccountController(this);
         dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
@@ -85,7 +90,6 @@ public class Transaction extends Activity implements OnClickListener,
         case R.id.saveButton:
             int hour = time.getCurrentHour();
             int minute = time.getCurrentMinute();
-            // Calendar.set(Calendar.HOUR_OF_DAY, hour);
             dateChosen.setHours(hour);
             // Calendar.set(Calendar.MINUTE, minute);
             dateChosen.setMinutes(minute);
@@ -130,12 +134,20 @@ public class Transaction extends Activity implements OnClickListener,
         }
     }
 
+    /**
+     * Sets the text for the date field.
+     */
     public void setDateText() {
         if (dateChanged) {
             date.setText(dateFormat.format(dateChosen).toString());
         }
     }
 
+    /**
+     * Sets the date for the transaction.
+     * 
+     * @param date The date to be set.
+     */
     public void setDate(Date date) {
         Transaction.dateChosen = date;
     }

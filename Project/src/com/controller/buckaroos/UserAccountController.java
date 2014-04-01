@@ -86,31 +86,21 @@ public class UserAccountController implements ControllerInterface {
                 "Deposit", currencyType, category, dateString, timeString);
     }
 
-    /**
-     * Converts integer time to strings
-     * 
-     * @param hour
-     * @param minute
-     * @return
-     */
+    @Override
     public String convertTimeToString(Date date) {
         // DateFormat df = new SimpleDateFormat("HH:mm");
         DateFormat df = DateFormat.getTimeInstance();
         return df.format(date);
     }
 
-    /**
-     * Converts date into string
-     * 
-     * @param date
-     * @return
-     */
+    @Override
     public String convertDateToString(Date date) {
         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         DateFormat df = DateFormat.getDateInstance();
         return df.format(date);
     }
 
+    @Override
     public Date convertStringToDate(String dateString) {
         // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         DateFormat df = DateFormat.getDateInstance();

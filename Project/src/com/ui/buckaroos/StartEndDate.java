@@ -15,6 +15,12 @@ import android.widget.DatePicker;
 import com.controller.buckaroos.UserAccountController;
 import com.example.buckaroos.R;
 
+/**
+ * This class defines a start-end date activity for the application.
+ * 
+ * @author Daniel Carnauba
+ * @version 1.0
+ */
 public class StartEndDate extends Activity implements OnClickListener {
 
     private Button continueButton;
@@ -30,14 +36,14 @@ public class StartEndDate extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_end_date);
-        
+
         today = new Date();
         cal = Calendar.getInstance();
         cal.setTime(today);
         currentYear = cal.get(Calendar.YEAR);
         currentMonth = cal.get(Calendar.MONTH);
         currentDay = cal.get(Calendar.DAY_OF_MONTH);
-        
+
         UserAccountController.setBeginDate(today);
         UserAccountController.setEndDate(today);
 
@@ -50,24 +56,29 @@ public class StartEndDate extends Activity implements OnClickListener {
         getActionBar().hide();
     }
 
+    /*
+     * Defines a date picker listener allowing the user to interact with a set
+     * of calendar dates.
+     */
     private DatePicker.OnDateChangedListener dateChanged =
             new DatePicker.OnDateChangedListener() {
 
                 @SuppressWarnings("deprecation")
-				@Override
+                @Override
                 public void onDateChanged(DatePicker view, int year,
                         int monthOfYear, int dayOfMonth) {
                     if (view.getId() == R.id.fromDatePicker) {
-                    	Date begin = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        Date begin =
+                                new Date(year - 1900, monthOfYear, dayOfMonth);
                         UserAccountController.setBeginDate(begin);
                     } else {
-                    	Date end = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        Date end =
+                                new Date(year - 1900, monthOfYear, dayOfMonth);
                         UserAccountController.setEndDate(end);
                     }
                 }
 
             };
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
