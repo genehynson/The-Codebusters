@@ -46,25 +46,35 @@ public class Transaction extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		controller = new UserAccountController();
 		datePicker = new DatePicker();
+		datePicker.addStyleName("white-text");
     	hourBox = new ListBox();
     	minuteBox = new ListBox();
     	
     	dollar = new Label();
     	dollar.setText("$");
+    	dollar.addStyleName("white-text");
     	title = new Label();
     	title.setText("Add New Transaction");
+    	title.addStyleName("white-text");
     	date = new Label();
     	date.setText("Select Date:");
+    	date.addStyleName("white-text");
     	time = new Label();
     	time.setText("Select Time:");
+    	time.addStyleName("white-text");
     	amountTitle = new Label();
     	amountTitle.setText("Amount: ");
+    	amountTitle.addStyleName("white-text");
     	categoryTitle = new Label();
     	categoryTitle.setText("Category: ");
+    	categoryTitle.addStyleName("white-text");
     	hours = new Label();
     	hours.setText("Hours:");
+    	hours.addStyleName("white-text");
     	minutes = new Label();
     	minutes.setText("Minutes: ");
+    	minutes.addStyleName("white-text");
+    	
     	
     	amount = new TextBox();
     	category = new TextBox();
@@ -72,7 +82,9 @@ public class Transaction extends Composite {
     	withdraw = new RadioButton("type");
     	deposit = new RadioButton("type");
     	withdraw.setText("Withdraw");
+    	withdraw.addStyleName("white-text");
     	deposit.setText("Deposit");
+    	deposit.addStyleName("white-text");
     	
     	createTimeBox();
     	

@@ -35,18 +35,27 @@ public class CreateAccount extends Composite {
 		controller = new UserAccountController();
 		title = new Label();
 		title.setText("Create New Account");
+		title.addStyleName("white-text");
 		accountNameTitle = new Label();
 		accountNameTitle.setText("Account Name");
+		accountNameTitle.addStyleName("white-text");
 		accountNickNameTitle = new Label();
 		accountNickNameTitle.setText("Account Nick Name");
+		accountNickNameTitle.addStyleName("white-text");
 		startingBalanceTitle = new Label();
 		startingBalanceTitle.setText("Starting Balance");
+		startingBalanceTitle.addStyleName("white-text");
 		interestRateTitle = new Label();
 		interestRateTitle.setText("Interest Rate");
+		interestRateTitle.addStyleName("white-text");
 		accountName = new TextBox();
 		accountNickName = new TextBox();
 		startingBalance = new TextBox();
 		interestRate = new TextBox();
+		accountName.addStyleName("field-box");
+		accountNickName.addStyleName("field-box");
+		startingBalance.addStyleName("field-box");
+		interestRateTitle.addStyleName("field-box");
 		create = new Button();
 		create.setText("Create Account");
 		create.addClickHandler(new ClickHandler() {

@@ -33,7 +33,7 @@ public class WelcomeScreen extends Composite implements EntryPoint {
     private UserAccountController controller;
     
     @UiField
-    Button bReg, bLog;
+    Button bReg, bLog, home;
     Label title;
     Label subtitle;
 
@@ -42,6 +42,15 @@ public class WelcomeScreen extends Composite implements EntryPoint {
         controller = new UserAccountController();
         title = new Label();
         subtitle = new Label();
+        home = new Button();
+        home.setText("buckaroos");
+        home.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+		        RootPanel.get("page").clear();
+		        WelcomeScreen ws = new WelcomeScreen();
+			}
+		});
         title.addStyleName("faceletters");
         title.addStyleName("white-text");
         subtitle.addStyleName("white-text");
@@ -83,6 +92,8 @@ public class WelcomeScreen extends Composite implements EntryPoint {
         hpanel1.add(hpanel2);
         RootPanel.get("page").clear();
         RootPanel.get("page").add(fpanel);
+        
+//        RootPanel.get("home").add(home);
 		
 	}
 

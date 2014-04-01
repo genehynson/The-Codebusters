@@ -67,7 +67,7 @@ public class Login extends Composite {
 				CredentialConfirmer confirm = new CredentialConfirmer();
 				if (controller.confirmLogin(etUser.getText().toString(), etPass.getText().toString(), confirm) || 1==1) {
 			        RootPanel.get("page").clear();
-					RootPanel.get("page").add(new ChangeAccount());
+					ChangeAccount ca = new ChangeAccount();
 				}
 			}
 		});

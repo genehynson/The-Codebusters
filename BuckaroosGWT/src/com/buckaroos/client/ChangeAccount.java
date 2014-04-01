@@ -73,7 +73,8 @@ public class ChangeAccount extends Composite {
 		        AccountOverview ao = new AccountOverview();
 		    }
 		});
-		
+		title.addStyleName("white-text");
+		table.addStyleName("white-text");
 		vPanel.add(title);
 		vPanel.add(table);
 		vPanel.add(createAccount);

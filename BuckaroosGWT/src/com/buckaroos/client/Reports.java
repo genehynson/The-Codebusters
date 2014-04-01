@@ -1,6 +1,7 @@
 package com.buckaroos.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ import com.buckaroos.shared.UserAccountController;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -22,6 +26,8 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.datepicker.client.DateBox;
+import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class Reports extends Composite {
 
@@ -32,11 +38,13 @@ public class Reports extends Composite {
 	FlexTable table;
 	Label title;
 	Label dates;
+	DateBox fromDate, toDate;
 	
     private ControllerInterface controller;
     private Map<String, Double> categoryTotals;
     private List<String> categoryNames;
-    private Panel vPanel;
+    private Panel vPanel, hPanel;
+    private String beginDate, afterDate;
     
 
     interface ReportsUiBinder extends UiBinder<Widget, Reports> {
@@ -47,14 +55,38 @@ public class Reports extends Composite {
     	controller = new UserAccountController();
     	categoryTotals = new HashMap<String, Double>();
     	categoryNames = new ArrayList<String>();
+
+    	fromDate = new DateBox();
+    	fromDate.getDatePicker().addStyleName("white-text");
+    	toDate = new DateBox();
+    	toDate.getDatePicker().addStyleName("white-text");
+
     	title = new Label();
     	title.setText("Reports");
+    	title.addStyleName("white-text");
     	dates = new Label();
-    	String beginDate = "Jan 1st";
-    	String afterDate = "Jan 31st";
+    	dates.addStyleName("white-text");
+    	beginDate = "Jan 1st";
+    	afterDate = "Jan 31st";
     	//String beginDate = controller.beginDate;
     	//String endDate = controller.afterDate;
-    	dates.setText(beginDate + " - " + afterDate);
+    	dates.setText(" - ");
+    	fromDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
+    		public void onValueChange(ValueChangeEvent<Date> event) {
+    			Date date = event.getValue();
+    			beginDate = DateTimeFormat.getMediumDateFormat().format(date);
+    	    	fromDate.getTextBox().setText(beginDate);
+
+    		}
+    	});
+    	toDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
+    		public void onValueChange(ValueChangeEvent<Date> event) {
+    			Date date = event.getValue();
+    			afterDate = DateTimeFormat.getMediumDateFormat().format(date);
+    	    	toDate.getTextBox().setText(afterDate);
+
+    		}
+    	});
     	menu = new Button();
     	menu.setText("Account Overview");
 		menu.addClickHandler(new ClickHandler() {
@@ -65,6 +97,7 @@ public class Reports extends Composite {
 			}
 		});
 		table = new FlexTable();
+		table.addStyleName("white-text");
 //		categoryNames = controller.getTransactionNamesInDate();
 //		categoryTotals = controller.getTransactionsInDate();
 		categoryNames.add("test1");
@@ -80,9 +113,13 @@ public class Reports extends Composite {
 			table.setText(i,0, name);
 			table.setText(i,1, "Total: " + total);
 		}
+		hPanel = new HorizontalPanel();
+		hPanel.add(fromDate);
+		hPanel.add(dates);
+		hPanel.add(toDate);
 		vPanel = new VerticalPanel();
 		vPanel.add(title);
-		vPanel.add(dates);
+		vPanel.add(hPanel);
 		vPanel.add(table);
 		vPanel.add(menu);
 		RootPanel.get("page").add(vPanel);

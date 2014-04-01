@@ -40,8 +40,10 @@ public class AccountOverview extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		controller = new UserAccountController();
 		accountName = new Label();
+		accountName.addStyleName("white-text");
 		title = new Label();
 		title.setText("Account Overview");
+		title.addStyleName("white-text");
 		menu = new Button();
 		menu.setText("Select Account");
 		report = new Button();
@@ -49,6 +51,7 @@ public class AccountOverview extends Composite {
 		addTransaction = new Button();
 		addTransaction.setText("New Transaction");
 		table = new FlexTable();
+		table.addStyleName("white-text");
 		transactions = controller.getAllAccountTransactions(); 
 //		accountName.setText(controller.getCurrentAccount().getName());
 		accountName.setText("test account");
