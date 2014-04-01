@@ -22,14 +22,14 @@ import com.utility.buckaroos.CredentialConfirmer;
  * 
  * @author Gene Hynson
  * @version 1.0
- * 
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Login extends Activity implements OnClickListener {
 
     private EditText etUser, etLPass;
     private Button bLogin;
-    private ControllerInterface controller = new UserAccountController(this);
+    private final ControllerInterface controller = new UserAccountController(
+            this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

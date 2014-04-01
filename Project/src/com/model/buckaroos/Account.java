@@ -6,14 +6,13 @@ package com.model.buckaroos;
  * 
  * @author Gene Hynson
  * @version 1.0
- * 
  */
 public class Account {
 
     private String name;
     private double balance = 0;
     private double interestRate;
-    private User user;
+    private final User user;
     private String nickName;
 
     /**

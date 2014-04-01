@@ -28,7 +28,6 @@ import com.example.buckaroos.R;
  * 
  * @author Daniel Carnauba
  * @version 1.0
- * 
  */
 public class Transaction extends Activity implements OnClickListener,
         OnCheckedChangeListener {

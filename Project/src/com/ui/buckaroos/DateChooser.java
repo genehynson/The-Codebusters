@@ -64,7 +64,7 @@ public class DateChooser extends Activity implements OnClickListener {
     /*
      * Defines a listener for the date changed object.
      */
-    private DatePicker.OnDateChangedListener dateChanged =
+    private final DatePicker.OnDateChangedListener dateChanged =
             new DatePicker.OnDateChangedListener() {
 
                 @SuppressWarnings("deprecation")

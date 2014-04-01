@@ -60,7 +60,7 @@ public class StartEndDate extends Activity implements OnClickListener {
      * Defines a date picker listener allowing the user to interact with a set
      * of calendar dates.
      */
-    private DatePicker.OnDateChangedListener dateChanged =
+    private final DatePicker.OnDateChangedListener dateChanged =
             new DatePicker.OnDateChangedListener() {
 
                 @SuppressWarnings("deprecation")

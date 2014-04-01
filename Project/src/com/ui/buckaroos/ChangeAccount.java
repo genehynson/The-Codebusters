@@ -31,7 +31,8 @@ import com.model.buckaroos.Account;
  */
 public class ChangeAccount extends Activity {
     private List<Account> userAccounts = new ArrayList<Account>();
-    private UserAccountController controller = new UserAccountController(this);
+    private final UserAccountController controller = new UserAccountController(
+            this);
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,9 +87,7 @@ public class ChangeAccount extends Activity {
 
     /*
      * This private class defines a list adapter object.
-     * 
      * @author Daniel Carnauba
-     * 
      * @version 1.0
      */
     private class MyListAdapter extends ArrayAdapter<Account> {

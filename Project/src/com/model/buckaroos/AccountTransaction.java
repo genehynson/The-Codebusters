@@ -9,7 +9,6 @@ import java.sql.Date;
  * 
  * @author Gene
  * @version 1.0
- * 
  */
 public class AccountTransaction {
 

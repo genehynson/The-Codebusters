@@ -25,20 +25,19 @@ import com.utility.buckaroos.CredentialConfirmer;
  * @author Gene Hynson
  * @author Daniel Carnauba
  * @version 1.0
- * 
  */
 public class UserAccountController implements ControllerInterface {
 
     private static User user;
     private static DB db;
     private static Account currentAccount;
-    private Context ctx;
+    private final Context ctx;
     private static Date beginDate;
     private static Date theDate;
     private static Date endDate;
 
     /**
-     * Gets user/DB after login from CredientialConfirmer in Login activity
+     * Gets user/DB after login from CredientialConfirmer in Login activity.
      * 
      * @param user
      */
@@ -169,6 +168,7 @@ public class UserAccountController implements ControllerInterface {
         return db.getUser(accountName) != null;
     }
 
+    @Override
     public Map<String, Double> getTransactionsInDate() {
         List<AccountTransaction> importedTransactions =
                 getAllAccountTransactions();

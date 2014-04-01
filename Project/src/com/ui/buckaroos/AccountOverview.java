@@ -29,7 +29,8 @@ import com.model.buckaroos.AccountTransaction;
 public class AccountOverview extends Activity implements OnClickListener {
     private List<AccountTransaction> accountTransaction =
             new ArrayList<AccountTransaction>();
-    private UserAccountController controller = new UserAccountController(this);
+    private final UserAccountController controller = new UserAccountController(
+            this);
     private TextView accountName;
     private Button menu;
     private Button report;

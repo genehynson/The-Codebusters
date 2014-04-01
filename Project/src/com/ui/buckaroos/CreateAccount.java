@@ -19,7 +19,6 @@ import com.example.buckaroos.R;
  * 
  * @author Gene Hynson
  * @version 1.0
- * 
  */
 public class CreateAccount extends Activity implements OnClickListener {
 

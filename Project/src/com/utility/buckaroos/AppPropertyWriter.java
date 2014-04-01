@@ -10,14 +10,14 @@ import com.model.buckaroos.User;
 
 /**
  * Writes a file that stores the information about accounts and passwords that
- * have been created
+ * have been created.
  * 
  * @author Jordan LeRoux
  * @version 1.0
  */
 public class AppPropertyWriter {
 
-    private static Context ctx;
+    private final Context ctx;
     private static DB db;
 
     /**
@@ -38,7 +38,8 @@ public class AppPropertyWriter {
      * @param accountName The account name to be created
      * @param password The password that corresponds with the new account
      */
-    public User storeAccount(String accountName, String password, String email) {
+    public User storeAccount(String accountName, String password,
+            String email) {
         User newUser = null;
         if (accountName != null && email != null && password != null) {
             MessageDigest md;
@@ -48,7 +49,7 @@ public class AppPropertyWriter {
                 byte[] digest = md.digest();
                 StringBuffer sb = new StringBuffer();
                 for (byte b : digest) {
-                    sb.append(Integer.toHexString((int) (b & 0xff)));
+                    sb.append(Integer.toHexString(b & 0xff));
                 }
                 newUser = new User(accountName, sb.toString(), email);
                 db.addUser(newUser);
@@ -86,7 +87,7 @@ public class AppPropertyWriter {
             byte[] digest = md.digest();
             StringBuffer sb = new StringBuffer();
             for (byte b : digest) {
-                sb.append(Integer.toHexString((int) (b & 0xff)));
+                sb.append(Integer.toHexString(b & 0xff));
             }
             db.addUser(new User(adminUserName, sb.toString(), " "));
         } catch (NoSuchAlgorithmException e) {
