@@ -5,5 +5,21 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
+	    <g:Button ui:field="save" />
+	    <g:Button ui:field="back" />
+	    <g:TextBox ui:field="amount" />
+	    <g:TextBox ui:field="category" />
+	    <g:ListBox ui:field="minuteBox" />
+	    <g:ListBox ui:field="hourBox" />
+	    <g:Label ui:field="title" />
+	    <g:Label ui:field="hours" />
+	    <g:Label ui:field="minutes" />
+	    <g:Label ui:field="dollar" />
+	    <g:Label ui:field="date" />
+	    <g:Label ui:field="time" />
+	    <g:Label ui:field="amountTitle" />
+	    <g:Label ui:field="categoryTitle" />
+	    
+	    
 	</g:HTMLPanel>
 </ui:UiBinder> 

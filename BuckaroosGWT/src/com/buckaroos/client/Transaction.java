@@ -1,27 +1,26 @@
 package com.buckaroos.client;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-
-import android.content.Intent;
-import android.widget.Toast;
 
 import com.buckaroos.shared.ControllerInterface;
 import com.buckaroos.shared.UserAccountController;
-import com.buckaroos.utility.CredentialConfirmer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.ui.buckaroos.LoginSuccess;
-import com.ui.buckaroos.Transaction;
+import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class Transaction extends Composite {
 
@@ -31,55 +30,133 @@ public class Transaction extends Composite {
 	interface TransactionUiBinder extends UiBinder<Widget, Transaction> {
 	}
 	
-	private Button save, date;
-	private TextBox amount, category;
-	private RadioButton withdraw, deposit;
-	//radio group
+	@UiField
+	Button save, back;
+	Label title, date, time, hours, minutes, amountTitle, categoryTitle, dollar;
+	TextBox amount, category;
+	RadioButton withdraw, deposit;
+	ListBox hourBox, minuteBox;
+	DatePicker datePicker;
+	
 	private ControllerInterface controller;
-//	private TimePicker time;
-	private static Date dateChosen;
-	private static boolean dateChanged = false;
-	private SimpleDateFormat dateFormat;
+    private int hour, minute;
+    private Panel vPanel, timePanel, radioPanel, buttonPanel, amountPanel;
 	
 	public Transaction() {
 		initWidget(uiBinder.createAndBindUi(this));
 		controller = new UserAccountController();
-    	dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
-    	dateChosen = new Date();
+		datePicker = new DatePicker();
+    	hourBox = new ListBox();
+    	minuteBox = new ListBox();
+    	
+    	dollar = new Label();
+    	dollar.setText("$");
+    	title = new Label();
+    	title.setText("Add New Transaction");
+    	date = new Label();
+    	date.setText("Select Date:");
+    	time = new Label();
+    	time.setText("Select Time:");
+    	amountTitle = new Label();
+    	amountTitle.setText("Amount: ");
+    	categoryTitle = new Label();
+    	categoryTitle.setText("Category: ");
+    	hours = new Label();
+    	hours.setText("Hours:");
+    	minutes = new Label();
+    	minutes.setText("Minutes: ");
+    	
+    	amount = new TextBox();
+    	category = new TextBox();
+    	
+    	withdraw = new RadioButton("type");
+    	deposit = new RadioButton("type");
+    	withdraw.setText("Withdraw");
+    	deposit.setText("Deposit");
+    	
+    	createTimeBox();
     	
     	save = new Button();
-    	date = new Button();
+    	save.setText("Save");
 		save.addClickHandler(new ClickHandler() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(ClickEvent event) {
-				 int hour = time.getCurrentHour();
-		            int minute = time.getCurrentMinute();
-		            dateChosen.setHours(hour);
-		            dateChosen.setMinutes(minute);
-		            if (!amount.getText().toString().equals("")) {
-		                newAmount = Double.parseDouble(amount.getText().toString());
-		                String categoryText = category.getText().toString();
-		                if (withdraw.isChecked()) {
-		                    controller.addWithdrawal(newAmount, "dollars", categoryText,
-		                            dateChosen);
-		                    startActivity(new Intent(Transaction.this,
-		                            LoginSuccess.class));
-		                } else if (deposit.isChecked()) {
-		                    controller.addDeposit(newAmount, "dollars", categoryText, dateChosen);
-		                    startActivity(new Intent(Transaction.this,
+				hour = hourBox.getSelectedIndex() + 1;
+				minute = minuteBox.getSelectedIndex() + 1;
+				double newAmount;
+				Date chosen = datePicker.getValue();
+				chosen.setHours(hour);
+				chosen.setMinutes(minute);
+				if (!amount.getText().toString().equals("")) {
+					newAmount = Double.parseDouble(amount.getText().toString());
+					String categoryText = category.getText().toString().toLowerCase();
+					if (withdraw.getValue()) {
+						controller.addWithdrawal(newAmount, "dollars", categoryText,
+								chosen);
+					} else if (deposit.getValue()) {
+						controller.addDeposit(newAmount, "dollars", categoryText, chosen);
 
-		            }
-		            }
+					}
+				}
+			}
+		});
+		back = new Button();
+		back.setText("Back");
+		back.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				RootPanel.get("page").clear();
+				AccountOverview ao = new AccountOverview();
 			}
 		});
 		
-		date.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				 dateChanged = true;
-				 RootPanel.
+		radioPanel = new HorizontalPanel();
+		radioPanel.add(withdraw);
+		radioPanel.add(deposit);
+		
+		timePanel = new HorizontalPanel();
+		timePanel.add(hours);
+		timePanel.add(hourBox);
+		timePanel.add(minutes);
+		timePanel.add(minuteBox);
+		
+		buttonPanel = new HorizontalPanel();
+		buttonPanel.add(save);
+		buttonPanel.add(back);
+		
+		amountPanel = new HorizontalPanel();
+		amountPanel.add(dollar);
+		amountPanel.add(amount);
+		
+		vPanel = new VerticalPanel();
+		vPanel.add(title);
+		vPanel.add(radioPanel);
+		vPanel.add(time);
+		vPanel.add(timePanel);
+		vPanel.add(date);
+		vPanel.add(datePicker);
+		vPanel.add(amountTitle);
+		vPanel.add(amountPanel);
+		vPanel.add(categoryTitle);
+		vPanel.add(category);
+		vPanel.add(buttonPanel);
+		RootPanel.get("page").add(vPanel);
+		
+		
+	}
+
+	private void createTimeBox() {
+		for (int j = 1; j <= 24; j++) {
+			hourBox.addItem(String.valueOf(j));
+		}
+		for (int i = 0; i < 60; i++) {
+			if (i < 10) {
+				minuteBox.addItem("0" + String.valueOf(i));
+			} else {
+				minuteBox.addItem(String.valueOf(i));							
 			}
-		});
+		}
 	}
 
 }

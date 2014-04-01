@@ -6,6 +6,8 @@
 	</ui:style>
 	<g:HTMLPanel>
 	    <g:Button ui:field="bLog" />
+	    <g:Label ui:field="title" />
+	    <g:Label ui:field="subtitle" />
 	    <g:Button ui:field="bReg" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

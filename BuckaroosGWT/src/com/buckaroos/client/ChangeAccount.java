@@ -14,6 +14,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -31,6 +32,7 @@ public class ChangeAccount extends Composite {
 	@UiField
 	FlexTable table;
 	Label title;
+	Button createAccount;
 	
     private List<Account> userAccounts;
     private ControllerInterface controller;
@@ -39,6 +41,15 @@ public class ChangeAccount extends Composite {
     
 	public ChangeAccount() {
 		initWidget(uiBinder.createAndBindUi(this));
+		createAccount = new Button();
+		createAccount.setText("Create New Account");
+		createAccount.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				//how will we display this? Go to ChanceAccount? 
+				RootPanel.get("page").clear();
+				CreateAccount ca = new CreateAccount();
+			}
+		});
 		title = new Label();
 		title.setText("Select Account");
 		userAccounts = new ArrayList<Account>();
@@ -65,6 +76,7 @@ public class ChangeAccount extends Composite {
 		
 		vPanel.add(title);
 		vPanel.add(table);
+		vPanel.add(createAccount);
 		RootPanel.get("page").add(vPanel);
 	}
 

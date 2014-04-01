@@ -1,15 +1,18 @@
 package com.buckaroos.client;
 
 import com.buckaroos.shared.UserAccountController;
-import com.buckaroos.utility.CredentialConfirmer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class CreateAccount extends Composite {
@@ -19,15 +22,33 @@ public class CreateAccount extends Composite {
 
 	interface CreateAccountUiBinder extends UiBinder<Widget, CreateAccount> {
 	}
+	@UiField
+	Label title, accountNameTitle, accountNickNameTitle, startingBalanceTitle, interestRateTitle;
+	TextBox accountName, accountNickName, startingBalance, interestRate;
+	Button create;
 	
-	private TextBox accountName, accountNickName, startingBalance, interestRate;
-	private Button create;
 	private UserAccountController controller;
+	private Panel vPanel;
 
 	public CreateAccount() {
 		initWidget(uiBinder.createAndBindUi(this));
 		controller = new UserAccountController();
+		title = new Label();
+		title.setText("Create New Account");
+		accountNameTitle = new Label();
+		accountNameTitle.setText("Account Name");
+		accountNickNameTitle = new Label();
+		accountNickNameTitle.setText("Account Nick Name");
+		startingBalanceTitle = new Label();
+		startingBalanceTitle.setText("Starting Balance");
+		interestRateTitle = new Label();
+		interestRateTitle.setText("Interest Rate");
+		accountName = new TextBox();
+		accountNickName = new TextBox();
+		startingBalance = new TextBox();
+		interestRate = new TextBox();
 		create = new Button();
+		create.setText("Create Account");
 		create.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -51,10 +72,23 @@ public class CreateAccount extends Composite {
 
 					controller.addAccount(accountName.getText().toString(), nickname, balance,
 							interest);
-					RootPanel.get("").add(new ChangeAccount());
+					RootPanel.get("page").clear();
+					ChangeAccount ca = new ChangeAccount();
 				}
 			}
 		});
+		vPanel = new VerticalPanel();
+		vPanel.add(title);
+		vPanel.add(accountNameTitle);
+		vPanel.add(accountName);
+		vPanel.add(accountNickNameTitle);
+		vPanel.add(accountNickName);
+		vPanel.add(startingBalanceTitle);
+		vPanel.add(startingBalance);
+		vPanel.add(interestRateTitle);
+		vPanel.add(interestRate);
+		vPanel.add(create);
+		RootPanel.get("page").add(vPanel);
 	}
 
 }

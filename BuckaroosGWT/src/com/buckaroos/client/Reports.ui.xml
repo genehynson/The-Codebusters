@@ -5,5 +5,8 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
+	    <g:Button ui:field="menu" />
+	    <g:FlexTable ui:field="table" />
+	    <g:Label ui:field="title" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

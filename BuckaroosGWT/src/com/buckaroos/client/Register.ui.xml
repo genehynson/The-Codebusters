@@ -9,6 +9,8 @@
 	    <g:Label ui:field="username" />
 	    <g:Label ui:field="title" />
 	    <g:Label ui:field="email" />
+	    <g:Label ui:field="subtitle1" />
+	    <g:Label ui:field="subtitle2" />
 	    <g:Button ui:field="bRegister" />
 	    <g:TextBox ui:field="etName" />
 	    <g:TextBox ui:field="etPass" />

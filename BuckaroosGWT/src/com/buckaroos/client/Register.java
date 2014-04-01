@@ -6,10 +6,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -23,7 +25,7 @@ public class Register extends Composite {
 	interface RegisterUiBinder extends UiBinder<Widget, Register> {
 	}
 	@UiField
-	Label title, username, email, password;
+	Label title, username, email, password, subtitle1, subtitle2;
 	TextBox etName, etEmail, etPass;
 	Button bRegister;
 	
@@ -34,18 +36,35 @@ public class Register extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 		controller = new UserAccountController();
 		title = new Label();
-		title.setText("Register");
+		title.setText("buckaroos");
+		subtitle1 = new Label();
+		subtitle1.setText("Create your buckaroos login");
+		subtitle2 = new Label();
+		subtitle2.setText("* Indicates required fields");
 		username = new Label();
-		username.setText("Username:");
+		username.setText("* Username:");
 		email = new Label();
-		email.setText("Email:");
+		email.setText("* Email:");
 		password = new Label();
-		password.setText("Password:");
+		password.setText("* Password:");
 		etName = new TextBox();
 		etEmail = new TextBox();
-		etPass = new TextBox();
+		etPass = new PasswordTextBox();
+		etName.addStyleName("field-box");
+		etEmail.addStyleName("field-box");
+		etPass.addStyleName("field-box");
 		bRegister = new Button();
 		bRegister.setText("Register");
+		bRegister.addStyleName("tile-button");
+		title.addStyleName("faceletters");
+		title.addStyleName("white-text");
+		email.addStyleName("white-text");
+		subtitle1.addStyleName("white-text");
+		subtitle1.addStyleName("btm-padding");
+		subtitle2.addStyleName("white-text");
+		subtitle2.addStyleName("btm-padding");
+		username.addStyleName("white-text");
+		password.addStyleName("white-text");
 		vPanel = new VerticalPanel();
 		bRegister.addClickHandler(new ClickHandler() {
 					@Override
@@ -57,17 +76,20 @@ public class Register extends Composite {
 								controller.addLoginAccount(etName.getText().toString(), etPass
 										.getText().toString(), etEmail.getText().toString());
 								RootPanel.get("page").clear();
-								ChangeAccount ca = new ChangeAccount();
+								CreateAccount ca = new CreateAccount();
 							} else {
+								Window.alert("Account already exists");
 								//say "account already exists"
 							}
 						} else {
+							Window.alert("All fields required.");
 							//say "all fields required"
 						}
 						
 					}
 			});
 		vPanel.add(title);
+		vPanel.add(subtitle1);
 		vPanel.add(username);
 		vPanel.add(etName);
 		vPanel.add(email);
@@ -75,6 +97,7 @@ public class Register extends Composite {
 		vPanel.add(password);
 		vPanel.add(etPass);
 		vPanel.add(bRegister);
+		vPanel.add(subtitle2);
 		RootPanel.get("page").add(vPanel);
 		
 	}
