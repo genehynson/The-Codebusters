@@ -2,60 +2,53 @@ package com.utility.buckaroos;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This class defines a date formatter object.
+ *
+ * @author Daniel Carnauba
+ * @version 1.0
+ *
+ */
 public class DateFormatter {
 
     /**
-     * Converts integer time to strings
-     * 
-     * @param hour
-     * @param minute
-     * @return
+     * Converts an integer time to a string representation.
+     *
+     * @param date The date from which the time is being derived from.
+     * @return The formatted time string representation.
      */
     public String convertTimeToString(Date date) {
-        // DateFormat df = new SimpleDateFormat("HH:mm");
         DateFormat df = DateFormat.getTimeInstance();
         return df.format(date);
     }
 
     /**
-     * Converts date into string
-     * 
-     * @param date
-     * @return
+     * Converts a Date object into a string.
+     *
+     * @param date The date object to be converted to a string.
+     * @return The string conversion of the date object.
      */
     public String convertDateToString(Date date) {
-        // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         DateFormat df = DateFormat.getDateInstance();
         return df.format(date);
     }
 
     /**
-     * @param dateString
-     * @return
+     * Converts a string to a Date object.
+     *
+     * @param dateString The date string passed in for conversion.
+     * @return The date object converted from the string.
      */
     public Date convertStringToDate(String dateString) {
-        Date newDate = null;
-        Date date;
+        DateFormat df = DateFormat.getDateInstance();
+        Date date = new Date();
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
-            if (date != null) {
-                newDate = date;
-            }
+            date = df.parse(dateString);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return newDate;
-        // DateFormat df = DateFormat.getDateInstance();
-        // Date date = new Date();
-        // try {
-        // date = df.parse(dateString);
-        // } catch (ParseException e) {
-        // e.printStackTrace();
-        // }
-        // return date;
+        return date;
     }
 }
