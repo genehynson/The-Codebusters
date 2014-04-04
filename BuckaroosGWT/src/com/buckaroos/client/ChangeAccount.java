@@ -45,7 +45,6 @@ public class ChangeAccount extends Composite {
 		createAccount.setText("Create New Account");
 		createAccount.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				//how will we display this? Go to ChanceAccount? 
 				RootPanel.get("page").clear();
 				CreateAccount ca = new CreateAccount();
 			}
@@ -57,12 +56,9 @@ public class ChangeAccount extends Composite {
 		table = new FlexTable();
 		vPanel = new VerticalPanel();
 		userAccounts = controller.getAllUserAccounts();
-//		for (int i = 0; i < userAccounts.size(); i++) {
-		for (int i = 0; i < 2; i++) {
-//				table.setText(i, 0, userAccounts.get(i).getName());
-//				table.setText(i, 1, String.valueOf(userAccounts.get(i).getBalance()));
-			table.setText(i, 0, "test account");
-			table.setText(i, 2, "test amount");
+		for (int i = 0; i < userAccounts.size(); i++) {
+				table.setText(i, 0, userAccounts.get(i).getName());
+				table.setText(i, 1, String.valueOf(userAccounts.get(i).getBalance()));
 		}
 		table.addClickHandler(new ClickHandler() {
 		    public void onClick(ClickEvent event) {

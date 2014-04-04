@@ -42,8 +42,8 @@ public class MySQLAccess {
         // setup the connection with the DB. This will change when
         // connecting to Deloitte's server
         connect = DriverManager
-                .getConnection("jdbc:mysql://localhost:3307/test"
-                        + "?user=root&password=yourPasswordHere");
+                .getConnection("jdbc:mysql://localhost:3306/test"
+                        + "?user=root&password=buckaroos");
     }
 
     /*

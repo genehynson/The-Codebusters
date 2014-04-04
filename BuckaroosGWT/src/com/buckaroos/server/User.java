@@ -1,12 +1,14 @@
 package com.buckaroos.server;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * Class designed to store the user's credentials
  * 
  * @author Jordan
  * @version 1.0
  */
-public class User {
+public class User implements IsSerializable {
 
     private String accountName;
     private String password;
@@ -17,12 +19,17 @@ public class User {
         this.password = password;
         this.email = email;
     }
+    
+    @SuppressWarnings("unused")
+	private User() {
+    	
+    }
 
     /**
      * Return login account name
      * @return
      */
-	public String getAccountName() {
+	public String getUsername() {
         return accountName;
     }
 
@@ -73,8 +80,8 @@ public class User {
         if (o == this)
             return true;
         if (o instanceof User) {
-            if (((User) o).getAccountName().equalsIgnoreCase(
-                    this.getAccountName())
+            if (((User) o).getUsername().equalsIgnoreCase(
+                    this.getUsername())
                     && ((User) o).getEmail() == this.getEmail()) {
                 return true;
             }

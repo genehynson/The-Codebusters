@@ -2,13 +2,16 @@ package com.buckaroos.server;
 
 import java.sql.Date;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 /**
  * Each transaction has an amount and type (withdraw/deposit)
  * 
  * @author Gene
  * 
  */
-public class AccountTransaction {
+public class AccountTransaction implements IsSerializable {
 
     private double amount;
     private String type;
@@ -28,6 +31,11 @@ public class AccountTransaction {
         this.dateCreated = creationDate;
         this.dateOfTransaction = dateOfTransaction;
         this.time = time;
+    }
+    
+    @SuppressWarnings("unused")
+	private AccountTransaction() {
+    	
     }
 
     /**

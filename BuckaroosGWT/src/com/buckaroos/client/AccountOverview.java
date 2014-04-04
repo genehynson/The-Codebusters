@@ -53,15 +53,11 @@ public class AccountOverview extends Composite {
 		table = new FlexTable();
 		table.addStyleName("white-text");
 		transactions = controller.getAllAccountTransactions(); 
-//		accountName.setText(controller.getCurrentAccount().getName());
-		accountName.setText("test account");
+		accountName.setText(controller.getCurrentAccount().getName());
  
-//		for (int i = 0; i < transactions.size(); i++) {
-		for (int i = 0; i < 2; i++) {
-//			table.setText(i, 0, transactions.get(i).getCategory());
-//			table.setText(i, 1, String.valueOf(transactions.get(i).getAmount()));
-			table.setText(i, 0, "test transaction");
-			table.setText(i, 1, "test balance");
+		for (int i = 0; i < transactions.size(); i++) {
+			table.setText(i, 0, transactions.get(i).getCategory());
+			table.setText(i, 1, String.valueOf(transactions.get(i).getAmount()));
 		}
 		table.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

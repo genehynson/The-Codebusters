@@ -37,7 +37,7 @@ public class Reports extends Composite {
 	Button menu;
 	FlexTable table;
 	Label title;
-	Label dates;
+	Label dash;
 	DateBox fromDate, toDate;
 	
     private ControllerInterface controller;
@@ -64,13 +64,11 @@ public class Reports extends Composite {
     	title = new Label();
     	title.setText("Reports");
     	title.addStyleName("white-text");
-    	dates = new Label();
-    	dates.addStyleName("white-text");
-    	beginDate = "Jan 1st";
-    	afterDate = "Jan 31st";
-    	//String beginDate = controller.beginDate;
-    	//String endDate = controller.afterDate;
-    	dates.setText(" - ");
+    	dash = new Label();
+    	dash.addStyleName("white-text");
+    	beginDate = "Select date";
+    	afterDate = "Select date";
+    	dash.setText(" - ");
     	fromDate.addValueChangeHandler(new ValueChangeHandler<Date>() {
     		public void onValueChange(ValueChangeEvent<Date> event) {
     			Date date = event.getValue();
@@ -98,12 +96,8 @@ public class Reports extends Composite {
 		});
 		table = new FlexTable();
 		table.addStyleName("white-text");
-//		categoryNames = controller.getTransactionNamesInDate();
-//		categoryTotals = controller.getTransactionsInDate();
-		categoryNames.add("test1");
-		categoryNames.add("test2");
-		categoryTotals.put("test1", 1000.0);
-		categoryTotals.put("test2", 500.0);
+		categoryNames = controller.getTransactionNamesInDate();
+		categoryTotals = controller.getTransactionsInDate();
 		String name = "";
 		String total = "";
 		NumberFormat us = NumberFormat.getCurrencyFormat();
@@ -115,7 +109,7 @@ public class Reports extends Composite {
 		}
 		hPanel = new HorizontalPanel();
 		hPanel.add(fromDate);
-		hPanel.add(dates);
+		hPanel.add(dash);
 		hPanel.add(toDate);
 		vPanel = new VerticalPanel();
 		vPanel.add(title);

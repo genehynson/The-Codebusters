@@ -14,10 +14,10 @@ public class Account {
     public Account(String username, String name, String nickName,
             double amount, double interestRate) {
         this.username = username;
-        this.setName(name);
-        this.balance = amount;
+        this.name = name;
         this.nickName = nickName;
-        this.setInterestRate(interestRate);
+        this.balance = amount;
+        this.interestRate = interestRate;
     }
 
     /**
@@ -63,8 +63,8 @@ public class Account {
         if (o == this)
             return true;
         if (o instanceof Account) {
-            if (((Account) o).getName().equalsIgnoreCase(this.getName())
-                    && ((Account) o).getBalance() == this.getBalance()) {
+            if (((Account) o).getUsername().equalsIgnoreCase(this.getUsername())
+                    && ((Account) o).getName() == this.getName()) {
                 return true;
             }
         }

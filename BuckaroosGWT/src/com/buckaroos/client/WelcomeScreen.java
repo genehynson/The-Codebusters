@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -23,14 +24,22 @@ public class WelcomeScreen extends Composite implements EntryPoint {
 	interface WelcomeScreenUiBinder extends UiBinder<Widget, WelcomeScreen> {
 	}
 
-	public WelcomeScreen() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
-	
 	private HorizontalPanel hpanel1;
 	private HorizontalPanel hpanel2;
 	private FlowPanel fpanel;	
-    private UserAccountController controller;
+	private UserAccountController controller;
+	private DBConnectionAsync rpc;
+
+	public WelcomeScreen() {
+		initWidget(uiBinder.createAndBindUi(this));
+		rpc = (DBConnectionAsync) GWT.create(DBConnection.class);
+		ServiceDefTarget target = (ServiceDefTarget) rpc;
+		String moduleRelativeURL = GWT.getModuleBaseURL() + "MYSQLAccess";
+		System.out.println(moduleRelativeURL);
+		target.setServiceEntryPoint(moduleRelativeURL);
+		controller = new UserAccountController(rpc);
+	}
+	
     
     @UiField
     Button bReg, bLog, home;
@@ -39,7 +48,6 @@ public class WelcomeScreen extends Composite implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-        controller = new UserAccountController();
         title = new Label();
         subtitle = new Label();
         home = new Button();
@@ -63,9 +71,9 @@ public class WelcomeScreen extends Composite implements EntryPoint {
         hpanel2 = new HorizontalPanel();
         fpanel = new FlowPanel();
         
-//        if (controller.getLoginAccount("admin") == null) {
-//            controller.addLoginAccount("admin", "pass123", " ");
-//        }
+        if (controller.getLoginAccount("admin") == null) {
+            controller.addLoginAccount("admin", "pass123", " ");
+        }
         bReg.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {

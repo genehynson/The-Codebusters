@@ -65,7 +65,7 @@ public class Login extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				CredentialConfirmer confirm = new CredentialConfirmer();
-				if (controller.confirmLogin(etUser.getText().toString(), etPass.getText().toString(), confirm) || 1==1) {
+				if (controller.confirmLogin(etUser.getText().toString(), etPass.getText().toString(), confirm)) {
 			        RootPanel.get("page").clear();
 					ChangeAccount ca = new ChangeAccount();
 				}

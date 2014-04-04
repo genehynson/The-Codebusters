@@ -1,26 +1,32 @@
 package com.buckaroos.server;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * The "bank" accounts for user.
  * 
  * @author Gene
- * 
  */
-public class Account {
+public class Account implements IsSerializable  {
 
     private String name;
     private double balance = 0;
     private double interestRate;
-    private User user;
+    private String username;
     private String nickName;
 
-    public Account(String name, String nickName, double amount,
-            double interestRate, User user) {
-        this.user = user;
+    public Account(String username, String name, String nickName,
+            double amount, double interestRate) {
+        this.username = username;
         this.setName(name);
         this.balance = amount;
         this.nickName = nickName;
         this.setInterestRate(interestRate);
+    }
+    
+    @SuppressWarnings("unused")
+	private Account() {
+    	
     }
 
     /**
@@ -34,6 +40,7 @@ public class Account {
 
     /**
      * Sets account balance
+     * 
      * @param balance
      */
     public void setBalance(int balance) {
@@ -58,6 +65,7 @@ public class Account {
         this.name = name;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
@@ -65,15 +73,23 @@ public class Account {
             return true;
         if (o instanceof Account) {
             if (((Account) o).getName().equalsIgnoreCase(this.getName())
-                    && ((Account) o).getBalance() == this.getBalance()) {
+                    && ((Account) o).getUsername().equalsIgnoreCase(this.getUsername())) {
                 return true;
             }
         }
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Username: " + username + "\nAccountName: " + name
+                + "\nNickName: " + nickName + "\nBalance: " + balance
+                + "\nInterest Rate: " + interestRate;
+    }
+
     /**
      * Returns interest rate
+     * 
      * @return
      */
     public double getInterestRate() {
@@ -82,6 +98,7 @@ public class Account {
 
     /**
      * Returns nickname
+     * 
      * @return
      */
     public String getNickName() {
@@ -90,6 +107,7 @@ public class Account {
 
     /**
      * Sets nickname
+     * 
      * @param nickName
      */
     public void setNickName(String nickName) {
@@ -98,6 +116,7 @@ public class Account {
 
     /**
      * Set interest rate
+     * 
      * @param interestRate
      */
     public void setInterestRate(double interestRate) {
@@ -105,11 +124,12 @@ public class Account {
     }
 
     /**
-     * Returns this account's user
+     * Returns this account's username
+     * 
      * @return
      */
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
 }
