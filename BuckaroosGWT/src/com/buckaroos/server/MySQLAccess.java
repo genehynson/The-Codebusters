@@ -1,4 +1,5 @@
 package com.buckaroos.server;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -9,10 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.buckaroos.client.DBConnection;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 
 //Download mysql server from here: http://dev.mysql.com/downloads/mysql/
 //and then set the server up on your computer to use for testing.
@@ -28,10 +29,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Connection connect = null;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private Connection connect = null;
     private Statement statement = null;
     private PreparedStatement query = null;
 
@@ -83,15 +84,15 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
         // Will have to change test to whatever the name of the DB is that is
         // hosted by Deloitte
         try {
-        	query = connect
-        			.prepareStatement("insert into test.Credentials values (?, ?, ?)");
-			query.setString(1, user.getUsername());
-			query.setString(2, user.getPassword());
-			query.setString(3, user.getEmail());
-			query.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+            query = connect
+                    .prepareStatement("insert into test.Credentials values (?, ?, ?)");
+            query.setString(1, user.getUsername());
+            query.setString(2, user.getPassword());
+            query.setString(3, user.getEmail());
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -155,19 +156,19 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
      */
     public void addAccount(String username, Account account) {
         try {
-        	query = connect
-        			.prepareStatement("insert into test.Accounts (Username, "
-        					+ "AccountName, Balance, InterestRate, AccountNickName)"
-        					+ " values (?, ?, ?, ?, ?)");
-        	query.setString(1, username);
-        	query.setString(2, account.getName());
-			query.setDouble(3, account.getBalance());
-			query.setDouble(4, account.getInterestRate());
-			query.setString(5, account.getNickName());
-			query.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+            query = connect
+                    .prepareStatement("insert into test.Accounts (Username, "
+                            + "AccountName, Balance, InterestRate, AccountNickName)"
+                            + " values (?, ?, ?, ?, ?)");
+            query.setString(1, username);
+            query.setString(2, account.getName());
+            query.setDouble(3, account.getBalance());
+            query.setDouble(4, account.getInterestRate());
+            query.setString(5, account.getNickName());
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -250,23 +251,23 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
             double amount, String transactionType, String currencyType,
             String category, String transactionDate, String transactionTime) {
         try {
-			query = connect
-			        .prepareStatement("insert into test.Transactions (Username, "
-			                + "AccountName, Amount, TransactionType, CurrencyType, "
-			                + "Category, TransactionDate, TransactionTime)"
-			                + " values (?, ?, ?, ?, ?, ?, ?, ?)");
-			query.setString(1, username);
-			query.setString(2, accountName);
-			query.setDouble(3, amount);
-			query.setString(4, transactionType);
-			query.setString(5, currencyType);
-			query.setString(6, category);
-			query.setString(7, transactionDate);
-			query.setString(8, transactionTime);
-			query.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+            query = connect
+                    .prepareStatement("insert into test.Transactions (Username, "
+                            + "AccountName, Amount, TransactionType, CurrencyType, "
+                            + "Category, TransactionDate, TransactionTime)"
+                            + " values (?, ?, ?, ?, ?, ?, ?, ?)");
+            query.setString(1, username);
+            query.setString(2, accountName);
+            query.setDouble(3, amount);
+            query.setString(4, transactionType);
+            query.setString(5, currencyType);
+            query.setString(6, category);
+            query.setString(7, transactionDate);
+            query.setString(8, transactionTime);
+            query.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         if (transactionType.equals("Withdrawal")) {
             amount = -amount;
         }
@@ -318,7 +319,7 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
      * @return A hashmap containing the spending categories as keys and the
      *         amount spent as values or null if a database error occurs
      */
-    public HashMap<String, Double> getSpendingCategoryInfo(String username,
+    public Map<String, Double> getSpendingCategoryInfo(String username,
             String accountName, String startDate, String endDate) {
         return getTransactionCategoryInfo(username, accountName, startDate,
                 endDate, "Withdrawal");
@@ -338,7 +339,7 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
      * @return A hashmap containing the income sources as keys and the amount
      *         earned as values or null if a database error occurs
      */
-    public HashMap<String, Double> getIncomeSourceInfo(String username,
+    public Map<String, Double> getIncomeSourceInfo(String username,
             String accountName, String startDate, String endDate) {
         return getTransactionCategoryInfo(username, accountName, startDate,
                 endDate, "Deposit");
@@ -351,13 +352,13 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
      * to know which type of report to retrieve info for. Returns null if a
      * database error occurs
      */
-    private HashMap<String, Double> getTransactionCategoryInfo(String username,
+    private Map<String, Double> getTransactionCategoryInfo(String username,
             String accountName, String startDate, String endDate,
             String transType) {
         // The date passed in needs to be formatted as YYYY/MM/DD
         createStatementForConnection();
         try {
-            HashMap<String, Double> categoryMap = new HashMap<>();
+            Map<String, Double> categoryMap = new HashMap<String, Double>();
             String selectQuery = "SELECT Category, SUM(Amount) AS amount FROM "
                     + "Transactions WHERE Username = '" + username + "' AND "
                     + "AccountName = '" + accountName + "' AND "
@@ -376,6 +377,59 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Gets a Map containing information about the cash flow of the user's
+     * accounts.
+     * 
+     * @param username The username for which the cash flow report is to be
+     *            generated
+     * @param startDate The start date of the transactions to include in the
+     *            report
+     * @param endDate The end date of the transactions to include in the report
+     * @return A map containing information required to generate a cash flow
+     *         report
+     */
+    public Map<String, Double> getCashFlowReportInfo(String username,
+            String startDate, String endDate) {
+        List<Account> accList = getAllAccounts(username);
+        Map<String, Double> cashFlowMap = new HashMap<String, Double>();
+        double expenseAmount = 0;
+        double incomeAmount = 0;
+        for (Account acc : accList) {
+            Map<String, Double> expenses = getSpendingCategoryInfo(username,
+                    acc.getName(), startDate, endDate);
+            Map<String, Double> income = getIncomeSourceInfo(username,
+                    acc.getName(), startDate, endDate);
+            for (double a : expenses.values()) {
+                expenseAmount += a;
+            }
+            for (double b : income.values()) {
+                incomeAmount += b;
+            }
+        }
+        cashFlowMap.put("Expenses", expenseAmount);
+        cashFlowMap.put("Income", incomeAmount);
+        cashFlowMap.put("Flow", incomeAmount - expenseAmount);
+        return cashFlowMap;
+    }
+
+    /**
+     * Gets the information required to generate the account listing reports.
+     * 
+     * @param username The username for which the account listing reports are to
+     *            be retrieved.
+     * @return A map containing each account name associated with the username
+     *         and its balance.
+     */
+    public Map<String, Double> getAccountListingReportInfo(String username) {
+        List<Account> accList = getAllAccounts(username);
+        Map<String, Double> accountListingMap = new HashMap<String, Double>();
+        for (Account acc : accList) {
+            accountListingMap.put(acc.getName(), acc.getBalance());
+        }
+        return accountListingMap;
     }
 
     /**
@@ -415,10 +469,12 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
                         .getString("TransactionDate");
                 String transactionTimeFound = aResultSet
                         .getString("TransactionTime");
+                String rollBack = aResultSet.getString("isRolledBack");
+                boolean isRolledBack = rollBack.equals("Y") ? true : false;
                 returnTransaction = new AccountTransaction(amountFound,
                         currencyType, transactionType, categoryFound,
                         creationDate, transactionDateFound,
-                        transactionTimeFound);
+                        transactionTimeFound, isRolledBack);
             }
         } catch (SQLException e) {
             System.out.println("Transaction not found");
@@ -434,8 +490,8 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
      *            retrieved
      * @param accountName The accountName with which the transactions are
      *            associated
-     * @return An ArrayList containing all the transactions in the database
-     *         associated with the passed in username and accountName
+     * @return A List containing all the transactions in the database associated
+     *         with the passed in username and accountName
      */
     public List<AccountTransaction> getAllTransactions(String username,
             String accountName) {
@@ -445,7 +501,7 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
             String selectQuery = "SELECT * FROM Transactions "
                     + "WHERE Username = '" + username + "' AND AccountName = '"
                     + accountName
-                    + "' GROUP BY TransactionDate, TransactionTime";
+                    + "' ORDER BY TransactionDate, TransactionTime";
             ResultSet aResultSet = statement.executeQuery(selectQuery);
             while (aResultSet.next()) {
                 double amountFound = aResultSet.getDouble("Amount");
@@ -458,10 +514,12 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
                         .getString("TransactionDate");
                 String transactionTimeFound = aResultSet
                         .getString("TransactionTime");
+                String rollBack = aResultSet.getString("isRolledBack");
+                boolean isRolledBack = rollBack.equals("Y") ? true : false;
                 AccountTransaction foundTransaction = new AccountTransaction(
                         amountFound, currencyType, transactionType,
                         categoryFound, creationDate, transactionDateFound,
-                        transactionTimeFound);
+                        transactionTimeFound, isRolledBack);
                 transList.add(foundTransaction);
             }
         } catch (SQLException e) {
@@ -469,6 +527,71 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
             e.printStackTrace();
         }
         return transList;
+    }
+
+    /**
+     * Retrieves all transactions from the database associated with the
+     * combination of username and accountName passed in. It then stores the
+     * rolled back transactions and committed transactions in separate lists and
+     * puts them in the map if they contain transactions.
+     * 
+     * @param username The username with which the transactions are associated
+     * @param accountName The accountName with which the transactions are
+     *            associated
+     * @param startDate The start date to include in the search
+     * @param endDate The end date to include in the search
+     * @return A map containing the committed and rolled back transactions in
+     *         lists
+     */
+    public Map<String, List<AccountTransaction>> getTransactionHistoryInfo(
+            String username, String accountName, String startDate,
+            String endDate) {
+        Map<String, List<AccountTransaction>> transHistory = new HashMap<>();
+        List<AccountTransaction> allTransactions = getAllTransactions(username,
+                accountName);
+        List<AccountTransaction> committed = new ArrayList<>();
+        List<AccountTransaction> rolledBack = new ArrayList<>();
+        for (AccountTransaction a : allTransactions) {
+            if (endDate.compareTo(a.getDate()) >= 0
+                    && startDate.compareTo(a.getDate()) <= 0) {
+                if (!a.isRolledBack()) {
+                    committed.add(a);
+                } else {
+                    rolledBack.add(a);
+                }
+            }
+        }
+        if (!committed.isEmpty()) {
+            transHistory.put("Committed", committed);
+        }
+        if (!rolledBack.isEmpty()) {
+            transHistory.put("RolledBack", rolledBack);
+        }
+        return transHistory;
+    }
+
+    /**
+     * Retrieves the current transactions associated with a particular user and
+     * account.
+     * 
+     * @param username The username for which the transactions are being
+     *            retrieved
+     * @param accountName The accountName with which the transactions are
+     *            associated
+     * @return A List containing the currnet transactions in the database
+     *         associated with the passed in username and accountName
+     */
+    public List<AccountTransaction> getCurrentTransactions(String username,
+            String accountName) {
+        List<AccountTransaction> currTransactions = new ArrayList<>();
+        List<AccountTransaction> allTransactions = getAllTransactions(username,
+                accountName);
+        for (AccountTransaction a : allTransactions) {
+            if (!a.isRolledBack()) {
+                currTransactions.add(a);
+            }
+        }
+        return currTransactions;
     }
 
     /**
@@ -489,32 +612,34 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
             String transactionTime) {
         AccountTransaction theTransaction = getTransaction(username,
                 accountName, amount, category, transactionDate, transactionTime);
-        double amountToModify = theTransaction.getAmount();
-        String transactionType = theTransaction.getType();
-        if (transactionType.equals("Deposit")) {
-            // Make the amount negative to update the balance with a
-            // negative amount since we are removing a deposit
-            amountToModify = -amountToModify;
+        if (theTransaction != null && !theTransaction.isRolledBack()) {
+            double amountToModify = theTransaction.getAmount();
+            String transactionType = theTransaction.getType();
+            if (transactionType.equals("Deposit")) {
+                // Make the amount negative to update the balance with a
+                // negative amount since we are removing a deposit
+                amountToModify = -amountToModify;
+            }
+            updateAccountBalance(username, accountName, amountToModify);
+            if (transactionType.equals("Deposit")) {
+                // Make the amount positive again if it is a deposit or the
+                // transaction won't be recognized and won't be removed from the
+                // database
+                amountToModify = -amountToModify;
+            }
+            String updateQuery = "UPDATE Transactions SET isRolledBack = 'Y' "
+                    + "WHERE Username = '" + username + "' AND AccountName = '"
+                    + accountName + "' AND Amount = '" + amountToModify
+                    + "' AND " + "Category = '" + category
+                    + "' AND TransactionDate = '" + transactionDate
+                    + "' AND TransactionTime = '" + transactionTime + "'";
+            try {
+                query = connect.prepareStatement(updateQuery);
+                query.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        updateAccountBalance(username, accountName, amountToModify);
-        if (transactionType.equals("Deposit")) {
-            // Make the amount positive again if it is a deposit or the
-            // transaction won't be recognized and won't be removed from the
-            // database
-            amountToModify = -amountToModify;
-        }
-        String deleteQuery = "DELETE FROM Transactions WHERE Username = '"
-                + username + "' AND AccountName = '" + accountName
-                + "' AND Amount " + "= '" + amountToModify
-                + "' AND Category = '" + category + "' AND"
-                + " TransactionDate = '" + transactionDate
-                + "' AND TransactionTime" + " = '" + transactionTime + "'";
-        try {
-        	query = connect.prepareStatement(deleteQuery);
-			query.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
     }
 
 }

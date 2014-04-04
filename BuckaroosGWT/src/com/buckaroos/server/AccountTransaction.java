@@ -3,13 +3,11 @@ package com.buckaroos.server;
 import java.sql.Date;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * Each transaction has an amount and type (withdraw/deposit)
  * 
  * @author Gene
- * 
  */
 public class AccountTransaction implements IsSerializable {
 
@@ -20,10 +18,11 @@ public class AccountTransaction implements IsSerializable {
     private String dateOfTransaction;
     private Date dateCreated;
     private String time;
+    private boolean isRolledBack;
 
     public AccountTransaction(double amount, String currency, String type,
             String category, Date creationDate, String dateOfTransaction,
-            String time) {
+            String time, boolean isRolledBack) {
         this.type = type;
         this.amount = amount;
         this.currency = currency;
@@ -31,105 +30,124 @@ public class AccountTransaction implements IsSerializable {
         this.dateCreated = creationDate;
         this.dateOfTransaction = dateOfTransaction;
         this.time = time;
-    }
-    
-    @SuppressWarnings("unused")
-	private AccountTransaction() {
-    	
+        this.setRolledBack(isRolledBack);
     }
 
     /**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+     * @param amount the amount to set
+     */
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	/**
-	 * @param currency the currency to set
-	 */
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
+    /**
+     * @param currency the currency to set
+     */
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
-	/**
-	 * @param category the category to set
-	 */
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    /**
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	/**
-	 * @param dateOfTransaction the dateOfTransaction to set
-	 */
-	public void setDateOfTransaction(String dateOfTransaction) {
-		this.dateOfTransaction = dateOfTransaction;
-	}
+    /**
+     * @param dateOfTransaction the dateOfTransaction to set
+     */
+    public void setDateOfTransaction(String dateOfTransaction) {
+        this.dateOfTransaction = dateOfTransaction;
+    }
 
-	/**
-	 * @param dateCreated the dateCreated to set
-	 */
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
+    /**
+     * @param dateCreated the dateCreated to set
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
-	}
+    /**
+     * @param time the time to set
+     */
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return type + " of  " + amount + " in " + currency + " for/from "
                 + category + " on " + dateOfTransaction + " at " + time;
     }
-    
+
     /**
      * Returns date of transaction set by user
+     * 
      * @return
      */
     public String getDate() {
-    	return dateOfTransaction;
+        return dateOfTransaction;
     }
-    
+
     /**
      * Returns type of transaction
+     * 
      * @return
      */
     public String getType() {
-    	return type;
+        return type;
     }
-    
+
     /**
      * Returns amount of transaction
+     * 
      * @return
      */
     public double getAmount() {
-    	return amount;
+        return amount;
     }
-    
+
     /**
      * Returns transaction's category
+     * 
      * @return
      */
     public String getCategory() {
-    	return category;
+        return category;
     }
 
     /**
      * Returns the creation date of transaction
+     * 
      * @return
      */
     public Date getCreationDate() {
         return dateCreated;
+    }
+
+    /**
+     * Returns whether or not the transaction has been rolled back
+     * 
+     * @return True if the transaction has been rolled back, false otherwise
+     */
+    public boolean isRolledBack() {
+        return isRolledBack;
+    }
+
+    /**
+     * Sets whether or not the transaction is rolled back
+     * 
+     * @param isRolledBack True if it has been rolled back, false if not
+     */
+    public void setRolledBack(boolean isRolledBack) {
+        this.isRolledBack = isRolledBack;
     }
 }
