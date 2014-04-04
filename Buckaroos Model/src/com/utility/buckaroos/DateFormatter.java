@@ -2,11 +2,12 @@ package com.utility.buckaroos;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * This class defines a date formatter object.
- *
+ * 
  * @author Daniel Carnauba
  * @version 1.0
  *
@@ -20,8 +21,12 @@ public class DateFormatter {
      * @return The formatted time string representation.
      */
     public String convertTimeToString(Date date) {
-        DateFormat df = DateFormat.getTimeInstance();
-        return df.format(date);
+        String formattedTime = null;
+        if (date != null) {
+            DateFormat df = new SimpleDateFormat("hh:mm:ss");
+            formattedTime = df.format(date);
+        }
+        return formattedTime;
     }
 
     /**
@@ -31,8 +36,12 @@ public class DateFormatter {
      * @return The string conversion of the date object.
      */
     public String convertDateToString(Date date) {
-        DateFormat df = DateFormat.getDateInstance();
-        return df.format(date);
+        String formattedDate = null;
+        if (date != null) {
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+            formattedDate = df.format(date);
+        }
+        return formattedDate;
     }
 
     /**
@@ -42,13 +51,15 @@ public class DateFormatter {
      * @return The date object converted from the string.
      */
     public Date convertStringToDate(String dateString) {
-        DateFormat df = DateFormat.getDateInstance();
-        Date date = new Date();
-        try {
-            date = df.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Date theDate = null;
+        if (dateString != null) {
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+            try {
+                theDate = df.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-        return date;
+        return theDate;
     }
 }
