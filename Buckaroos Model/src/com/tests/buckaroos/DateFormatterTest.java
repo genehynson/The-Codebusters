@@ -11,6 +11,14 @@ import org.junit.Test;
 
 import com.utility.buckaroos.DateFormatter;
 
+/**
+ * This class defines a set of JUnit test cases to test the functionality of 
+ * the Date Formatter object.
+ *
+ * @author Daniel Carnauba
+ * @version 1.0
+ *
+ */
 public class DateFormatterTest {
 
     private DateFormatter df;
