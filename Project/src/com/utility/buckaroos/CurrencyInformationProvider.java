@@ -2,12 +2,13 @@ package com.utility.buckaroos;
 
 /**
  * This class provides information about the currency types supported by the
- * Buckaroos application
- * 
+ * Buckaroos application.
+ *
  * @author Jordan LeRoux
  * @version 1.1
  */
-public class CurrencyInformationProvider implements CurrencyInformationInterface {
+public class CurrencyInformationProvider implements
+        CurrencyInformationInterface {
 
     @Override
     public String getFullCurrencyName(Enum<Money> currencyAbbrev) {
@@ -46,7 +47,7 @@ public class CurrencyInformationProvider implements CurrencyInformationInterface
     public String getSymbolOfCurrency(Enum<Money> currencyAbbrev) {
         // Locale locale = Locale.UK;
         // Currency curr = Currency.getInstance(locale);
-    	String symbol = "";
+        String symbol = "";
         if (currencyAbbrev == Money.valueOf("AUD")) {
             symbol = "AU$";
         } else if (currencyAbbrev == Money.valueOf("BRL")) {
@@ -58,7 +59,7 @@ public class CurrencyInformationProvider implements CurrencyInformationInterface
         } else if (currencyAbbrev == Money.valueOf("EUR")) {
             symbol = "\u20ac";
         } else if (currencyAbbrev == Money.valueOf("GBP")) {
-        	//unicode symbol is "\u00A3"
+            // unicode symbol is "\u00A3"
             symbol = "£";
         } else if (currencyAbbrev == Money.valueOf("JPY")) {
             symbol = "J" + "\u00A5";

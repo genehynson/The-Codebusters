@@ -2,10 +2,12 @@ package com.controller.buckaroos;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import android.content.Context;
@@ -21,7 +23,7 @@ import com.utility.buckaroos.CredentialConfirmer;
  * This class implements the ControllerInterface interface. This controller
  * object acts as a controller in the Model-View-Controller model. Controls the
  * communication between activities and User/Account.
- * 
+ *
  * @author Gene Hynson
  * @author Daniel Carnauba
  * @version 1.0
@@ -38,8 +40,9 @@ public class UserAccountController implements ControllerInterface {
 
     /**
      * Gets user/DB after login from CredientialConfirmer in Login activity.
-     * 
-     * @param user
+     *
+     * @param user The user.
+     * @param ctx The context.
      */
     @SuppressWarnings("static-access")
     public UserAccountController(User user, Context ctx) {
@@ -48,6 +51,11 @@ public class UserAccountController implements ControllerInterface {
         this.user = user;
     }
 
+    /**
+     * Constructs an user account controller object.
+     *
+     * @param ctx The context.
+     */
     public UserAccountController(Context ctx) {
         this.ctx = ctx;
         db = new DB(ctx);
@@ -62,8 +70,8 @@ public class UserAccountController implements ControllerInterface {
     public void addAccount(String accountName, String accountNickName,
             double amount, double interestRate) {
         currentAccount =
-                new Account(accountName, accountNickName, amount, interestRate,
-                        user);
+                new Account(accountName, accountNickName, amount,
+                        interestRate, user);
         db.addAccount(currentAccount, user);
     }
 
@@ -73,12 +81,13 @@ public class UserAccountController implements ControllerInterface {
         String dateString = convertDateToString(date);
         String timeString = convertTimeToString(date);
         db.addTransaction(currentAccount, user.getAccountName(), amount,
-                "Withdrawal", currencyType, category, dateString, timeString);
+                "Withdrawal", currencyType, category, dateString,
+                timeString);
     }
 
     @Override
-    public void addDeposit(double amount, String currencyType, String category,
-            Date date) {
+    public void addDeposit(double amount, String currencyType,
+            String category, Date date) {
         String dateString = convertDateToString(date);
         String timeString = convertTimeToString(date);
         db.addTransaction(currentAccount, user.getAccountName(), amount,
@@ -87,29 +96,36 @@ public class UserAccountController implements ControllerInterface {
 
     @Override
     public String convertTimeToString(Date date) {
-        // DateFormat df = new SimpleDateFormat("HH:mm");
-        DateFormat df = DateFormat.getTimeInstance();
-        return df.format(date);
+        String formattedTime = null;
+        if (date != null) {
+            DateFormat df = new SimpleDateFormat("hh:mm:ss", Locale.US);
+            formattedTime = df.format(date);
+        }
+        return formattedTime;
     }
 
     @Override
     public String convertDateToString(Date date) {
-        // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        DateFormat df = DateFormat.getDateInstance();
-        return df.format(date);
+        String formattedDate = null;
+        if (date != null) {
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+            formattedDate = df.format(date);
+        }
+        return formattedDate;
     }
 
     @Override
     public Date convertStringToDate(String dateString) {
-        // DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        DateFormat df = DateFormat.getDateInstance();
-        Date date = new Date();
-        try {
-            date = df.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Date theDate = null;
+        if (dateString != null) {
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+            try {
+                theDate = df.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-        return date;
+        return theDate;
     }
 
     @Override
@@ -138,7 +154,8 @@ public class UserAccountController implements ControllerInterface {
     }
 
     @Override
-    public void addLoginAccount(String name, String password, String email) {
+    public void
+            addLoginAccount(String name, String password, String email) {
         AppPropertyWriter k = new AppPropertyWriter(ctx);
         user = k.storeAccount(name, password, email);
     }
@@ -191,16 +208,19 @@ public class UserAccountController implements ControllerInterface {
                     System.out.println("before " + beginDate);
                     System.out.println(theDate.toString());
                     System.out.println("after " + endDate);
-                    if ((beginDate.before(theDate) && endDate.after(theDate))
+                    if ((beginDate.before(theDate) && endDate
+                            .after(theDate))
                             || beginDate.equals(theDate)
                             || endDate.equals(theDate)) {
                         System.out.println("found date");
                         if (transaction.getType().equals("Withdrawal")) {
                             if (!categoryTotals.containsKey(transaction
                                     .getCategory())) {
-                                categoryTotals.put(transaction.getCategory(),
+                                categoryTotals.put(
+                                        transaction.getCategory(),
                                         transaction.getAmount());
-                                categoryNames.add(transaction.getCategory());
+                                categoryNames.add(transaction
+                                        .getCategory());
                             } else {
                                 categoryTotals.put(
                                         transaction.getCategory(),
@@ -209,7 +229,8 @@ public class UserAccountController implements ControllerInterface {
                                                 + transaction.getAmount());
                             }
                             totalSpending =
-                                    transaction.getAmount() + totalSpending;
+                                    transaction.getAmount()
+                                            + totalSpending;
                         }
                     }
                 }
@@ -239,13 +260,15 @@ public class UserAccountController implements ControllerInterface {
                 date = transaction.getDate();
                 if (!date.equals("00/00/0")) {
                     theDate = convertStringToDate(date);
-                    if ((beginDate.before(theDate) && endDate.after(theDate))
+                    if ((beginDate.before(theDate) && endDate
+                            .after(theDate))
                             || beginDate.equals(theDate)
                             || endDate.equals(theDate)) {
                         if (transaction.getType().equals("Withdrawal")) {
                             if (!categoryNames.contains(transaction
                                     .getCategory())) {
-                                categoryNames.add(transaction.getCategory());
+                                categoryNames.add(transaction
+                                        .getCategory());
                             }
                         }
                     }
@@ -257,183 +280,6 @@ public class UserAccountController implements ControllerInterface {
         return categoryNames;
     }
 
-    //
-    // @Override
-    // public Map<String, Double> getIncomeTransactionsTotalInDate() {
-    // List<AccountTransaction> importedTransactions =
-    // getAllAccountTransactions();
-    // List<Account> allAccounts = getAllUserAccounts();
-    // Account actualCurrentAccount = getCurrentAccount();
-    //
-    // List<String> categoryNames = new ArrayList<String>();
-    // Map<String, Double> categoryTotals = new HashMap<String, Double>();
-    //
-    // String date;
-    // double totalIncome = 0;
-    //
-    // for (Account account : allAccounts) {
-    // setCurrentAccount(account);
-    // importedTransactions = getAllAccountTransactions();
-    // for (AccountTransaction transaction : importedTransactions) {
-    // date = transaction.getDate();
-    // if (!date.equals("00/00/0")) {
-    // theDate = convertStringToDate(date);
-    // System.out.println("before " + beginDate);
-    // System.out.println(theDate.toString());
-    // System.out.println("after " + endDate);
-    // if ((beginDate.before(theDate) && endDate.after(theDate))
-    // || beginDate.equals(theDate)
-    // || endDate.equals(theDate)) {
-    // System.out.println("found date");
-    // if (transaction.getType().equals("Deposit")) {
-    // if (!categoryTotals.containsKey(transaction
-    // .getCategory())) {
-    // categoryTotals.put(transaction.getCategory(),
-    // transaction.getAmount());
-    // categoryNames.add(transaction.getCategory());
-    // } else {
-    // categoryTotals.put(
-    // transaction.getCategory(),
-    // categoryTotals.get(transaction
-    // .getCategory())
-    // + transaction.getAmount());
-    // }
-    // totalIncome = transaction.getAmount() + totalIncome;
-    // }
-    // }
-    // }
-    // }
-    // }
-    // categoryTotals.put("Total", totalIncome);
-    // categoryNames.add("Total");
-    // setCurrentAccount(actualCurrentAccount);
-    // return categoryTotals;
-    // }
-    //
-    // @Override
-    // public List<String> getIncomeTransactionSourceInDate() {
-    // List<String> categoryNames = new ArrayList<String>();
-    //
-    // List<AccountTransaction> importedTransactions =
-    // getAllAccountTransactions();
-    // List<Account> allAccounts = getAllUserAccounts();
-    // Account actualCurrentAccount = getCurrentAccount();
-    //
-    // String date;
-    //
-    // for (Account account : allAccounts) {
-    // setCurrentAccount(account);
-    // importedTransactions = getAllAccountTransactions();
-    // for (AccountTransaction transaction : importedTransactions) {
-    // date = transaction.getDate();
-    // if (!date.equals("00/00/0")) {
-    // theDate = convertStringToDate(date);
-    // if ((beginDate.before(theDate) && endDate.after(theDate))
-    // || beginDate.equals(theDate)
-    // || endDate.equals(theDate)) {
-    // if (transaction.getType().equals("Deposit")) {
-    // if (!categoryNames.contains(transaction
-    // .getCategory())) {
-    // categoryNames.add(transaction.getCategory());
-    // }
-    // }
-    // }
-    // }
-    // }
-    // }
-    // categoryNames.add("Total");
-    // setCurrentAccount(actualCurrentAccount);
-    // return categoryNames;
-    // }
-    //
-    // @Override
-    // public Map<String, Double> getTransactionHistoryTotalInDate() {
-    // List<AccountTransaction> importedTransactions =
-    // getAllAccountTransactions();
-    // List<Account> allAccounts = getAllUserAccounts();
-    // Account actualCurrentAccount = getCurrentAccount();
-    //
-    // List<String> categoryNames = new ArrayList<String>();
-    // Map<String, Double> categoryTotals = new HashMap<String, Double>();
-    //
-    // String date;
-    // double totalIncome = 0;
-    //
-    // for (Account account : allAccounts) {
-    // setCurrentAccount(account);
-    // importedTransactions = getAllAccountTransactions();
-    // for (AccountTransaction transaction : importedTransactions) {
-    // date = transaction.getDate();
-    // if (!date.equals("00/00/0")) {
-    // theDate = convertStringToDate(date);
-    // System.out.println("before " + beginDate);
-    // System.out.println(theDate.toString());
-    // System.out.println("after " + endDate);
-    // if ((beginDate.before(theDate) && endDate.after(theDate))
-    // || beginDate.equals(theDate)
-    // || endDate.equals(theDate)) {
-    // System.out.println("found date");
-    // if (transaction.getType().equals("Deposit")) {
-    // if (!categoryTotals.containsKey(transaction
-    // .getCategory())) {
-    // categoryTotals.put(transaction.getCategory(),
-    // transaction.getAmount());
-    // categoryNames.add(transaction.getCategory());
-    // } else {
-    // categoryTotals.put(
-    // transaction.getCategory(),
-    // categoryTotals.get(transaction
-    // .getCategory())
-    // + transaction.getAmount());
-    // }
-    // totalIncome = transaction.getAmount() + totalIncome;
-    // }
-    // }
-    // }
-    // }
-    // }
-    // categoryTotals.put("Total", totalIncome);
-    // categoryNames.add("Total");
-    // setCurrentAccount(actualCurrentAccount);
-    // return categoryTotals;
-    // }
-    //
-    // @Override
-    // public List<String> getTransactionHistoryNamesInDate() {
-    // List<String> categoryNames = new ArrayList<String>();
-    //
-    // List<AccountTransaction> importedTransactions =
-    // getAllAccountTransactions();
-    // List<Account> allAccounts = getAllUserAccounts();
-    // Account actualCurrentAccount = getCurrentAccount();
-    //
-    // String date;
-    //
-    // for (Account account : allAccounts) {
-    // setCurrentAccount(account);
-    // importedTransactions = getAllAccountTransactions();
-    // for (AccountTransaction transaction : importedTransactions) {
-    // date = transaction.getDate();
-    // if (!date.equals("00/00/0")) {
-    // theDate = convertStringToDate(date);
-    // if ((beginDate.before(theDate) && endDate.after(theDate))
-    // || beginDate.equals(theDate)
-    // || endDate.equals(theDate)) {
-    // if (transaction.getType().equals("Deposit")) {
-    // if (!categoryNames.contains(transaction
-    // .getCategory())) {
-    // categoryNames.add(transaction.getCategory());
-    // }
-    // }
-    // }
-    // }
-    // }
-    // }
-    // categoryNames.add("Total");
-    // setCurrentAccount(actualCurrentAccount);
-    // return categoryNames;
-    // }
-
     @Override
     public Map<String, Double> generateSpendingCategoryReport() {
         return db.getSpendingCategoryInfo(user.getAccountName(),
@@ -443,8 +289,9 @@ public class UserAccountController implements ControllerInterface {
 
     @Override
     public Map<String, Double> generateIncomeSourceReport() {
-        // TODO Auto-generated method stub
-        return null;
+        return db.getIncomeSourceInfo(user.getAccountName(),
+                currentAccount.getName(), beginDate.toString(),
+                endDate.toString());
     }
 
     @Override
@@ -479,7 +326,7 @@ public class UserAccountController implements ControllerInterface {
 
     /**
      * Gets the begin date.
-     * 
+     *
      * @return The beginDate.
      */
     public static Date getBeginDate() {
@@ -488,16 +335,16 @@ public class UserAccountController implements ControllerInterface {
 
     /**
      * Sets the begin date.
-     * 
-     * @param beginDate The beginDate to set.
+     *
+     * @param startDate The beginDate to set.
      */
-    public static void setBeginDate(Date beginDate) {
-        UserAccountController.beginDate = beginDate;
+    public static void setBeginDate(Date startDate) {
+        UserAccountController.beginDate = startDate;
     }
 
     /**
      * Gets the calendar date object.
-     * 
+     *
      * @return The calendar date object.
      */
     public static Date getTheDate() {
@@ -506,16 +353,16 @@ public class UserAccountController implements ControllerInterface {
 
     /**
      * Sets the calendar date.
-     * 
-     * @param theDate The calendar date to set for a time period.
+     *
+     * @param date The calendar date to set for a time period.
      */
-    public static void setTheDate(Date theDate) {
-        UserAccountController.theDate = theDate;
+    public static void setTheDate(Date date) {
+        UserAccountController.theDate = date;
     }
 
     /**
      * Gets the endDate for a time period.
-     * 
+     *
      * @return The endDate. The end date for a time period.
      */
     public static Date getEndDate() {
@@ -524,10 +371,10 @@ public class UserAccountController implements ControllerInterface {
 
     /**
      * Sets the end date for a time period.
-     * 
+     *
      * @param endDate The endDate to set for a time period.
      */
-    public static void setEndDate(Date endDate) {
-        UserAccountController.endDate = endDate;
+    public static void setEndDate(Date end) {
+        UserAccountController.endDate = end;
     }
 }

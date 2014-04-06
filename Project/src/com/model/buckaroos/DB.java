@@ -16,7 +16,7 @@ import android.util.Log;
 /**
  * This class defines a database to provide persistence to the application.
  * Class that uses SQLite to store all of the app's information into a database
- * 
+ *
  * @author Jordan LeRoux
  * @author Gene Hynson
  * @version 1.4
@@ -102,7 +102,7 @@ public class DB extends SQLiteOpenHelper {
 
     /**
      * Adds a user to the database
-     * 
+     *
      * @param user The user to be added
      */
     public void addUser(User user) {
@@ -119,7 +119,7 @@ public class DB extends SQLiteOpenHelper {
     /**
      * Adds an account to the database. Note: This is an account of a user, it
      * is different than the account the user logs in with
-     * 
+     *
      * @param account The account to be added
      * @param user The user that the account is associated with
      */
@@ -134,14 +134,15 @@ public class DB extends SQLiteOpenHelper {
         System.out.println(values);
         db.insert(TABLE_ACCOUNTS, null, values);
         String query =
-                "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS + " WHERE "
-                        + KEY_LOGINACCOUNT + "=" + "'" + user.getAccountName()
-                        + "'";
+                "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS
+                        + " WHERE " + KEY_LOGINACCOUNT + "=" + "'"
+                        + user.getAccountName() + "'";
         System.out.println(query);
         Cursor c = db.rawQuery(query, null);
         if (c != null) {
             if (c.moveToFirst()) {
-                double balance = c.getDouble(c.getColumnIndex(KEY_BALANCE));
+                double balance =
+                        c.getDouble(c.getColumnIndex(KEY_BALANCE));
                 System.out.println("Balance: " + balance);
             }
         }
@@ -150,8 +151,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Adds a transaction to the database
-     * 
+     * Adds a transaction to the database.
+     *
      * @param account The account the transaction is associated with
      * @param loginAccountName The account name that the user uses to log in
      *            with
@@ -161,9 +162,11 @@ public class DB extends SQLiteOpenHelper {
      * @param currencyType The type of currency used in the transaction
      * @param category The expense or income category
      */
-    public void addTransaction(Account account, String loginAccountName,
-            double amount, String transactionType, String currencyType,
-            String category, String transactionDate, String transactionTime) {
+    public void
+            addTransaction(Account account, String loginAccountName,
+                    double amount, String transactionType,
+                    String currencyType, String category,
+                    String transactionDate, String transactionTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         if (transactionType.equalsIgnoreCase("Withdrawal")) {
@@ -186,7 +189,7 @@ public class DB extends SQLiteOpenHelper {
     /**
      * Removes a transaction from the user's account and updates the account's
      * balance to reflect the deletion.
-     * 
+     *
      * @param account The account of the transaction that is being deleted
      * @param user The user whose account is being updated
      * @param transaction The transaction that is to be deleted
@@ -195,29 +198,33 @@ public class DB extends SQLiteOpenHelper {
             AccountTransaction transaction) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery =
-                "SELECT " + KEY_AMOUNT + ", " + KEY_TRANSACTIONTYPE + " FROM "
-                        + TABLE_TRANSACTIONS + " WHERE " + KEY_LOGINACCOUNT
-                        + " = '" + user.getAccountName() + "' AND "
+                "SELECT " + KEY_AMOUNT + ", " + KEY_TRANSACTIONTYPE
+                        + " FROM " + TABLE_TRANSACTIONS + " WHERE "
+                        + KEY_LOGINACCOUNT + " = '"
+                        + user.getAccountName() + "' AND "
                         + KEY_USERACCOUNTNAME + " = '" + account.getName()
                         + "' AND " + KEY_AMOUNT + " = '"
-                        + transaction.getAmount() + "' AND " + KEY_CATEGORY
-                        + " = '" + transaction.getCategory() + "' AND "
+                        + transaction.getAmount() + "' AND "
+                        + KEY_CATEGORY + " = '"
+                        + transaction.getCategory() + "' AND "
                         + KEY_CREATIONDATE + " = '"
                         + transaction.getCreationDate() + "' AND "
-                        + KEY_TRANSACTIONDATE + " = '" + transaction.getDate()
-                        + "'";
+                        + KEY_TRANSACTIONDATE + " = '"
+                        + transaction.getDate() + "'";
         Cursor c = db.rawQuery(selectQuery, null);
         String query =
                 "DELETE FROM " + TABLE_TRANSACTIONS + " WHERE "
-                        + KEY_LOGINACCOUNT + " = '" + user.getAccountName()
-                        + "' AND " + KEY_USERACCOUNTNAME + " = '"
-                        + account.getName() + "' AND " + KEY_AMOUNT + " = '"
-                        + transaction.getAmount() + "' AND " + KEY_CATEGORY
-                        + " = '" + transaction.getCategory() + "' AND "
+                        + KEY_LOGINACCOUNT + " = '"
+                        + user.getAccountName() + "' AND "
+                        + KEY_USERACCOUNTNAME + " = '" + account.getName()
+                        + "' AND " + KEY_AMOUNT + " = '"
+                        + transaction.getAmount() + "' AND "
+                        + KEY_CATEGORY + " = '"
+                        + transaction.getCategory() + "' AND "
                         + KEY_CREATIONDATE + " = '"
                         + transaction.getCreationDate() + "' AND "
-                        + KEY_TRANSACTIONDATE + " = '" + transaction.getDate()
-                        + "'";
+                        + KEY_TRANSACTIONDATE + " = '"
+                        + transaction.getDate() + "'";
         db.rawQuery(query, null);
         if (c != null) {
             if (c.moveToFirst()) {
@@ -237,8 +244,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves an account from the database
-     * 
+     * Retrieves an account from the database.
+     *
      * @param accountName The name of the account to be retrieved
      * @param user The user associated with the account
      * @return The Account if it exists, null otherwise
@@ -248,9 +255,9 @@ public class DB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery =
                 "SELECT  * FROM " + TABLE_ACCOUNTS + " WHERE "
-                        + KEY_LOGINACCOUNT + " = '" + user.getAccountName()
-                        + "' AND " + KEY_USERACCOUNTNAME + " = '" + accountName
-                        + "'";
+                        + KEY_LOGINACCOUNT + " = '"
+                        + user.getAccountName() + "' AND "
+                        + KEY_USERACCOUNTNAME + " = '" + accountName + "'";
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             do {
@@ -258,11 +265,13 @@ public class DB extends SQLiteOpenHelper {
                         c.getString(c.getColumnIndex(KEY_USERACCOUNTNAME));
                 String nickName =
                         c.getString(c.getColumnIndex(KEY_ACCOUNTNICKNAME));
-                double balance = c.getDouble((c.getColumnIndex(KEY_BALANCE)));
+                double balance =
+                        c.getDouble((c.getColumnIndex(KEY_BALANCE)));
                 double interest =
                         c.getDouble(c.getColumnIndex(KEY_INTERESTRATE));
                 returnAccount =
-                        new Account(accName, nickName, balance, interest, user);
+                        new Account(accName, nickName, balance, interest,
+                                user);
             } while (c.moveToNext());
         }
         db.close();
@@ -270,8 +279,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves the first account associated with the user
-     * 
+     * Retrieves the first account associated with the user.
+     *
      * @param user The user whose account is to be retrieved
      * @return The first account associated with the user, null if the user has
      *         no accounts
@@ -286,8 +295,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Updates an account with a new balance
-     * 
+     * Updates an account with a new balance.
+     *
      * @param account The account to update
      * @param loginAccountName The name of the user's login account
      * @param amount The amount to add/subtract from the balance
@@ -296,19 +305,21 @@ public class DB extends SQLiteOpenHelper {
             double amount) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery =
-                "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS + " WHERE "
-                        + KEY_LOGINACCOUNT + "=" + "'" + loginAccountName
-                        + "' AND " + KEY_USERACCOUNTNAME + "= '"
-                        + account.getName() + "'";
+                "SELECT " + KEY_BALANCE + " FROM " + TABLE_ACCOUNTS
+                        + " WHERE " + KEY_LOGINACCOUNT + "=" + "'"
+                        + loginAccountName + "' AND "
+                        + KEY_USERACCOUNTNAME + "= '" + account.getName()
+                        + "'";
         Cursor c = db.rawQuery(selectQuery, null);
         if (c != null) {
             if (c.moveToFirst()) {
-                double balance = c.getDouble(c.getColumnIndex(KEY_BALANCE));
+                double balance =
+                        c.getDouble(c.getColumnIndex(KEY_BALANCE));
                 balance += amount;
                 String updateQuery =
                         "Update " + TABLE_ACCOUNTS + " SET balance = "
-                                + balance + " WHERE " + KEY_LOGINACCOUNT + "="
-                                + "'" + loginAccountName + "' AND "
+                                + balance + " WHERE " + KEY_LOGINACCOUNT
+                                + "=" + "'" + loginAccountName + "' AND "
                                 + KEY_USERACCOUNTNAME + "= '"
                                 + account.getName() + "'";
                 System.out.println(balance);
@@ -319,8 +330,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves all accounts from the database
-     * 
+     * Retrieves all accounts from the database.
+     *
      * @return An ArrayList containing all the accounts in the database
      */
     public ArrayList<Account> getAllAccounts(User user) {
@@ -333,16 +344,19 @@ public class DB extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             do {
-                String acc = c.getString(c.getColumnIndex(KEY_LOGINACCOUNT));
+                String acc =
+                        c.getString(c.getColumnIndex(KEY_LOGINACCOUNT));
                 String accName =
                         c.getString(c.getColumnIndex(KEY_USERACCOUNTNAME));
                 String nickName =
                         c.getString(c.getColumnIndex(KEY_ACCOUNTNICKNAME));
-                double balance = c.getDouble((c.getColumnIndex(KEY_BALANCE)));
+                double balance =
+                        c.getDouble((c.getColumnIndex(KEY_BALANCE)));
                 double interest =
                         c.getDouble(c.getColumnIndex(KEY_INTERESTRATE));
                 Account account =
-                        new Account(accName, nickName, balance, interest, user);
+                        new Account(accName, nickName, balance, interest,
+                                user);
                 if (acc.equalsIgnoreCase(user.getAccountName())) {
                     accList.add(account);
                 }
@@ -353,8 +367,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves a user from the database
-     * 
+     * Retrieves a user from the database.
+     *
      * @param accountName The name of the account the user uses to log in with
      * @return The user associated with the accountName provided
      */
@@ -379,8 +393,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves all users from the database
-     * 
+     * Retrieves all users from the database.
+     *
      * @return An ArrayList containing all the users in the database
      */
     private ArrayList<User> getAllUsers() {
@@ -390,7 +404,8 @@ public class DB extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             do {
-                String acc = c.getString(c.getColumnIndex(KEY_LOGINACCOUNT));
+                String acc =
+                        c.getString(c.getColumnIndex(KEY_LOGINACCOUNT));
                 String pw = c.getString(c.getColumnIndex(KEY_PASSWORD));
                 String em = c.getString(c.getColumnIndex(KEY_EMAIL));
                 User user = new User(acc, pw, em);
@@ -403,7 +418,7 @@ public class DB extends SQLiteOpenHelper {
 
     /**
      * Updates an existing user's password and email. Pass in a
-     * 
+     *
      * @param user The user containing the login account name to update and the
      *            new email and/or password.
      * @return The number of rows affected by the update
@@ -413,13 +428,13 @@ public class DB extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_PASSWORD, user.getPassword());
         values.put(KEY_EMAIL, user.getEmail());
-        return db.update(TABLE_CREDENTIALS, values, KEY_LOGINACCOUNT + " = ?",
-                new String[] { user.getAccountName() });
+        return db.update(TABLE_CREDENTIALS, values, KEY_LOGINACCOUNT
+                + " = ?", new String[] { user.getAccountName() });
     }
 
     /**
-     * Checks to see if the password is correct for the accountName provided
-     * 
+     * Checks to see if the password is correct for the accountName provided.
+     *
      * @param accountName The name of the account whose password is being
      *            checked
      * @param password The password to check
@@ -440,14 +455,14 @@ public class DB extends SQLiteOpenHelper {
     }
 
     /**
-     * Returns a list of the transactions for an account
-     * 
+     * Returns a list of the transactions for an account.
+     *
      * @param account The account containing the transactions
      * @param user The user of the account
      * @return an arraylist with all of the transactions for one account
      */
-    public List<AccountTransaction> getAllAccountTransactions(Account account,
-            User user) {
+    public List<AccountTransaction> getAllAccountTransactions(
+            Account account, User user) {
         List<AccountTransaction> transactionList =
                 new ArrayList<AccountTransaction>();
         System.out.println("pre query");
@@ -466,8 +481,9 @@ public class DB extends SQLiteOpenHelper {
                         + KEY_TRANSACTIONTIME
                         + ", "
                         + "(strftime('%s', CreationDate) * 1000) AS CreationDate FROM "
-                        + TABLE_TRANSACTIONS + " WHERE " + KEY_LOGINACCOUNT
-                        + " = '" + user.getAccountName() + "' AND "
+                        + TABLE_TRANSACTIONS + " WHERE "
+                        + KEY_LOGINACCOUNT + " = '"
+                        + user.getAccountName() + "' AND "
                         + KEY_USERACCOUNTNAME + " = '" + account.getName()
                         + "'";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -475,14 +491,17 @@ public class DB extends SQLiteOpenHelper {
         System.out.println("executed query");
         if (c.moveToFirst()) {
             do {
-                double amount = c.getDouble((c.getColumnIndex(KEY_AMOUNT)));
+                double amount =
+                        c.getDouble((c.getColumnIndex(KEY_AMOUNT)));
                 String transactionType =
                         c.getString((c.getColumnIndex(KEY_TRANSACTIONTYPE)));
                 String currencyType =
                         c.getString((c.getColumnIndex(KEY_CURRENCYTYPE)));
-                String category = c.getString((c.getColumnIndex(KEY_CATEGORY)));
+                String category =
+                        c.getString((c.getColumnIndex(KEY_CATEGORY)));
                 long millis =
-                        c.getLong(c.getColumnIndexOrThrow(KEY_CREATIONDATE));
+                        c.getLong(c
+                                .getColumnIndexOrThrow(KEY_CREATIONDATE));
                 Date date = new Date(millis);
                 String transactionDate =
                         c.getString((c.getColumnIndex(KEY_TRANSACTIONDATE)));
@@ -500,16 +519,16 @@ public class DB extends SQLiteOpenHelper {
         return transactionList;
     }
 
-    /*
+    /**
      * Called by getIncomeSourceInfo and getSpendingCategoryInfo. Performs a
      * select query to retrieve the appropriate information needed to produce
      * spending category and income source reports. Takes in a transactionType
      * to know which type of report to retrieve info for. Returns null if a
      * database error occurs
      */
-    private Map<String, Double> getTransactionCategoryInfo(String username,
-            String accountName, String startDate, String endDate,
-            String transType) {
+    private Map<String, Double> getTransactionCategoryInfo(
+            String username, String accountName, String startDate,
+            String endDate, String transType) {
         // The date passed in needs to be formatted as YYYY/MM/DD
         Map<String, Double> categoryMap = new HashMap<String, Double>();
         String selectQuery =
@@ -518,8 +537,8 @@ public class DB extends SQLiteOpenHelper {
                         + "' AND " + "UserAccountName = '" + accountName
                         + "' AND " + "TransactionType = '" + transType
                         + "' AND TransactionDate > '" + startDate
-                        + "' AND TransactionDate < '" + endDate + "' GROUP "
-                        + "BY Category";
+                        + "' AND TransactionDate < '" + endDate
+                        + "' GROUP " + "BY Category";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
@@ -535,8 +554,8 @@ public class DB extends SQLiteOpenHelper {
     /**
      * Retrieves the spending categories and the amount spent in those
      * categories associated with a username and account between a startDate and
-     * endDate
-     * 
+     * endDate.
+     *
      * @param username The username with which the spending categories are to be
      *            retrieved from
      * @param accountName The accountName with which the spending categories are
@@ -549,14 +568,14 @@ public class DB extends SQLiteOpenHelper {
      */
     public Map<String, Double> getSpendingCategoryInfo(String username,
             String accountName, String startDate, String endDate) {
-        return getTransactionCategoryInfo(username, accountName, startDate,
-                endDate, "Withdrawal");
+        return getTransactionCategoryInfo(username, accountName,
+                startDate, endDate, "Withdrawal");
     }
 
     /**
      * Retrieves the income sources and the amount earned in those categories
-     * associated with a username and account between a startDate and endDate
-     * 
+     * associated with a username and account between a startDate and endDate.
+     *
      * @param username The username with which the income sources are to be
      *            retrieved from
      * @param accountName The accountName with which the income sources are to
@@ -569,7 +588,7 @@ public class DB extends SQLiteOpenHelper {
      */
     public Map<String, Double> getIncomeSourceInfo(String username,
             String accountName, String startDate, String endDate) {
-        return getTransactionCategoryInfo(username, accountName, startDate,
-                endDate, "Deposit");
+        return getTransactionCategoryInfo(username, accountName,
+                startDate, endDate, "Deposit");
     }
 }

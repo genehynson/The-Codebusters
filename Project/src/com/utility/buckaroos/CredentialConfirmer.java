@@ -11,8 +11,8 @@ import com.model.buckaroos.User;
 /**
  * This class loads credentials stored in a file and has methods that allow for
  * retrieval of emails and provides a way to check if a password is correct or
- * not
- * 
+ * not.
+ *
  * @author Jordan LeRoux
  * @version 2.0
  */
@@ -20,11 +20,12 @@ public class CredentialConfirmer {
 
     private static DB db;
     private static User currentLoggedInUser;
+    private final int toConvert = 0xff;
 
     /**
      * Constructs a CredentialConfirmer by getting all the keys and values from
      * the properties that have been written to the application.
-     * 
+     *
      * @param ctx The context object.
      */
     public CredentialConfirmer(Context ctx) {
@@ -32,8 +33,8 @@ public class CredentialConfirmer {
     }
 
     /**
-     * Checks if the account name provided exists
-     * 
+     * Checks if the account name provided exists.
+     *
      * @param accountName The account name whose existence is in question
      * @return true if the account has been registered, false otherwise
      */
@@ -42,8 +43,8 @@ public class CredentialConfirmer {
     }
 
     /**
-     * Checks if the password for the account is correct
-     * 
+     * Checks if the password for the account is correct.
+     *
      * @param accountName The account whose password is being checked
      * @param aPassword The password to check with the account
      * @return true if the account's password matches the provided password,
@@ -66,7 +67,7 @@ public class CredentialConfirmer {
             byte[] digest = md.digest();
             sb.replace(0, 0, "");
             for (byte b : digest) {
-                sb.append(Integer.toHexString((int) (b & 0xff)));
+                sb.append(Integer.toHexString((int) (b & toConvert)));
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -80,8 +81,8 @@ public class CredentialConfirmer {
     }
 
     /**
-     * Retrieves the currently logged in user
-     * 
+     * Retrieves the currently logged in user.
+     *
      * @return The current logged in user.
      */
     public User getLoggedInUser() {
@@ -89,8 +90,8 @@ public class CredentialConfirmer {
     }
 
     /**
-     * Returns the email associated with the accountName provided
-     * 
+     * Returns the email associated with the accountName provided.
+     *
      * @param accountName The name of the account for which the email is being
      *            received
      * @return The email associated with the account
@@ -101,7 +102,7 @@ public class CredentialConfirmer {
 
     /**
      * Gets an instance of the database.
-     * 
+     *
      * @return An instance of the database object.
      */
     public DB getDB() {

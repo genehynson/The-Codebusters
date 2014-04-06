@@ -4,16 +4,23 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 
 /**
- * Class designed to provide a hashed version of the password for security
- * 
- * @author Jordan
+ * Class designed to provide a hashed version of the password for security.
+ *
+ * @author Jordan LeRoux
  * @version 1.0
  */
 public class PasswordHash {
 
     public static int PW_HASH_ITERATION_COUNT = 5000;
     private static MessageDigest md;
+    private final int toConvert = 0xff;
 
+    /**
+     * Hashes the password passed in.
+     *
+     * @param pw The password.
+     * @return The hashed password.
+     */
     public String hashPassword(String pw) {
         String salt = "rjelk;a903u29ujmfadkls;09432ujop;zad";
         byte[] bSalt;
@@ -33,12 +40,19 @@ public class PasswordHash {
 
         StringBuffer sb = new StringBuffer();
         for (byte b : digest) {
-            sb.append(Integer.toHexString((int) (b & 0xff)));
+            sb.append(Integer.toHexString((int) (b & toConvert)));
         }
 
         return sb.toString();
     }
 
+    /**
+     * Runs the md5 password encryption.
+     *
+     * @param input The input for conversion.
+     * @param salt
+     * @return The encrypted password
+     */
     private static byte[] run(byte[] input, byte[] salt) {
         md.update(input);
         return md.digest(salt);

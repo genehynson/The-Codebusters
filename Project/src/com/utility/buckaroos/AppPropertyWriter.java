@@ -11,7 +11,7 @@ import com.model.buckaroos.User;
 /**
  * Writes a file that stores the information about accounts and passwords that
  * have been created.
- * 
+ *
  * @author Jordan LeRoux
  * @version 1.0
  */
@@ -19,6 +19,7 @@ public class AppPropertyWriter {
 
     private final Context ctx;
     private static DB db;
+    private static int toConvert = 0xff;
 
     /**
      * Constructs an AppPropertyWriter. It gets the old properties that have
@@ -34,7 +35,7 @@ public class AppPropertyWriter {
     /**
      * Stores a new account and password that has been registered. If the
      * account name has been taken, the user is informed
-     * 
+     *
      * @param accountName The account name to be created
      * @param password The password that corresponds with the new account
      */
@@ -49,12 +50,12 @@ public class AppPropertyWriter {
                 byte[] digest = md.digest();
                 StringBuffer sb = new StringBuffer();
                 for (byte b : digest) {
-                    sb.append(Integer.toHexString(b & 0xff));
+                    sb.append(Integer.toHexString(b & toConvert));
                 }
                 newUser = new User(accountName, sb.toString(), email);
                 db.addUser(newUser);
-            } catch (NoSuchAlgorithmException e1) {
-                // Do Nothing
+            } catch (NoSuchAlgorithmException e) {
+                System.out.println(e.getMessage());
             }
         }
         return newUser;
@@ -62,8 +63,8 @@ public class AppPropertyWriter {
 
     /**
      * Returns true if the account name has been stored in the application's
-     * properties file, false otherwise
-     * 
+     * properties file, false otherwise.
+     *
      * @param accountName The account name whose existence is in question
      */
     public boolean doesAccountExist(String accountName) {
@@ -75,7 +76,7 @@ public class AppPropertyWriter {
 
     /**
      * Creates the admin account and password and adds it to the properties to
-     * be stored
+     * be stored.
      */
     private static void writeDefaultProperties() {
         String adminUserName = "admin";
@@ -87,11 +88,11 @@ public class AppPropertyWriter {
             byte[] digest = md.digest();
             StringBuffer sb = new StringBuffer();
             for (byte b : digest) {
-                sb.append(Integer.toHexString(b & 0xff));
+                sb.append(Integer.toHexString(b & toConvert));
             }
             db.addUser(new User(adminUserName, sb.toString(), " "));
         } catch (NoSuchAlgorithmException e) {
-            // Do nothing
+            System.out.println(e.getMessage());
         }
 
     }

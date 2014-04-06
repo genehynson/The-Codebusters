@@ -4,7 +4,7 @@ package com.utility.buckaroos;
  * This class contains the supported currencies of the Buckaroos app.
  * Supported currencies are USD, AUD, BRL, CAD, CNY, EUR, GBP, JPY, INR, CHF,
  * RUB, MXN, AED, and BDT.
- * 
+ *
  * @author Jordan LeRoux
  * @version 1.0
  */

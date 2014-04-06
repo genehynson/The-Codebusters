@@ -4,7 +4,7 @@ package com.utility.buckaroos;
  * This class supports conversion from one type of currency to another.
  * Supported currencies are USD, AUD, BRL, CAD, CNY, EUR, GBP, JPY, INR, CHF,
  * RUB, MXN, AED, and BDT.
- * 
+ *
  * @author Jordan LeRoux
  * @version 1.0
  */
@@ -30,10 +30,11 @@ public class CurrencyConverter implements CurrencyConverterInterface {
         double newAmount = 0;
         if (fromCurrency != Money.valueOf("USD")
                 && toCurrency != Money.valueOf("USD")) {
-            double fromCurrencyInDollars = convertToDollars(fromCurrency,
-                    amount);
-            newAmount = convertCurrency(Money.USD, toCurrency,
-                    fromCurrencyInDollars);
+            double fromCurrencyInDollars =
+                    convertToDollars(fromCurrency, amount);
+            newAmount =
+                    convertCurrency(Money.USD, toCurrency,
+                            fromCurrencyInDollars);
         } else if (fromCurrency != Money.valueOf("USD")
                 && toCurrency == Money.valueOf("USD")) {
             newAmount = convertToDollars(fromCurrency, amount);
@@ -47,15 +48,16 @@ public class CurrencyConverter implements CurrencyConverterInterface {
         return newAmount;
     }
 
-    /*
+    /**
      * Converts the amount of money provided using the exchange rate of the
      * currency taken in to US Dollars.
-     * 
+     *
      * @param fromCurrency The currency to convert from
      * @param amount The amount of money to convert
      * @return The value of the amount provided in US Dollars
      */
-    private double convertToDollars(Enum<Money> fromCurrency, double amount) {
+    private double
+            convertToDollars(Enum<Money> fromCurrency, double amount) {
         double valueInDollars = -1;
         double conversionRate = 0;
         if (fromCurrency == Money.valueOf("AUD")) {
@@ -95,21 +97,22 @@ public class CurrencyConverter implements CurrencyConverterInterface {
             conversionRate = 1 / FROMUSDTOAED;
             valueInDollars = amount * conversionRate;
         } else if (fromCurrency == Money.valueOf("BDT")) {
-        	conversionRate = 1 / FROMUSDTOBDT;
-        	valueInDollars = amount * conversionRate;
+            conversionRate = 1 / FROMUSDTOBDT;
+            valueInDollars = amount * conversionRate;
         }
         return valueInDollars;
     }
 
-    /*
+    /**
      * Converts the amount of money provided using the exchange rate of the
      * currency taken in to the type of currency provided.
-     * 
+     *
      * @param toCurrency The currency to convert to
      * @param amount The amount of money to convert
      * @return The value of the amount provided in the type of currency provided
      */
-    private double convertFromDollars(Enum<Money> toCurrency, double amount) {
+    private double
+            convertFromDollars(Enum<Money> toCurrency, double amount) {
         double newValue = -1;
         double conversionRate = 0;
         if (toCurrency == Money.valueOf("AUD")) {
