@@ -25,7 +25,7 @@ import com.example.buckaroos.R;
 /**
  * This class defines a Transaction activity. The Transaction for Buckaroos
  * Transaction activity.
- * 
+ *
  * @author Daniel Carnauba
  * @version 1.0
  */
@@ -40,7 +40,7 @@ public class Transaction extends Activity implements OnClickListener,
     private TimePicker time;
     private static Date dateChosen;
     private static boolean dateChanged = false;
-    SimpleDateFormat dateFormat;
+    private static SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,14 @@ public class Transaction extends Activity implements OnClickListener,
         initialize();
     }
 
-    /*
+    /**
      * Initializes the object instances and fields involved on the transaction
      * activity.
      */
     private void initialize() {
         controller = new UserAccountController(this);
-        dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
+        dateFormat =
+                new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
         dateChosen = new Date();
 
         amount = (EditText) findViewById(R.id.accountNickName);
@@ -93,7 +94,8 @@ public class Transaction extends Activity implements OnClickListener,
             // Calendar.set(Calendar.MINUTE, minute);
             dateChosen.setMinutes(minute);
             if (!amount.getText().toString().equals("")) {
-                newAmount = Double.parseDouble(amount.getText().toString());
+                newAmount =
+                        Double.parseDouble(amount.getText().toString());
                 String categoryText = category.getText().toString();
                 if (withdraw.isChecked()) {
                     controller.addWithdrawal(newAmount, "dollars",
@@ -105,8 +107,8 @@ public class Transaction extends Activity implements OnClickListener,
                                     Toast.LENGTH_SHORT);
                     toast.show();
                 } else if (deposit.isChecked()) {
-                    controller.addDeposit(newAmount, "dollars", categoryText,
-                            dateChosen);
+                    controller.addDeposit(newAmount, "dollars",
+                            categoryText, dateChosen);
                     Toast toast =
                             Toast.makeText(this, "Deposit Saved.",
                                     Toast.LENGTH_SHORT);
@@ -130,6 +132,8 @@ public class Transaction extends Activity implements OnClickListener,
         case R.id.dateButton:
             dateChanged = true;
             startActivity(new Intent(Transaction.this, DateChooser.class));
+        default:
+            break;
         }
     }
 
@@ -144,7 +148,7 @@ public class Transaction extends Activity implements OnClickListener,
 
     /**
      * Sets the date for the transaction.
-     * 
+     *
      * @param date The date to be set.
      */
     public void setDate(Date date) {

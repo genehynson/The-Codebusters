@@ -18,7 +18,7 @@ import com.example.buckaroos.R;
 /**
  * This class defines the Date chooser object to allow the user to select a
  * date.
- * 
+ *
  * @author Gene Hynson
  * @version 1.0
  */
@@ -61,19 +61,17 @@ public class DateChooser extends Activity implements OnClickListener {
         return true;
     }
 
-    /*
+    /**
      * Defines a listener for the date changed object.
      */
     private final DatePicker.OnDateChangedListener dateChanged =
             new DatePicker.OnDateChangedListener() {
 
-                @SuppressWarnings("deprecation")
                 @Override
                 public void onDateChanged(DatePicker view, int year,
                         int monthOfYear, int dayOfMonth) {
-                    date.setDate(dayOfMonth);
-                    date.setMonth(monthOfYear);
-                    date.setYear(year);
+                    cal.set(Calendar.YEAR, Calendar.MONTH,
+                            Calendar.DAY_OF_MONTH);
                     UserAccountController.setTheDate(date);
                 }
             };

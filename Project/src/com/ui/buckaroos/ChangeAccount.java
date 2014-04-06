@@ -25,14 +25,14 @@ import com.model.buckaroos.Account;
  * accounts by scrolling through a list of accounts. The list items are
  * clickable, so the user can just click on a account item and the application
  * will perform a transition between accounts.
- * 
+ *
  * @author Daniel Carnauba
  * @version 1.0
  */
 public class ChangeAccount extends Activity {
     private List<Account> userAccounts = new ArrayList<Account>();
-    private final UserAccountController controller = new UserAccountController(
-            this);
+    private final UserAccountController controller =
+            new UserAccountController(this);
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,7 +52,7 @@ public class ChangeAccount extends Activity {
 
     }
 
-    /*
+    /**
      * Defines a click call back listener making the list view responsive.
      */
     private void registerClickCallback() {
@@ -69,14 +69,14 @@ public class ChangeAccount extends Activity {
         });
     }
 
-    /*
+    /**
      * Populates the account list.
      */
     private void populateAccountList() {
         userAccounts = controller.getAllUserAccounts();
     }
 
-    /*
+    /**
      * Populates the list view.
      */
     private void populateListView() {
@@ -85,8 +85,9 @@ public class ChangeAccount extends Activity {
         list.setAdapter(adapter);
     }
 
-    /*
+    /**
      * This private class defines a list adapter object.
+     *
      * @author Daniel Carnauba
      * @version 1.0
      */
@@ -99,19 +100,21 @@ public class ChangeAccount extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView,
+                ViewGroup parent) {
             // Make sure we have a view to work with(may have been given null
             View itemView = convertView;
             if (itemView == null) {
                 itemView =
-                        getLayoutInflater().inflate(R.layout.item_view, parent,
-                                false);
+                        getLayoutInflater().inflate(R.layout.item_view,
+                                parent, false);
             }
 
             Account current = userAccounts.get(position);
 
             TextView accountText =
-                    (TextView) itemView.findViewById(R.id.item_userAccountName);
+                    (TextView) itemView
+                            .findViewById(R.id.item_userAccountName);
             accountText.setText(current.getNickName());
 
             TextView accountBalanceText =

@@ -16,7 +16,7 @@ import com.example.buckaroos.R;
 /**
  * This class defines an account creation activity. It Creates a "bank" account
  * activity.
- * 
+ *
  * @author Gene Hynson
  * @version 1.0
  */
@@ -60,7 +60,7 @@ public class CreateAccount extends Activity implements OnClickListener {
 
     /**
      * Must have accountName filled, creates account, starts main screen
-     * activity
+     * activity.
      */
     @Override
     public void onClick(View v) {
@@ -70,11 +70,13 @@ public class CreateAccount extends Activity implements OnClickListener {
         if (!accountName.getText().toString().equals("")) {
             if (!startingBalance.getText().toString().equals("")) {
                 balance =
-                        Double.parseDouble(startingBalance.getText().toString());
+                        Double.parseDouble(startingBalance.getText()
+                                .toString());
             }
             if (!interestRate.getText().toString().equals("")) {
                 interest =
-                        Double.parseDouble(interestRate.getText().toString());
+                        Double.parseDouble(interestRate.getText()
+                                .toString());
             }
             if (!accountNickName.getText().toString().equals("")) {
                 nickname = accountNickName.getText().toString();
@@ -82,9 +84,10 @@ public class CreateAccount extends Activity implements OnClickListener {
                 nickname = accountName.getText().toString();
             }
 
-            controller.addAccount(accountName.getText().toString(), nickname,
-                    balance, interest);
-            startActivity(new Intent(CreateAccount.this, LoginSuccess.class));
+            controller.addAccount(accountName.getText().toString(),
+                    nickname, balance, interest);
+            startActivity(new Intent(CreateAccount.this,
+                    LoginSuccess.class));
 
         } else {
             Toast toast =

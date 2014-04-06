@@ -22,15 +22,15 @@ import com.model.buckaroos.AccountTransaction;
 /**
  * This class implements a ListView that allows the user to view an account
  * overview.
- * 
+ *
  * @author Daniel Carnauba
  * @version 1.0
  */
 public class AccountOverview extends Activity implements OnClickListener {
     private List<AccountTransaction> accountTransaction =
             new ArrayList<AccountTransaction>();
-    private final UserAccountController controller = new UserAccountController(
-            this);
+    private final UserAccountController controller =
+            new UserAccountController(this);
     private TextView accountName;
     private Button menu;
     private Button report;
@@ -56,14 +56,14 @@ public class AccountOverview extends Activity implements OnClickListener {
 
     }
 
-    /*
+    /**
      * Populates the account list.
      */
     private void populateAccountList() {
         accountTransaction = controller.getAllAccountTransactions();
     }
 
-    /*
+    /**
      * Populates the list view.
      */
     private void populateListView() {
@@ -72,8 +72,10 @@ public class AccountOverview extends Activity implements OnClickListener {
         list.setAdapter(adapter);
     }
 
-    /*
+    /**
+     * This class defines an array adapter object.
      * @author Daniel Carnauba
+     * @version 1.0
      */
     private class MyListAdapter extends ArrayAdapter<AccountTransaction> {
 
@@ -86,19 +88,21 @@ public class AccountOverview extends Activity implements OnClickListener {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView,
+                ViewGroup parent) {
             // Make sure we have a view to work with(may have been given null
             View itemView = convertView;
             if (itemView == null) {
                 itemView =
-                        getLayoutInflater().inflate(R.layout.transaction_view,
-                                parent, false);
+                        getLayoutInflater().inflate(
+                                R.layout.transaction_view, parent, false);
             }
 
             AccountTransaction current = accountTransaction.get(position);
 
             TextView accountBalanceText =
-                    (TextView) itemView.findViewById(R.id.item_transaction);
+                    (TextView) itemView
+                            .findViewById(R.id.item_transaction);
             accountBalanceText.setText(current.toString());
             return itemView;
         }
@@ -108,10 +112,14 @@ public class AccountOverview extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.menu:
-            startActivity(new Intent(AccountOverview.this, LoginSuccess.class));
+            startActivity(new Intent(AccountOverview.this,
+                    LoginSuccess.class));
             break;
         case R.id.reports:
-            startActivity(new Intent(AccountOverview.this, StartEndDate.class));
+            startActivity(new Intent(AccountOverview.this,
+                    StartEndDate.class));
+            break;
+        default:
             break;
         }
     }

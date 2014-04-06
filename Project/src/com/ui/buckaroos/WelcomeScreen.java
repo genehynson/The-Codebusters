@@ -16,16 +16,16 @@ import com.example.buckaroos.R;
  * This class defines a Welcome Screen activity for the application. An example
  * full-screen activity that shows and hides the system UI (i.e. status bar and
  * navigation/system bar) with user interaction.
- * 
+ *
  * @author Gene Hynson
  * @version 1.1
- * 
+ *
  * @see SystemUiHider
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
 public class WelcomeScreen extends Activity implements OnClickListener {
 
-    Button bReg, bLog;
+    private Button bReg, bLog;
     private UserAccountController controller;
 
     @Override
@@ -33,8 +33,6 @@ public class WelcomeScreen extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
         getActionBar().hide();
-        // controller.addObject("bReg", bReg);
-        // controller.addObject("bLog", bLog);
         bReg = (Button) findViewById(R.id.bReg);
         bLog = (Button) findViewById(R.id.bLog);
         controller = new UserAccountController(this);
@@ -51,6 +49,8 @@ public class WelcomeScreen extends Activity implements OnClickListener {
             break;
         case R.id.bLog:
             startActivity(new Intent(WelcomeScreen.this, Login.class));
+            break;
+        default:
             break;
         }
     }

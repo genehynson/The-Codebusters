@@ -22,7 +22,7 @@ import com.example.buckaroos.R;
 
 /**
  * This class defines an activity to display account reports.
- * 
+ *
  * @author Gene Hynson
  * @author Daniel Carnauba
  * @version 1.0
@@ -67,7 +67,7 @@ public class Reports extends Activity implements OnClickListener {
     }
 
     /**
-     * 
+     *
      */
     private void populateListView() {
         ArrayAdapter<String> adapter = new MyListAdapter();
@@ -77,7 +77,7 @@ public class Reports extends Activity implements OnClickListener {
 
     /**
      * This private class defines a List Adapter object.
-     * 
+     *
      * @author Daniel Carnauba
      * @version 1.0
      */
@@ -87,7 +87,8 @@ public class Reports extends Activity implements OnClickListener {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView,
+                ViewGroup parent) {
             // Make sure we have a view to work with(may have been given null
             View itemView = convertView;
             if (itemView == null) {
@@ -106,7 +107,8 @@ public class Reports extends Activity implements OnClickListener {
             accountBalanceText.setText(name);
 
             TextView balanceText =
-                    (TextView) itemView.findViewById(R.id.item_report_balace);
+                    (TextView) itemView
+                            .findViewById(R.id.item_report_balace);
             NumberFormat us = NumberFormat.getCurrencyInstance();
             balanceText.setText(us.format(total));
 

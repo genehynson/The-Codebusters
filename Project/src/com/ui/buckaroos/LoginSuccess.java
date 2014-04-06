@@ -16,14 +16,15 @@ import com.example.buckaroos.R;
 
 /**
  * This class defines the "main screen" activity for the application.
- * 
+ *
  * @author Gene Hynson
  * @version 1.0
  */
 public class LoginSuccess extends Activity implements OnClickListener,
         OnCreateContextMenuListener {
 
-    private Button addTransaction, makeAccount, accountOverview, changeAccount;
+    private Button addTransaction, makeAccount, accountOverview,
+            changeAccount;
     private UserAccountController controller;
     private TextView currentAccountText;
     private TextView currentLoginUser;
@@ -43,7 +44,7 @@ public class LoginSuccess extends Activity implements OnClickListener,
     }
 
     /**
-     * Defines and initializes all fields, buttons, controller, currentAccount
+     * Defines and initializes all fields, buttons, controller, currentAccount.
      */
     private void initialize() {
         addTransaction = (Button) findViewById(R.id.addTransaction);
@@ -54,7 +55,8 @@ public class LoginSuccess extends Activity implements OnClickListener,
         changeAccount.setOnClickListener(this);
         makeAccount = (Button) findViewById(R.id.createAccount);
         makeAccount.setOnClickListener(this);
-        currentAccountText = (TextView) findViewById(R.id.currentAccountText);
+        currentAccountText =
+                (TextView) findViewById(R.id.currentAccountText);
         currentLoginUser = (TextView) findViewById(R.id.loginsuccess);
         controller = new UserAccountController(this);
         if (controller.getCurrentAccount() != null
@@ -76,25 +78,29 @@ public class LoginSuccess extends Activity implements OnClickListener,
         if (controller.hasAccount()) {
             controller.setCurrentAccount(controller.getFirstUserAccount());
         } else {
-            startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
+            startActivity(new Intent(LoginSuccess.this,
+                    CreateAccount.class));
         }
 
     }
 
     /**
-     * Adds "logout" option to drop-down menu
+     * Adds "logout" option to drop-down menu.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.logout:
-            startActivity(new Intent(LoginSuccess.this, WelcomeScreen.class));
+            startActivity(new Intent(LoginSuccess.this,
+                    WelcomeScreen.class));
+        default:
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     /**
-     * Depending on what button was clicked, do something
+     * Depending on what button was clicked, do something.
      */
     @Override
     public void onClick(View v) {
@@ -106,13 +112,18 @@ public class LoginSuccess extends Activity implements OnClickListener,
             startActivity(new Intent(LoginSuccess.this, Transaction.class));
             break;
         case R.id.createAccount:
-            startActivity(new Intent(LoginSuccess.this, CreateAccount.class));
+            startActivity(new Intent(LoginSuccess.this,
+                    CreateAccount.class));
             break;
         case R.id.changeAccount:
-            startActivity(new Intent(LoginSuccess.this, ChangeAccount.class));
+            startActivity(new Intent(LoginSuccess.this,
+                    ChangeAccount.class));
             break;
         case R.id.viewAccount:
-            startActivity(new Intent(LoginSuccess.this, AccountOverview.class));
+            startActivity(new Intent(LoginSuccess.this,
+                    AccountOverview.class));
+        default:
+            break;
 
         }
     }

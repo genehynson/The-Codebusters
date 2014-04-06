@@ -17,7 +17,7 @@ import com.example.buckaroos.R;
 
 /**
  * This class defines a Register screen activity for the application.
- * 
+ *
  * @author Gene Hynson
  * @version 1.0
  */
@@ -43,7 +43,7 @@ public class Register extends Activity implements OnClickListener {
     }
 
     /**
-     * Defines and initializes all fields and buttons
+     * Defines and initializes all fields and buttons.
      */
     private void initialize() {
         controller = new UserAccountController(this);
@@ -56,7 +56,7 @@ public class Register extends Activity implements OnClickListener {
     }
 
     /**
-     * All fields required, creates account, goes to main screen
+     * All fields required, creates account, goes to main screen.
      */
     @Override
     public void onClick(View v) {

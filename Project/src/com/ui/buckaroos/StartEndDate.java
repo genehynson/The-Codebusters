@@ -17,7 +17,7 @@ import com.example.buckaroos.R;
 
 /**
  * This class defines a start-end date activity for the application.
- * 
+ *
  * @author Daniel Carnauba
  * @version 1.0
  */
@@ -50,13 +50,15 @@ public class StartEndDate extends Activity implements OnClickListener {
         continueButton = (Button) findViewById(R.id.continueButton);
         continueButton.setOnClickListener(this);
         fromChooser = (DatePicker) findViewById(R.id.fromDatePicker);
-        fromChooser.init(currentYear, currentMonth, currentDay, dateChanged);
+        fromChooser.init(currentYear, currentMonth, currentDay,
+                dateChanged);
         endChooser = (DatePicker) findViewById(R.id.endDatePicker);
-        endChooser.init(currentYear, currentMonth, currentDay, dateChanged);
+        endChooser
+                .init(currentYear, currentMonth, currentDay, dateChanged);
         getActionBar().hide();
     }
 
-    /*
+    /**
      * Defines a date picker listener allowing the user to interact with a set
      * of calendar dates.
      */
@@ -69,11 +71,13 @@ public class StartEndDate extends Activity implements OnClickListener {
                         int monthOfYear, int dayOfMonth) {
                     if (view.getId() == R.id.fromDatePicker) {
                         Date begin =
-                                new Date(year - 1900, monthOfYear, dayOfMonth);
+                                new Date(year - 1900, monthOfYear,
+                                        dayOfMonth);
                         UserAccountController.setBeginDate(begin);
                     } else {
                         Date end =
-                                new Date(year - 1900, monthOfYear, dayOfMonth);
+                                new Date(year - 1900, monthOfYear,
+                                        dayOfMonth);
                         UserAccountController.setEndDate(end);
                     }
                 }

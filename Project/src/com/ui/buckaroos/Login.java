@@ -19,7 +19,7 @@ import com.utility.buckaroos.CredentialConfirmer;
 
 /**
  * This class defines a Login activity for the application.
- * 
+ *
  * @author Gene Hynson
  * @version 1.0
  */
@@ -28,8 +28,8 @@ public class Login extends Activity implements OnClickListener {
 
     private EditText etUser, etLPass;
     private Button bLogin;
-    private final ControllerInterface controller = new UserAccountController(
-            this);
+    private final ControllerInterface controller =
+            new UserAccountController(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class Login extends Activity implements OnClickListener {
 
     /**
      * Checks if account exists checks if password is right logs user in or
-     * displays a message
+     * displays a message.
      */
     @Override
     public void onClick(View v) {
@@ -61,7 +61,8 @@ public class Login extends Activity implements OnClickListener {
             startActivity(new Intent(Login.this, LoginSuccess.class));
         } else {
             Toast toast =
-                    Toast.makeText(this, "Username or password incorrect.",
+                    Toast.makeText(this,
+                            "Username or password incorrect.",
                             Toast.LENGTH_SHORT);
             toast.show();
         }
