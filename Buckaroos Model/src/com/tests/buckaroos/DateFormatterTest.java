@@ -51,8 +51,8 @@ public class DateFormatterTest {
     @Test
     public void convertStringToDate() {
         @SuppressWarnings("deprecation")
-        Date c = new Date(114, 03, 04, 0, 0);
+        Date date = new Date(114, 03, 04, 0, 0);
         assertNull(df.convertStringToDate(null));
-        assertEquals(c, df.convertStringToDate("2014/04/04"));
+        assertEquals(date, df.convertStringToDate("2014/04/04"));
     }
 }
