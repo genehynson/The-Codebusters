@@ -30,9 +30,9 @@ import com.utility.buckaroos.CredentialConfirmer;
  */
 public class UserAccountController implements ControllerInterface {
 
-    private static User user;
-    private static DB db;
-    private static Account currentAccount;
+    private User user;
+    private DB db;
+    private Account currentAccount;
     private final Context ctx;
     private static Date beginDate;
     private static Date theDate;
@@ -44,7 +44,6 @@ public class UserAccountController implements ControllerInterface {
      * @param user The user.
      * @param ctx The context.
      */
-    @SuppressWarnings("static-access")
     public UserAccountController(User user, Context ctx) {
         db = new DB(ctx);
         this.ctx = ctx;
@@ -94,8 +93,13 @@ public class UserAccountController implements ControllerInterface {
                 "Deposit", currencyType, category, dateString, timeString);
     }
 
-    @Override
-    public String convertTimeToString(Date date) {
+    /**
+     * Converts an integer time to a string representation.
+     *
+     * @param date The date from which the time is being derived from.
+     * @return The formatted time string representation.
+     */
+    public static String convertTimeToString(Date date) {
         String formattedTime = null;
         if (date != null) {
             DateFormat df = new SimpleDateFormat("hh:mm:ss", Locale.US);
@@ -104,8 +108,13 @@ public class UserAccountController implements ControllerInterface {
         return formattedTime;
     }
 
-    @Override
-    public String convertDateToString(Date date) {
+    /**
+     * Converts a Date object into a string.
+     *
+     * @param date The date object to be converted to a string.
+     * @return The string conversion of the date object.
+     */
+    public static String convertDateToString(Date date) {
         String formattedDate = null;
         if (date != null) {
             DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
@@ -114,8 +123,13 @@ public class UserAccountController implements ControllerInterface {
         return formattedDate;
     }
 
-    @Override
-    public Date convertStringToDate(String dateString) {
+    /**
+     * Converts a string to a Date object.
+     *
+     * @param dateString The date string passed in for conversion.
+     * @return The date object converted from the string.
+     */
+    public static Date convertStringToDate(String dateString) {
         Date theDate = null;
         if (dateString != null) {
             DateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.US);

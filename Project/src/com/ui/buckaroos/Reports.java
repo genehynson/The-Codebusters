@@ -34,9 +34,9 @@ public class Reports extends Activity implements OnClickListener {
     private Map<String, Double> categoryTotals;
     private List<String> categoryNames;
 
-    // private Map<String, Double> spendingMap = new HashMap<String, Double>();
+    // private Map<String, Double> spendingMap =
+    // new HashMap<String, Double>();
     // private List<String> categoryNames = new ArrayList<String>();
-
     // private List<Double> categoryTotals = new ArrayList<Double>();
 
     @Override
@@ -44,8 +44,6 @@ public class Reports extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
         controller = new UserAccountController(this);
-        // categoryTotals = new HashMap<String, Double>();
-        // categoryNames = new ArrayList<String>();
         menu = (Button) findViewById(R.id.menuButton);
         menu.setOnClickListener(this);
         getActionBar().hide();
@@ -67,7 +65,7 @@ public class Reports extends Activity implements OnClickListener {
     }
 
     /**
-     *
+     * Populates the list view
      */
     private void populateListView() {
         ArrayAdapter<String> adapter = new MyListAdapter();

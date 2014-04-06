@@ -18,7 +18,7 @@ import com.model.buckaroos.User;
  */
 public class CredentialConfirmer {
 
-    private static DB db;
+    private DB db;
     private static User currentLoggedInUser;
     private final int toConvert = 0xff;
 

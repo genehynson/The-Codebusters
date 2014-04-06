@@ -2,6 +2,7 @@ package com.utility.buckaroos;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Class designed to provide a hashed version of the password for security.
@@ -14,6 +15,17 @@ public class PasswordHash {
     public static int PW_HASH_ITERATION_COUNT = 5000;
     private static MessageDigest md;
     private final int toConvert = 0xff;
+
+    /**
+     * Constructs a password hash object.
+     */
+    public PasswordHash() {
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Hashes the password passed in.

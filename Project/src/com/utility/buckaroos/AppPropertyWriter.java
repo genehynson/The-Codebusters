@@ -18,7 +18,7 @@ import com.model.buckaroos.User;
 public class AppPropertyWriter {
 
     private final Context ctx;
-    private static DB db;
+    private DB db;
     private static int toConvert = 0xff;
 
     /**
@@ -78,7 +78,7 @@ public class AppPropertyWriter {
      * Creates the admin account and password and adds it to the properties to
      * be stored.
      */
-    private static void writeDefaultProperties() {
+    private void writeDefaultProperties() {
         String adminUserName = "admin";
         String adminPassword = "pass123";
         MessageDigest md;

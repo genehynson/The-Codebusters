@@ -188,13 +188,13 @@ public interface ControllerInterface {
     Map<String, Double> generateTransactionHistoryReport();
 
     /**
-     * @return The transaction category names.
-     */
+    * @return The transaction category names.
+    */
     public abstract List<String> getTransactionNamesInDate();
 
     /**
-     * @return The transaction category names.
-     */
+    * @return The transaction category names.
+    */
     Map<String, Double> getTransactionsInDate();
 
     /**
@@ -207,29 +207,5 @@ public interface ControllerInterface {
      */
     boolean confirmLogin(String username, String password,
             CredentialConfirmer confirm);
-
-    /**
-     * Converts an integer time to a string representation.
-     *
-     * @param date The date from which the time is being derived from.
-     * @return The formatted time string representation.
-     */
-    String convertTimeToString(Date date);
-
-    /**
-     * Converts a Date object into a string.
-     *
-     * @param date The date object to be converted to a string.
-     * @return The string conversion of the date object.
-     */
-    String convertDateToString(Date date);
-
-    /**
-     * Converts a string to a Date object.
-     *
-     * @param dateString The date string passed in for conversion.
-     * @return The date object converted from the string.
-     */
-    Date convertStringToDate(String dateString);
 
 }

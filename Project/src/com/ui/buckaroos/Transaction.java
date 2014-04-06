@@ -38,9 +38,9 @@ public class Transaction extends Activity implements OnClickListener,
     private RadioGroup radioGroup;
     private ControllerInterface controller;
     private TimePicker time;
-    private static Date dateChosen;
+    private Date dateChosen;
     private static boolean dateChanged = false;
-    private static SimpleDateFormat dateFormat;
+    private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +152,7 @@ public class Transaction extends Activity implements OnClickListener,
      * @param date The date to be set.
      */
     public void setDate(Date date) {
-        Transaction.dateChosen = date;
+        dateChosen = date;
     }
 
     @Override
