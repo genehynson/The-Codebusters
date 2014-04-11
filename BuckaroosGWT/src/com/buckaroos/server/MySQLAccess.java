@@ -578,7 +578,7 @@ public class MySQLAccess extends RemoteServiceServlet implements DBConnection {
      *            retrieved
      * @param accountName The accountName with which the transactions are
      *            associated
-     * @return A List containing the currnet transactions in the database
+     * @return A List containing the current transactions in the database
      *         associated with the passed in username and accountName
      */
     public List<AccountTransaction> getCurrentTransactions(String username,
